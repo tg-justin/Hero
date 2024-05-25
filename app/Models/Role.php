@@ -11,5 +11,5 @@ class Role extends Model
     use HasFactory;
     use HasRoles;
 
-    protected $fillable = ['name', 'guard_name'];
+    protected $fillable = ['name', 'guard_name', 'display_name', 'description'];
 }

@@ -15,6 +15,7 @@ class Quest extends Model
         'title',
         'description',
         'points',
+        'status',
         'category_id',
         'campaign_id',
         'is_repeatable',

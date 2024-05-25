@@ -46,14 +46,6 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-		$role = Role::create(['name' => 'quest-master']);
-		$user->assignRole('quest-master');
-
-		$permission = Permission::create(['name' => 'create-quests']);
-		$permission2 = Permission::create(['name' => 'edit-quests']);
-		$permission3 = Permission::create(['name' => 'delete-quests']);
-		$user->givePermissionTo($permission, $permission2, $permission3);
-	
         Auth::login($user);
 
         return redirect(route('dashboard', absolute: false));

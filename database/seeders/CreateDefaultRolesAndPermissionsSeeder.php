@@ -17,8 +17,8 @@ class CreateDefaultRolesAndPermissionsSeeder extends Seeder
     {
         // Create Roles
         $roleAdmin = Role::create(['name' => 'admin', 'guard_name' => 'web']);
-        $roleEditor = Role::create(['name' => 'editor', 'guard_name' => 'web']);
-        $roleUser = Role::create(['name' => 'user',  'guard_name' => 'web']);
+        $roleEditor = Role::create(['name' => 'manager', 'guard_name' => 'web']);
+        $roleUser = Role::create(['name' => 'hero',  'guard_name' => 'web']);
 
         // Create Permissions (adjust as needed)
         $permissionCreateUser = Permission::create(['name' => 'create-users',  'guard_name' => 'web']);
