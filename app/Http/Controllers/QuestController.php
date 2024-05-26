@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Quest;  // Replace with your Quest model path
 use App\Models\Category;
-use App\Models\Campaign; 
+use App\Models\Campaign;
 
 class QuestController extends Controller
 {
@@ -29,6 +29,7 @@ class QuestController extends Controller
     {
         $categories = Category::all();
 		$campaigns = Campaign::all(); // Fetch all campaigns
+
 		return view('quests.create', compact('categories', 'campaigns'));
     }
 
@@ -67,8 +68,8 @@ class QuestController extends Controller
         if (!$quest) {
             return abort(404);
         }
-		
-		
+
+
 		return view('quests.show', compact('quest'));
     }
 
@@ -88,7 +89,7 @@ class QuestController extends Controller
 
 		$categories = Category::all();
 		$campaigns = Campaign::all(); // Fetch all campaigns
-		
+
 		return view('quests.edit', compact('quest', 'categories', 'campaigns'));
     }
 

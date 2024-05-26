@@ -52,14 +52,15 @@
         <div class="form-group mb-6">
           <label for="campaign_id" class="block text-sm font-medium text-gray-700">Campaign</label>
           <select name="campaign_id" id="campaign_id" class="form-control mt-1 block w-full px-3 py-2 rounded-md bg-white border focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <option></option>
             @foreach ($campaigns as $campaign)
-                <option value="{{ $campaign->id }}">{{ $campaign->name }}</option>
+                <option value="{{ $campaign->id }}">{{ $campaign->title }}</option>
             @endforeach
           </select>
         </div>
 
         <div class="flex justify-end mt-4">
-          <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-500 text-white font-bold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <button type="submit" class="inline-flex items-center px-4 py-2 bg-seance-500 text-white font-bold rounded-md hover:bg-seance-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-seance-500">
             Create Quest
           </button>
         </div>

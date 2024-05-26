@@ -19,7 +19,7 @@ class CreateQuestsTable extends Migration
             $table->text('description');
             $table->integer('points');
             $table->enum('status', ['open', 'in_progress', 'completed']);
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('campaign_id')->nullable();
             $table->boolean('is_repeatable')->default(false);
             $table->timestamps();
