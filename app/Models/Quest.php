@@ -18,7 +18,7 @@ class Quest extends Model
         'status',
         'category_id',
         'campaign_id',
-        'is_repeatable',
+        'repeatable',
     ];
 
     public function category()
@@ -29,6 +29,11 @@ class Quest extends Model
     public function campaign()
     {
         return $this->belongsTo(Campaign::class);
+    }
+
+    public function questLogs()
+    {
+        return $this->hasMany(QuestLog::class);
     }
 
     // Add any additional methods specific to quests here (e.g., marking a quest as completed)

@@ -21,7 +21,7 @@ class CreateQuestsTable extends Migration
             $table->enum('status', ['open', 'in_progress', 'completed']);
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('campaign_id')->nullable();
-            $table->boolean('is_repeatable')->default(false);
+            $table->integer('repeatable')->default(0);
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

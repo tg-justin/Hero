@@ -16,11 +16,14 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 					<x-nav-link :href="route('quests.index')" :active="request()->routeIs('quests.index')">
-                        {{ __('Quests') }}
+                        {{ __('Quest Board') }}
                     </x-nav-link>
-
-
-
+                    <x-nav-link :href="route('quest-log.index')" :active="request()->routeIs('quest-log.index')">
+                        {{ __('Quest Log') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('heroes.index')" :active="request()->routeIs('heroes.index')">
+                        {{ __('Heroes') }}
+                    </x-nav-link>
                 </div>
 
 				<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

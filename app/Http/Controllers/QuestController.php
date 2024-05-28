@@ -14,10 +14,25 @@ class QuestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $quests = Quest::all();  // You can implement filtering logic here (optional)
-        return view('quests.index', compact('quests'));
+        $query = Quest::with('category');
+
+        // Filtering by Category (Optional)
+        if ($request->filled('category')) { // Check if category is filled (not empty)
+            $query->where('category_id', $request->input('category'));
+        }
+
+        // Searching by Title
+        if ($request->filled('search')) { // Check if search term is filled (not empty)
+            $query->where('title', 'like', '%' . $request->input('search') . '%');
+        }
+
+        $quests = $query->paginate(10); // Paginate the results (10 quests per page)
+
+        $categories = Category::all(); // Get all categories for the filter dropdown
+
+        return view('quests.index', compact('quests', 'categories'));
     }
 
     /**
@@ -45,6 +60,7 @@ class QuestController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'points' => 'required|integer|min:1',
+            'repeatable' => 'required|integer',
             'category_id' => 'required|integer',
             // Add validation for other fields as needed
         ]);
@@ -139,6 +155,25 @@ class QuestController extends Controller
         $quest->delete();
 
         return redirect()->route('quests.index')
-                        ->with('success', 'Quest deleted successfully!');
+            ->with('success', 'Quest deleted successfully!');
+
     }
+        // QuestController.php
+        public function accept(Quest $quest)
+    {
+        $user = auth()->user();
+
+        // Check if the quest is repeatable and the user hasn't reached the limit
+        if ($quest->repeatable === -1 || $user->questLogs()->where('quest_id', $quest->id)->count() < $quest->repeatable) {
+            $user->questLogs()->create([
+                'quest_id' => $quest->id,
+                'status' => 'accepted', // Set the initial status to 'accepted'
+            ]);
+        } else {
+            // Handle the case where the user has reached the repeat limit (optional)
+        }
+
+        return redirect()->route('quest-log.index')->with('success', 'Quest accepted!');
+    }
+
 }
