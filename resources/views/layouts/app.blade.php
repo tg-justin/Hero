@@ -26,6 +26,9 @@
                     </div>
                 </header>
             @endif
+			@if (session('level_up_message'))
+				<x-level-up-notification :message="session('level_up_message')" />
+			@endif
 
             <!-- Page Content -->
             <main class="bg-seance-100" style="width: 80%; margin: 0 auto;">

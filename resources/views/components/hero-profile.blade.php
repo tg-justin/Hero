@@ -2,8 +2,8 @@
     <div class="flex flex-col items-center mr-4">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-16 h-16 rounded-full bg-seance-700">
             <text x="50%" y="55%" dominant-baseline="central" text-anchor="middle" font-size="12" fill="white">{{ substr($user->name, 0, 1) }}</text>
-        </svg>
-        <span class="text-xs text-gray-600 mt-2">Level {{ $user->level }}</span>
+        </svg>  
+        <span class="text-xs text-gray-600 mt-2">Level {{ $user->level }} <br/> {{ $user->levelName }}</span>
     </div>
     <div>
         <h3 class="text-lg font-semibold text-seance-800 mb-2">{{ $user->name }}</h3>

@@ -17,15 +17,25 @@ class CreateQuestsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+			$table->text('summary');
             $table->integer('points');
-            $table->enum('status', ['open', 'in_progress', 'completed']);
+            $table->enum('status', ['active', 'archived']);
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('campaign_id')->nullable();
             $table->integer('repeatable')->default(0);
+			$table->text('repeatable_text');
+            $table->text('fine_print');
+            $table->text('turn_in_text');
+			$table->integer('min_level');
+            $table->date('start_date')->nullable();
+            $table->date('expires_date')->nullable();
+            $table->unsignedBigInteger('user_id')->after('id');
+
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }

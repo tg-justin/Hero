@@ -15,25 +15,36 @@ class QuestController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        $query = Quest::with('category');
+	{
+		$query = Quest::with('category');
 
-        // Filtering by Category (Optional)
-        if ($request->filled('category')) { // Check if category is filled (not empty)
-            $query->where('category_id', $request->input('category'));
-        }
+		// Filtering by Category (Optional)
+		if ($request->filled('category')) {
+			$query->where('category_id', $request->input('category'));
+		}
 
-        // Searching by Title
-        if ($request->filled('search')) { // Check if search term is filled (not empty)
-            $query->where('title', 'like', '%' . $request->input('search') . '%');
-        }
+		// Searching by Title
+		if ($request->filled('search')) {
+			$query->where('title', 'like', '%' . $request->input('search') . '%');
+		}
 
-        $quests = $query->paginate(10); // Paginate the results (10 quests per page)
+		// Sorting Logic
+		$sortBy = $request->get('sort');
+		$direction = $request->get('direction', 'asc');
 
-        $categories = Category::all(); // Get all categories for the filter dropdown
+		if ($sortBy && in_array($sortBy, ['title', 'category_id', 'points'])) { // Validate sorting column
+			$query->orderBy($sortBy, $direction);
+		}
 
-        return view('quests.index', compact('quests', 'categories'));
-    }
+		// Pagination (After Sorting!)
+		// Limit by hero level
+		$quests = $query->where('min_level', '<=', auth()->user()->level)
+                    ->paginate(10);
+
+		$categories = Category::all();
+
+		return view('quests.index', compact('quests', 'categories'));
+	}
 
     /**
      * Show the form for creating a new resource.
@@ -60,12 +71,19 @@ class QuestController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'points' => 'required|integer|min:1',
+			'min_level' => 'required|integer|min:0',
             'repeatable' => 'required|integer',
             'category_id' => 'required|integer',
             // Add validation for other fields as needed
         ]);
 
-        $quest = Quest::create($request->all());
+        // Get all request data
+        $data = $request->all();
+
+        // Add the user_id to the data
+        $data['user_id'] = auth()->id();
+
+        $quest = Quest::create($data);
 
         return redirect()->route('quests.index')
                         ->with('success', 'Quest created successfully!');
@@ -164,9 +182,11 @@ class QuestController extends Controller
         $user = auth()->user();
 
         // Check if the quest is repeatable and the user hasn't reached the limit
-        if ($quest->repeatable === -1 || $user->questLogs()->where('quest_id', $quest->id)->count() < $quest->repeatable) {
+        if ($quest->repeatable === 0 || $user->questLogs()->where('quest_id', $quest->id)->count() < $quest->repeatable) {
             $user->questLogs()->create([
                 'quest_id' => $quest->id,
+				'xp_awarded' => $quest->points,
+				'accepted_at' => NOW(),
                 'status' => 'accepted', // Set the initial status to 'accepted'
             ]);
         } else {

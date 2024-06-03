@@ -16,10 +16,10 @@
                         <div class="mb-4">
                             <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status:</label>
                             <select name="status" id="status" class="form-select w-full">
-                                <option value="accepted" {{ $questLog->status == 'accepted' ? 'selected' : '' }}>Accepted</option>
-                                <option value="inProgress" {{ $questLog->status == 'inProgress' ? 'selected' : '' }}>In Progress</option>
-                                <option value="completed" {{ $questLog->status == 'completed' ? 'selected' : '' }}>Completed</option>
-                                <option value="failed" {{ $questLog->status == 'failed' ? 'selected' : '' }}>Failed</option>
+                                <option value="Accepted" {{ $questLog->status == 'Accepted' ? 'selected' : '' }}>Accepted</option>
+                                <option value="In Progress" {{ $questLog->status == 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                                <option value="Completed" {{ $questLog->status == 'Completed' ? 'selected' : '' }}>Completed</option>
+                                <option value="Failed" {{ $questLog->status == 'Failed' ? 'selected' : '' }}>Failed</option>
                             </select>
                             @error('status')
                             <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>

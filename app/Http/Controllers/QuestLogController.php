@@ -81,14 +81,27 @@ class QuestLogController extends Controller
         // Authorize the user (e.g., using a middleware or policy)
 
         $request->validate([
-            'status' => 'required|in:accepted,inProgress,completed,failed', // Add other validation rules as needed
+            'status' => 'required|in:Accepted,In Progress,Completed,Failed', // Add other validation rules as needed
         ]);
 
+		
         $questLog->update($request->all());
 
+		// If we care completing a quest see if the user levels up
+        if ($request->input('status') === 'Completed') {
+			// Check if completed_at has already been set. If so, skip the update
+			if (!$questLog->completed_at) {
+				$questLog->completed_at = now(); 
+				$questLog->save();
+			}
+		
+			$user = $questLog->user;
+			$user->levelUp(); 
+				
+		}
+		
         return redirect()->route('users.quest-logs', $questLog->user_id)
-            ->with('success', 'Quest log updated successfully!');
-        return redirect()->route('users.quest-logs', $questLog->user_id)->with('success', 'Quest log updated!');
+		->with('success', 'Quest log updated!');
     }
 
 

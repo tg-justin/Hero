@@ -51,7 +51,7 @@ class DashboardController extends Controller
 
         // News/Announcements (replace with your actual logic)
         $news = [
-            // ... your news items ...
+            'Quest Board will be down for upgrades on June, 12th at 5:30pm (CDT)'
         ];
 
         return view('dashboard', compact('userQuestLog','topHeroes', 'leaderboard', 'questsByCategory', 'news'));
