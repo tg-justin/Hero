@@ -16,6 +16,7 @@ class QuestLog extends Model
         'user_id',
         'quest_id',
         'status', // accepted, requested_exception, completed
+        'completion_details',
         'accepted_at',
         'completed_at',
         'xp_awarded',

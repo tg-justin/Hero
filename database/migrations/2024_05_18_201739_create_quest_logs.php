@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('quest_id');
             $table->foreign('quest_id')->references('id')->on('quests')->onDelete('cascade');
             $table->enum('status', ['accepted', 'requested_exception', 'completed']);
+            $table->text('completion_details')->nullable();
             $table->timestamp('accepted_at')->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->integer('xp_awarded')->nullable();

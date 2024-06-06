@@ -39,7 +39,7 @@ class QuestLogController extends Controller
             return $questLog;
         });
 
-        return view('quests.quest-log', compact('acceptedQuests', 'exceptionRequests', 'completedQuests', 'user'));
+        return view('quest-logs.quest-log', compact('acceptedQuests', 'exceptionRequests', 'completedQuests', 'user'));
     }
 
 
@@ -66,7 +66,7 @@ class QuestLogController extends Controller
             return $questLog;
         });
 
-        return view('quests.quest-logs', ['questLogs' => $questLogs, 'user' => $user]);
+        return view('quest-logs.index', ['questLogs' => $questLogs, 'user' => $user]);
     }
 
     public function edit(QuestLog $questLog)
@@ -84,25 +84,58 @@ class QuestLogController extends Controller
             'status' => 'required|in:Accepted,In Progress,Completed,Failed', // Add other validation rules as needed
         ]);
 
-		
+
         $questLog->update($request->all());
 
 		// If we care completing a quest see if the user levels up
         if ($request->input('status') === 'Completed') {
 			// Check if completed_at has already been set. If so, skip the update
 			if (!$questLog->completed_at) {
-				$questLog->completed_at = now(); 
+				$questLog->completed_at = now();
 				$questLog->save();
 			}
-		
+
 			$user = $questLog->user;
-			$user->levelUp(); 
-				
+			$user->levelUp();
+
 		}
-		
+
         return redirect()->route('users.quest-logs', $questLog->user_id)
 		->with('success', 'Quest log updated!');
     }
+
+    public function showCompleteForm(QuestLog $questLog)
+    {
+        // Authorization check: Ensure the user owns this quest log
+        if (auth()->user()->id !== $questLog->user_id) {
+            abort(403, 'Unauthorized');
+        }
+
+        return view('quest-logs.complete', compact('questLog'));
+    }
+
+    public function complete(QuestLog $questLog, Request $request)
+    {
+        // Authorize the user (make sure only the hero who owns the quest log can complete it)
+        if (auth()->user()->id !== $questLog->user_id) {
+            abort(403, 'Unauthorized');
+        }
+
+        $validatedData = $request->validate([
+            'completion_details' => 'nullable|string', // Validate the completion details (can be empty)
+        ]);
+
+        $questLog->update([
+            'status' => 'completed',
+            'completed_at' => now(),
+            'completion_details' => $validatedData['completion_details'],
+        ]);
+
+        $questLog->user->levelUp();
+
+        return redirect()->route('quest-log.index')->with('success', 'Quest completed!');
+    }
+
 
 
     // Helper method to determine the status color

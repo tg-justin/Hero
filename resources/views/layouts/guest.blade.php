@@ -16,7 +16,7 @@
 <body class="font-sans text-gray-900 antialiased bg-seance-100 dark:bg-seance-900 font-['IM Fell Double Pica SC']">
 <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
     <div>
-        <a href="/">
+        <a href="/test">
             <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
         </a>
     </div>
