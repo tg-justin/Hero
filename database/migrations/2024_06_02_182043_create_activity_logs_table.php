@@ -27,8 +27,8 @@ class CreateActivityLogsTable extends Migration
             $table->timestamps();
 
             $table->foreign('quest_log_id')->references('id')->on('quest_logs')->onDelete('cascade');
-            $table->foreign('hero_id')->references('id')->on('heroes')->onDelete('cascade');
-            $table->foreign('actor_id')->references('id')->on('users')->onDelete('cascade');
+            //$table->foreign('hero_id')->references('id')->on('heroes')->onDelete('cascade');
+            //$table->foreign('actor_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -15,6 +15,7 @@ class CreateQuestsTable extends Migration
     {
         Schema::create('quests', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->text('description');
 			$table->text('summary');
@@ -23,19 +24,20 @@ class CreateQuestsTable extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('campaign_id')->nullable();
             $table->integer('repeatable')->default(0);
-			$table->text('repeatable_text');
-            $table->text('fine_print');
-            $table->text('turn_in_text');
+			$table->text('repeatable_text')->nullable();
+            $table->text('fine_print')->nullable();
+            $table->text('turn_in_text')->nullable();
+            $table->text('repeatability_text')->nullable();
 			$table->integer('min_level');
             $table->date('start_date')->nullable();
             $table->date('expires_date')->nullable();
-            $table->unsignedBigInteger('user_id')->after('id');
+
 
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }
