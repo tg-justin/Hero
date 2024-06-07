@@ -87,6 +87,9 @@ class QuestLogController extends Controller
 
         $questLog->update($request->all());
 
+        // Log activity if bonus xp was updated
+
+
 		// If we care completing a quest see if the user levels up
         if ($request->input('status') === 'Completed') {
 			// Check if completed_at has already been set. If so, skip the update
@@ -100,6 +103,13 @@ class QuestLogController extends Controller
                     ->performedOn($questLog)
                     ->log('Quest completed');
 			}
+
+            if ($request->has('xp_bonus')) {
+                activity()
+                    ->causedBy(auth()->user())
+                    ->performedOn($questLog)
+                    ->log('Quest log bonus XP updated!');
+            }
 
 			$user = $questLog->user;
 			$user->levelUp();

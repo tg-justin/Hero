@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestController;
@@ -41,6 +43,10 @@ Route::middleware('auth')->group(function () {
 		Route::get('/quest-logs/{questLog}/edit', [QuestLogController::class, 'edit'])->name('quest-logs.edit');
 		Route::put('/quest-logs/{questLog}', [QuestLogController::class, 'update'])->name('quest-logs.update');
 	});
+
+    Route::middleware([Admin::class])->group(function () {
+        Route::get('/admin/activity-log', [ActivityLogController::class, 'index'])->name('activitylog');
+    });
 
 });
 

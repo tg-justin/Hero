@@ -42,6 +42,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
 			'pronouns' => $request->pronouns,
             'password' => Hash::make($request->password),
+            'email_verified_at' => NOW(),
         ]);
 
         event(new Registered($user));
@@ -50,6 +51,7 @@ class RegisteredUserController extends Controller
 
         activity()
             ->causedBy(auth()->user()) // Optional: associate the activity with a user
+                ->performedOn($user) // Optional: associate the activity with an Eloquent model
             ->log('User registered');
 
         return redirect(route('dashboard', absolute: false));

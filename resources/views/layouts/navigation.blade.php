@@ -32,6 +32,11 @@
                             {{ __('Heroes') }}
                         </x-nav-link>
                     @endif
+                    @if (Auth::user()->hasRole('admin')) {{-- Check for the 'admin' role --}}
+                    <x-nav-link :href="route('activitylog')" :active="request()->routeIs('activitylog')">
+                        {{ __('Activity Log') }}
+                    </x-nav-link>
+                    @endif
                 </div>
 
 				<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

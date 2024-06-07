@@ -85,8 +85,10 @@ class QuestController extends Controller
 
         $quest = Quest::create($data);
 
+        // log the activity
         activity()
             ->causedBy(auth()->user())
+            ->performedOn($quest)
             ->log('Quest created');
 
         return redirect()->route('quests.index')

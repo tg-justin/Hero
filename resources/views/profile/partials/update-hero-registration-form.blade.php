@@ -21,19 +21,19 @@
 
 		<div>
             <x-input-label for="first_name" :value="__('First Name')" />
-            <x-text-input id="first_name" name="first_name" type="text" class="mt-1 block w-full" :value="old('first_name', $user->first_name)" required autofocus autocomplete="first_name" />
+            <x-text-input id="first_name" name="first_name" type="text" class="mt-1 block w-full" :value="old('first_name', $user->first_name)" autofocus autocomplete="first_name" />
             <x-input-error class="mt-2" :messages="$errors->get('first_name')" />
         </div>
 
 		<div>
             <x-input-label for="last_name" :value="__('Last Name')" />
-            <x-text-input id="last_name" name="last_name" type="text" class="mt-1 block w-full" :value="old('last_name', $user->last_name)" required autofocus autocomplete="last_name" />
+            <x-text-input id="last_name" name="last_name" type="text" class="mt-1 block w-full" :value="old('last_name', $user->last_name)" autofocus autocomplete="last_name" />
             <x-input-error class="mt-2" :messages="$errors->get('last_name')" />
         </div>
 
 		<div>
             <x-input-label for="pronouns" :value="__('Pronouns')" />
-            <x-text-input id="pronouns" name="pronouns" type="text" class="mt-1 block w-full" :value="old('pronouns', $user->pronouns)" required autofocus />
+            <x-text-input id="pronouns" name="pronouns" type="text" class="mt-1 block w-full" :value="old('pronouns', $user->pronouns)" autofocus />
             <x-input-error class="mt-2" :messages="$errors->get('pronouns')" />
         </div>
 
@@ -85,11 +85,13 @@
             </div>
 
             {{-- Textarea for Past Volunteer Experience --}}
+
             <div>
                 <x-input-label for="past_volunteer_experience" :value="__('Past Volunteer Experience')" />
-                <textarea id="past_volunteer_experience" name="past_volunteer_experience" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">{{ old('past_volunteer_experience', $user->past_volunteer_experience) }}</textarea>
                 <small class="text-seance-200">If you've volunteered for Tabletop Gaymers in the past, tell us about it! We'll review your info, and it might give you bonus XP! Please leave the field blank if you haven't volunteered for TG before.</small>
-                <x-input-error class="mt-2" :messages="$errors->get('past_volunteer_experience')" />
+
+                <textarea id="past_volunteer_experience" name="past_volunteer_experience" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">{{ old('past_volunteer_experience', $user->past_volunteer_experience) }}</textarea>
+                 <x-input-error class="mt-2" :messages="$errors->get('past_volunteer_experience')" />
             </div>
         </div>
 
