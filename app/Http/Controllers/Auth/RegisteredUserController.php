@@ -48,6 +48,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        activity()
+            ->causedBy(auth()->user()) // Optional: associate the activity with a user
+            ->log('User registered');
+
         return redirect(route('dashboard', absolute: false));
     }
 }

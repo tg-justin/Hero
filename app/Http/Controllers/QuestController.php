@@ -81,9 +81,13 @@ class QuestController extends Controller
         $data = $request->all();
 
         // Add the user_id to the data
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = auth()->user()->id;
 
         $quest = Quest::create($data);
+
+        activity()
+            ->causedBy(auth()->user())
+            ->log('Quest created');
 
         return redirect()->route('quests.index')
                         ->with('success', 'Quest created successfully!');
@@ -151,6 +155,12 @@ class QuestController extends Controller
         ]);
 
         $quest->update($request->all());
+
+        // Log the update
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($quest)
+            ->log('Quest updated');
 
         return redirect()->route('quests.index')
                         ->with('success', 'Quest updated successfully!');

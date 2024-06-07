@@ -1,6 +1,12 @@
 <x-app-layout>
     <div class="py-12 bg-cover bg-center" style="background-image: url('{{ asset('images/parchment-background.jpg') }}');">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            {{-- Display success message --}}
+            @if (session('success'))
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-md" role="alert">
+                    <p>{{ session('success') }}</p>
+                </div>
+            @endif
             <div class="overflow-hidden shadow-xl rounded-lg">
                 <x-hero-profile :user="$user" />
                 @if ($questLogs->count() > 0)

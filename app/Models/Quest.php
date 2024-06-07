@@ -26,6 +26,7 @@ class Quest extends Model
 		'min_level',
         'start_date',
         'expires_date',
+        'user_id',
 
     ];
 

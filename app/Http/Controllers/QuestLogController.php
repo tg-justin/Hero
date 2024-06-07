@@ -93,12 +93,24 @@ class QuestLogController extends Controller
 			if (!$questLog->completed_at) {
 				$questLog->completed_at = now();
 				$questLog->save();
+
+                // Log this happened
+                activity()
+                    ->causedBy(auth()->user())
+                    ->performedOn($questLog)
+                    ->log('Quest completed');
 			}
 
 			$user = $questLog->user;
 			$user->levelUp();
 
 		}
+
+        // Log Quest Log Update
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($questLog)
+            ->log('Quest log updated');
 
         return redirect()->route('users.quest-logs', $questLog->user_id)
 		->with('success', 'Quest log updated!');
@@ -130,6 +142,12 @@ class QuestLogController extends Controller
             'completed_at' => now(),
             'completion_details' => $validatedData['completion_details'],
         ]);
+
+        // Log this happened
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($questLog)
+            ->log('Quest completed');
 
         $questLog->user->levelUp();
 

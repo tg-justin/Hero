@@ -21,8 +21,14 @@ class QuestLog extends Model
         'completed_at',
         'xp_awarded',
         'xp_bonus',
+        'review',
+        'reviewed_at',
+        'reviewer_id',
+        'reviewer_message',
         'rewards_claimed',
     ];
+
+
 
     public function user(): BelongsTo
     {

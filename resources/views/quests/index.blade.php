@@ -12,10 +12,13 @@
     </x-slot>
     <div class="py-12 bg-cover bg-center" style="background-image: url('{{ asset('images/parchment-background.jpg') }}');">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            {{-- Display success message --}}
             @if (session('success'))
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-md" role="alert">
+                    <p>{{ session('success') }}</p>
                 </div>
             @endif
-            
+
             {{-- Search and Filter Form --}}
             <div class="mb-4 bg-white p-4 rounded-md shadow-md">
                 <form action="{{ route('quests.index') }}" method="GET">
@@ -41,7 +44,7 @@
                     </div>
                 </form>
             </div>
-            
+
             {{-- Quest Table --}}
             <div class="overflow-hidden shadow-xl rounded-lg">
                 <table class="min-w-full divide-y divide-seance-200">
@@ -59,7 +62,7 @@
 											@endif
 										</span>
 									@else
-										<i class="fas fa-sort"></i> 
+										<i class="fas fa-sort"></i>
 									@endif
 								</a>
 							</th>
@@ -110,7 +113,7 @@
                                         {{ $quest->title }}
                                     </a>
                                 </td>
-                                <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $quest->category->name }}</td> 
+                                <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $quest->category->name }}</td>
                                 <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $quest->points }}</td>
                                 @if (Auth::user()->hasRole('manager'))
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

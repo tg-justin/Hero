@@ -144,6 +144,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
             $this->save(); // Save the updated level and last_notified_level
 
+            // log that this happened
+            activity()
+                ->causedBy($this)
+                ->log('Leveled up to ' . $this->level);
+
+
             // Perform any additional actions on level up (optional)
             //$this->awardLevelUpBonus(); // Example method to give rewards
             //$this->sendLevelUpNotification(); // Example method to send a notification
