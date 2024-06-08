@@ -26,3 +26,7 @@ public/build/assets/app-CrG2wnyX.js
 .env.example
 composer.lock
 package-lock.json
+composer.lock
+*.lock
+package-lock.json
+/public/build
