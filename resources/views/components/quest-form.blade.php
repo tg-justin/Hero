@@ -12,17 +12,18 @@
             @enderror
         </div>
 
+
         <div>
             <label for="intro_text" class="block text-sm font-medium text-gray-700">Introduction</label>
-            <textarea name="intro_text" id="intro_text" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" rows="5" required>{{ old('intro_text', $quest->intro_text ?? '') }}</textarea>
+            <div id="intro_text" class="mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('intro_text', $quest->intro_text ?? '') !!}</div>
+            <input type="hidden" name="intro_text" id="intro_text_hidden" value="{{ old('intro_text', $quest->intro_text ?? '') }}">
             @error('intro_text')
             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
-        </div>
-
         <div>
             <label for="accept_text" class="block text-sm font-medium text-gray-700">Accept</label>
-            <textarea name="accept_text" id="accept_text" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" rows="5" required>{{ old('accept_text', $quest->accept_text ?? '') }}</textarea>
+            <div id="accept_text" class="mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('accept_text', $quest->accept_text ?? '') !!}</div>
+            <input type="hidden" name="accept_text" id="accept_text_hidden" value="{{ old('accept_text', $quest->accept_text ?? '') }}">
             @error('accept_text')
             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
@@ -30,12 +31,33 @@
 
         <div>
             <label for="directions_text" class="block text-sm font-medium text-gray-700">Directions</label>
-            <textarea name="directions_text" id="directions_text" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" rows="5" required>{{ old('directions_text', $quest->directions_text ?? '') }}</textarea>
+            <div id="directions_text" class="mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('directions_text', $quest->directions_text ?? '') !!}</div>
+            <input type="hidden" name="directions_text" id="directions_text_hidden" value="{{ old('directions_text', $quest->directions_text ?? '') }}">
             @error('directions_text')
             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
 
+
+
+        <div>
+            <label for="complete_text" class="block text-sm font-medium text-gray-700">Complete Text</label>
+            <div id="complete_text" class="mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('complete_text', $quest->complete_text ?? '') !!}</div>
+            <input type="hidden" name="complete_text" id="complete_text_hidden" value="{{ old('complete_text', $quest->complete_text ?? '') }}">
+            @error('complete_text')
+            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+
+        <div>
+            <label for="bonus_xp_text" class="block text-sm font-medium text-gray-700">Bonus XP</label>
+            <div id="bonus_xp_text" class="mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('bonus_xp_text', $quest->bonus_xp_text ?? '') !!}</div>
+            <input type="hidden" name="bonus_xp_text" id="bonus_xp_text_hidden" value="{{ old('bonus_xp_text', $quest->bonus_xp_text ?? '') }}">
+            @error('bonus_xp_text')
+            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
         <div>
             <label for="min_level" class="block text-sm font-medium text-gray-700">Minimum Level</label>
             <input type="number" name="min_level" id="xp" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" min="0" value="{{ old('min_level', $quest->min_level ?? '') }}" required>
@@ -91,22 +113,6 @@
 --}}
 
 
-		<div>
-            <label for="complete_text" class="block text-sm font-medium text-gray-700">Complete Text</label>
-            <textarea name="complete_text" id="complete_text" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" rows="5" required>{{ old('complete_text', $quest->complete_text ?? '') }}</textarea>
-            @error('complete_text')
-            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
-
-
-        <div>
-            <label for="bonus_xp_text" class="block text-sm font-medium text-gray-700">Bonus XP</label>
-            <textarea name="bonus_xp_text" id="bonus_xp_text" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" rows="5" required>{{ old('bonus_xp_text', $quest->bonus_xp_text ?? '') }}</textarea>
-            @error('bonus_xp_text')
-            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="mt-4 md:col-span-2">
@@ -129,5 +135,56 @@
         </div>
 
         --}}
+
+        <!-- Include the Quill library -->
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+        <!-- Initialize Quill editor -->
+        <script>
+            const quillIntroText = new Quill('#intro_text', {
+                theme: 'snow',
+                scrollingContainer: '#intro_text',
+                height: 300,
+
+            });
+            quillIntroText.on('text-change', function() {
+                const introText = quillIntroText.root.innerHTML; // Get the HTML content
+                document.getElementById('intro_text_hidden').value = introText;
+            });
+
+            const quillAcceptText = new Quill('#accept_text', {
+                theme: 'snow',
+                scrollingContainer: '#intro_text',
+                height: 300,
+            });
+            quillAcceptText.on('text-change', function() {
+                const acceptText = quillAcceptText.root.innerHTML; // Get the HTML content
+                document.getElementById('accept_text_hidden').value = acceptText;
+            });
+
+            const quillDirectionsText = new Quill('#directions_text', {
+                theme: 'snow'
+            });
+            quillDirectionsText.on('text-change', function() {
+                const directionsText = quillDirectionsText.root.innerHTML; // Get the HTML content
+                document.getElementById('directions_text_hidden').value = directionsText;
+            });
+
+            const quillCompleteText = new Quill('#complete_text', {
+                theme: 'snow'
+            });
+            quillCompleteText.on('text-change', function() {
+                const completeText = quillCompleteText.root.innerHTML; // Get the HTML content
+                document.getElementById('complete_text_hidden').value = completeText;
+            });
+
+            const quillBonusXPText = new Quill('#bonus_xp_text', {
+                theme: 'snow'
+            });
+            quillBonusXPText.on('text-change', function() {
+                const bonusXPText = quillBonusXPText.root.innerHTML; // Get the HTML content
+                document.getElementById('bonus_xp_text_hidden').value = bonusXPText;
+            });
+        </script>
     </form>
 </div>

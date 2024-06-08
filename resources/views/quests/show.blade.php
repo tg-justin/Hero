@@ -37,6 +37,12 @@
                                 <p class="mt-2 text-seance-700">{!! $quest->directions_text !!}</p>
                             </div>
                         @endif
+                        @if ($questLog || Auth::user()->hasRole('manager'))
+                            <div class="bg-white p-4 rounded-md shadow-inner">
+                                <p class="text-lg font-semibold text-seance-800">[Complete]</p>
+                                <p class="mt-2 text-seance-700">{!! $quest->complete_text !!}</p>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="space-y-4">
@@ -56,7 +62,7 @@
 
                             {{-- if bonus_xp is not null, display the bonus_xp--}}
                             @if ($quest->bonus_xp_text)
-                                <p class="text-sm text-seance-800">+ {{ $quest->bonus_xp_text }}</p>
+                                <p class="text-sm text-seance-800"> {!! $quest->bonus_xp_text !!}</p>
                             @endif
 
                         </div>
@@ -87,7 +93,7 @@
                 <div class="flex justify-end mt-8">
                     @if (Auth::user()->hasRole('manager'))
                         <a href="{{ route('quests.edit', $quest->id) }}"
-                           class="text-white bg-seance-700 hover:bg-seance-800 focus:ring-4 focus:ring-seance-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-seance-600 dark:hover:bg-seance-700 focus:outline-none dark:focus:ring-seance-800">Edit
+                           class="mt-2 px-4 py-2 bg-seance-600 hover:bg-seance-700 text-white rounded-md">Edit
                             Quest</a>
                     @endif
 

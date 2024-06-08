@@ -1,4 +1,4 @@
-<div class="block rounded-lg shadow-lg p-4 hover:scale-105 transition duration-300 ease-in-out bg-gradient-to-br from-seance-100 to-seance-200">
+<div class="block rounded-lg shadow-lg p-4 bg-gradient-to-br from-seance-100 to-seance-200">
     <div class="flex items-center justify-between mb-2">
         <h4 class="text-lg font-semibold text-seance-800">{{ $quest->title }}</h4>
         <span class="text-xs text-white px-2 py-1 rounded-full {{ $questLog->statusColor }}">{{ $questLog->status }}</span>
