@@ -23,7 +23,7 @@
             <div class="mb-4 bg-white p-4 rounded-md shadow-md">
                 <form action="{{ route('quests.index') }}" method="GET">
                     <div class="flex items-center space-x-4">
-                        <div>
+                       {{-- <div>
                             <label for="category" class="block text-sm font-medium text-gray-700">Category:</label>
                             <select name="category" id="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="">All Categories</option>
@@ -31,7 +31,7 @@
                                     <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div>--}}
 
                         <div class="flex-grow">
                             <label for="search" class="block text-sm font-medium text-gray-700">Search:</label>
@@ -50,9 +50,25 @@
                 <table class="min-w-full divide-y divide-seance-200">
                     <thead class="bg-seance-800 text-white">
 						<tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                <a href="{{ route('quests.index', ['sort' => 'level', 'direction' => request('sort') === 'level' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'level' ? 'text-yellow-400' : '' }}">
+                                    Level
+                                    @if (request('sort') === 'level')
+                                        <span class="ml-1">
+											@if (request('direction') === 'asc')
+                                                <i class="fas fa-sort-up"></i>
+                                            @else
+                                                <i class="fas fa-sort-down"></i>
+                                            @endif
+										</span>
+                                    @else
+                                        <i class="fas fa-sort"></i>
+                                    @endif
+                                </a>
+                            </th>
 							<th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
 								<a href="{{ route('quests.index', ['sort' => 'title', 'direction' => request('sort') === 'title' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'title' ? 'text-yellow-400' : '' }}">
-									Title
+									Quest Title
 									@if (request('sort') === 'title')
 										<span class="ml-1">
 											@if (request('direction') === 'asc')
@@ -66,25 +82,10 @@
 									@endif
 								</a>
 							</th>
-							<th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider hidden md:table-cell">
-								<a href="{{ route('quests.index', ['sort' => 'category_id', 'direction' => request('sort') === 'category_id' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'category_id' ? 'text-yellow-400' : '' }}">
-									Category
-									@if (request('sort') === 'category_id')
-										<span class="ml-1">
-											@if (request('direction') === 'asc')
-												<i class="fas fa-sort-up"></i>
-											@else
-												<i class="fas fa-sort-down"></i>
-											@endif
-										</span>
-									@else
-										<i class="fas fa-sort"></i>
-									@endif
-								</a>
-							</th>
+
 							<th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider hidden md:table-cell">
 								<a href="{{ route('quests.index', ['sort' => 'points', 'direction' => request('sort') === 'points' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'points' ? 'text-yellow-400' : '' }}">
-									Points
+									XP
 									@if (request('sort') === 'points')
 										<span class="ml-1">
 											@if (request('direction') === 'asc')
@@ -98,6 +99,22 @@
 									@endif
 								</a>
 							</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider hidden md:table-cell">
+                                <a href="{{ route('quests.index', ['sort' => 'expires_date', 'direction' => request('sort') === 'expires_date' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'expires_date' ? 'text-yellow-400' : '' }}">
+                                    Expires
+                                    @if (request('sort') === 'points')
+                                        <span class="ml-1">
+											@if (request('direction') === 'asc')
+                                                <i class="fas fa-sort-up"></i>
+                                            @else
+                                                <i class="fas fa-sort-down"></i>
+                                            @endif
+										</span>
+                                    @else
+                                        <i class="fas fa-sort"></i>
+                                    @endif
+                                </a>
+                            </th>
 							@if (Auth::user()->hasRole('manager'))
 								<th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Actions</th>
 							@endif
@@ -108,14 +125,24 @@
                     <tbody class="bg-white divide-y divide-slate-200">
                         @foreach ($quests as $quest)
                             <tr>
+                                <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $quest->min_level }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-800 hover:text-seance-700">
                                     <a href="{{ route('quests.show', $quest->id) }}">
                                         {{ $quest->title }}
                                     </a>
                                 </td>
-                                <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $quest->category->name }}</td>
+
                                 <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $quest->points }}</td>
-                                @if (Auth::user()->hasRole('manager'))
+                                <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">
+                                    @if($quest->expires_date)
+                                        {{ \Carbon\Carbon::parse($quest->expires_date)->format('d M Y') }}
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+
+
+                            @if (Auth::user()->hasRole('manager'))
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex space-x-2">
                                             <a href="{{ route('quests.edit', $quest->id) }}" class="text-white bg-seance-700 hover:bg-seance-800 focus:ring-4 focus:ring-seance-300 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-seance-600 dark:hover:bg-seance-700 focus:outline-none dark:focus:ring-seance-800">Edit</a>

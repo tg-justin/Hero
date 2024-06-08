@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\QuestLogController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Middleware\Admin;
 use App\Http\Middleware\Manager;
 
 use Illuminate\Support\Facades\Route;

@@ -19,9 +19,9 @@ class QuestController extends Controller
 		$query = Quest::with('category');
 
 		// Filtering by Category (Optional)
-		if ($request->filled('category')) {
+		/*if ($request->filled('category')) {
 			$query->where('category_id', $request->input('category'));
-		}
+		}*/
 
 		// Searching by Title
 		if ($request->filled('search')) {
@@ -32,14 +32,16 @@ class QuestController extends Controller
 		$sortBy = $request->get('sort');
 		$direction = $request->get('direction', 'asc');
 
-		if ($sortBy && in_array($sortBy, ['title', 'category_id', 'points'])) { // Validate sorting column
+		if ($sortBy && in_array($sortBy, ['min_level', 'title', 'points'])) { // Validate sorting column
 			$query->orderBy($sortBy, $direction);
 		}
 
 		// Pagination (After Sorting!)
 		// Limit by hero level
-		$quests = $query->where('min_level', '<=', auth()->user()->level)
-                    ->paginate(10);
+
+        // disable level filter for now
+        //->where('min_level', '<=', auth()->user()->level)
+		$quests = $query->paginate(10);
 
 		$categories = Category::all();
 
