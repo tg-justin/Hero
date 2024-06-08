@@ -32,7 +32,7 @@ class QuestController extends Controller
 		$sortBy = $request->get('sort');
 		$direction = $request->get('direction', 'asc');
 
-		if ($sortBy && in_array($sortBy, ['min_level', 'title', 'points'])) { // Validate sorting column
+		if ($sortBy && in_array($sortBy, ['min_level', 'title', 'xp'])) { // Validate sorting column
 			$query->orderBy($sortBy, $direction);
 		}
 
@@ -71,8 +71,8 @@ class QuestController extends Controller
     {
         $request->validate([
             'title' => 'required|string',
-            'description' => 'required|string',
-            'points' => 'required|integer|min:1',
+            'directions_text' => 'required|string',
+            'xp' => 'required|integer|min:1',
 			'min_level' => 'required|integer|min:0',
             'repeatable' => 'required|integer',
             'category_id' => 'required|integer',
@@ -152,8 +152,8 @@ class QuestController extends Controller
 
         $request->validate([
             'title' => 'required|string',
-            'description' => 'required|string',
-            'points' => 'required|integer|min:1',
+            'directions_text' => 'required|string',
+            'xp' => 'required|integer|min:1',
             'category_id' => 'required|integer',
             // Add validation for other fields as needed
         ]);
@@ -199,7 +199,7 @@ class QuestController extends Controller
         if ($quest->repeatable === 0 || $user->questLogs()->where('quest_id', $quest->id)->count() < $quest->repeatable) {
             $user->questLogs()->create([
                 'quest_id' => $quest->id,
-				'xp_awarded' => $quest->points,
+				'xp_awarded' => $quest->xp,
 				'accepted_at' => NOW(),
                 'status' => 'accepted', // Set the initial status to 'accepted'
             ]);

@@ -21,11 +21,11 @@ class CreateCampaignsTable extends Migration
         Schema::create('campaigns', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description')->nullable();
+            $table->text('directions_text')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
 
         });
-		
+
     }
 }

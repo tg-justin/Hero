@@ -24,13 +24,13 @@ class QuestFactory extends Factory
         return [
             'title' => $this->faker->sentence(4),
             'user_id' => $this->faker->numberBetween(1, 3), // Adjust user range
-            'description' => $this->faker->paragraph(5),
-			'summary' => $this->faker->paragraph(1),
-            'points' => $this->faker->numberBetween(10, 100), // Adjust reward range
+            'directions_text' => $this->faker->paragraph(5),
+			'intro_text' => $this->faker->paragraph(1),
+            'xp' => $this->faker->numberBetween(10, 100), // Adjust reward range
             'status' => $this->faker->randomElement(['active', 'archived']), // Example quest statuses
-			'repeatable_text' => $this->faker->paragraph(1),
-			'fine_print' => $this->faker->paragraph(1),
-			'turn_in_text' => $this->faker->paragraph(1),
+			'accept_text' => $this->faker->paragraph(1),
+			'bonus_xp_text' => $this->faker->paragraph(1),
+			'complete_text' => $this->faker->paragraph(1),
             'repeatability_text' => $this->faker->paragraph(1),
 			'min_level' => $this->faker->numberBetween(1, 5),
             'created_at' => $this->faker->dateTimeThisMonth(),

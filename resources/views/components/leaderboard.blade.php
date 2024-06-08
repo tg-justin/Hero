@@ -7,7 +7,7 @@
             <li class="flex items-center mb-2">
                 <span class="font-bold mr-2">{{ $index + 1 }}. </span>
                 <span class="text-seance-700">{{ $hero->name }}</span>
-                <span class="ml-auto text-gray-600">{{ $hero->totalPoints() }}</span>
+                <span class="ml-auto text-gray-600">{{ $hero->totalxp() }}</span>
             </li>
         @endforeach
     </ol>

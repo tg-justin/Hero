@@ -65,7 +65,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(QuestLog::class);
     }
 
-    public function totalPoints()
+    public function totalxp()
     {
         return $this->questLogs()
             ->where('status', 'completed') // Only consider completed quests
@@ -95,7 +95,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $xpForNextLevel = $xpThresholds[$currentLevel + 1];
 
         // Calculate XP within the current level
-        $xpInCurrentLevel = $this->totalPoints() - $xpForCurrentLevel;
+        $xpInCurrentLevel = $this->totalxp() - $xpForCurrentLevel;
 
         // Calculate the total XP required to level up from the current level
         $totalXpForLevelUp = $xpForNextLevel - $xpForCurrentLevel;
@@ -110,7 +110,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
         // Find the highest level that the hero's XP meets or exceeds
         foreach ($xpThresholds as $level => $threshold) {
-            if ($this->totalPoints() < $threshold) {
+            if ($this->totalxp() < $threshold) {
                 return $level - 1; // Return the previous level
             }
         }

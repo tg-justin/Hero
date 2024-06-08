@@ -12,7 +12,7 @@ class Campaign extends Model
 
     protected $fillable = [
         'title',
-        'description',
+        'directions_text',
         'is_active',
     ];
 
