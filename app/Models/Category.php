@@ -11,7 +11,7 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'directions_text',
+        'description',
     ];
 
     public function quests()
