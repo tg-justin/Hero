@@ -21,3 +21,8 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+public/build/assets/app-CrG2wnyX.js
+/public/build
+.env.example
+composer.lock
+package-lock.json
