@@ -11,7 +11,7 @@
         $questLog = Auth::user()->questLogs()->where('quest_id', $quest->id)->first();
     @endphp
     <div class="py-12 bg-cover bg-center"
-         style="background-image: url('{{ asset('images/parchment-background.jpg') }}');">
+         >
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6">
 
