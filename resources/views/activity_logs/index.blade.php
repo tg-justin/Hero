@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-extrabold text-3xl text-seance-800 dark:text-seance-200 leading-tight">
+        <h2 class="font-extrabold text-3xl text-seance-200 leading-tight">
             {{ __('Activity Log') }}
         </h2>
     </x-slot>
@@ -8,7 +8,7 @@
     <div class="py-12 bg-cover bg-center" >
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <h3 class="text-2xl font-semibold text-seance-800 dark:text-seance-200 mb-4">Recent Happenings in the Realm</h3>
+                <h3 class="text-2xl font-semibold text-seance-200 mb-4">Recent Happenings in the Realm</h3>
 
                 <table class="min-w-full divide-y divide-seance-200">
                     <thead class="bg-seance-800 text-white">

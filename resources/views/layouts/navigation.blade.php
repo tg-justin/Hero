@@ -96,13 +96,31 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('quests.index')" :active="request()->routeIs('quests.index')">
+                {{ __('Quest Board') }}
+            </x-responsive-nav-link>
+            @if (Auth::user()->hasRole('hero')) {{-- Check for the 'hero' role --}}
+            <x-responsive-nav-link :href="route('quest-log.index')" :active="request()->routeIs('quest-log.index')">
+                {{ __('Quest Log') }}
+            </x-responsive-nav-link>
+            @endif
+            @if (Auth::user()->hasRole('manager')) {{-- Check for the 'manager' role --}}
+            <x-responsive-nav-link :href="route('heroes.index')" :active="request()->routeIs('heroes.index')">
+                {{ __('Heroes') }}
+            </x-responsive-nav-link>
+            @endif
+            @if (Auth::user()->hasRole('admin')) {{-- Check for the 'admin' role --}}
+            <x-responsive-nav-link :href="route('activitylog')" :active="request()->routeIs('activitylog')">
+                {{ __('Activity Log') }}
+            </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-seance-600">
             <div class="px-4">
                 <div class="font-medium text-base text-seance-200">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-sm text-orange-500">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
