@@ -14,10 +14,18 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-			$table->string('first_name')->nullable();
+			$table->string('email')->unique();
+            $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-			$table->string('pronouns')->nullable();
-            $table->string('email')->unique();
+            $table->string('pronouns')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('country')->nullable();
+            $table->string(  'address')->nullable();
+            $table->string(  'city')->nullable();
+            $table->string( 'state')->nullable();
+            $table->string( 'zip_code')->nullable();
+            $table->text(  'past_volunteer_experience')->nullable();
+
 			$table->integer('level')->default(0);
 			$table->integer('last_notified_level')->default(0);
             $table->timestamp('email_verified_at')->nullable();

@@ -13,21 +13,23 @@ class Quest extends Model
 
     protected $fillable = [
         'title',
-        'description',
-		'summary',
-        'points',
+        'directions_text',
+		'intro_text',
+        'xp',
         'status',
         'category_id',
         'campaign_id',
         'repeatable',
-		'repeatable_text',
-		'fine_print',
-		'turn_in_text',
+		'accept_text',
+		'bonus_xp_text',
+		'complete_text',
 		'min_level',
         'start_date',
         'expires_date',
+        'user_id',
 
     ];
+
 
     public function category()
     {

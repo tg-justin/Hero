@@ -35,7 +35,7 @@
                             <div class="bg-white rounded-lg shadow-md p-4">
                                 <h3 class="text-lg font-semibold text-gray-800">{{ $hero->name }}</h3>
                                 <p class="text-sm text-gray-600">Level: {{ $hero->level ?? 'N/A' }}</p>
-                                <p class="text-sm text-gray-600">Total Points: {{ $hero->totalPoints() }}</p>
+                                <p class="text-sm text-gray-600">Total xp: {{ $hero->totalxp() }}</p>
                                 <p class="text-sm text-gray-600">Completed Quests: {{ $hero->completedQuests()->count() }}</p>
 
                                 <a href="{{ route('users.quest-logs', $hero) }}" class="mt-4 inline-block bg-seance-700 hover:bg-seance-800 text-white font-bold py-2 px-4 rounded">

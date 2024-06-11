@@ -6,7 +6,11 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-seance-800 dark:text-seance-200" />
+                        <img src="{{ asset('images/logo.svg') }}" alt="Tabletop Gaymers Logo" class="w-10 h-18 fill-current text-gray-500">
+
+                        {{--
+                           <x-application-logo class="block h-9 w-auto fill-current text-seance-800 dark:text-seance-200" />
+                        --}}
                     </a>
                 </div>
 
@@ -18,12 +22,21 @@
 					<x-nav-link :href="route('quests.index')" :active="request()->routeIs('quests.index')">
                         {{ __('Quest Board') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('quest-log.index')" :active="request()->routeIs('quest-log.index')">
-                        {{ __('Quest Log') }}
+                    @if (Auth::user()->hasRole('hero')) {{-- Check for the 'hero' role --}}
+                        <x-nav-link :href="route('quest-log.index')" :active="request()->routeIs('quest-log.index')">
+                            {{ __('Quest Log') }}
+                        </x-nav-link>
+                    @endif
+                    @if (Auth::user()->hasRole('manager')) {{-- Check for the 'manager' role --}}
+                        <x-nav-link :href="route('heroes.index')" :active="request()->routeIs('heroes.index')">
+                            {{ __('Heroes') }}
+                        </x-nav-link>
+                    @endif
+                    @if (Auth::user()->hasRole('admin')) {{-- Check for the 'admin' role --}}
+                    <x-nav-link :href="route('activitylog')" :active="request()->routeIs('activitylog')">
+                        {{ __('Activity Log') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('heroes.index')" :active="request()->routeIs('heroes.index')">
-                        {{ __('Heroes') }}
-                    </x-nav-link>
+                    @endif
                 </div>
 
 				<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

@@ -20,10 +20,15 @@ return new class extends Migration
             $table->unsignedBigInteger('quest_id');
             $table->foreign('quest_id')->references('id')->on('quests')->onDelete('cascade');
             $table->enum('status', ['accepted', 'requested_exception', 'completed']);
+            $table->text('completion_details')->nullable();
             $table->timestamp('accepted_at')->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->integer('xp_awarded')->nullable();
             $table->integer('xp_bonus')->nullable();
+            $table->boolean('review')->default(false);
+            $table->timestamp('reviewed_at')->nullable();
+            $table->unsignedBigInteger('reviewer_id')->nullable();
+            $table->foreign('reviewer_id')->references('id')->on('users')->onDelete('set null');
             $table->boolean('rewards_claimed')->default(false);
             $table->timestamps();
         });

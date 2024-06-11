@@ -12,36 +12,76 @@
             @enderror
         </div>
 
-        <div>
-            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-            <textarea name="description" id="description" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" rows="5" required>{{ old('description', $quest->description ?? '') }}</textarea>
-            @error('description')
-            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
-
-		<div>
-            <label for="summary" class="block text-sm font-medium text-gray-700">Summary</label>
-            <textarea name="summary" id="summary" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" rows="5" required>{{ old('summary', $quest->summary ?? '') }}</textarea>
-            @error('summary')
-            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
 
         <div>
-            <label for="points" class="block text-sm font-medium text-gray-700">Points</label>
-            <input type="number" name="points" id="points" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" min="1" value="{{ old('points', $quest->points ?? '') }}" required>
-            @error('points')
+            <label for="intro_text" class="block text-sm font-medium text-gray-700">Introduction</label>
+            <div id="intro_text" class="mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('intro_text', $quest->intro_text ?? '') !!}</div>
+            <input type="hidden" name="intro_text" id="intro_text_hidden" value="{{ old('intro_text', $quest->intro_text ?? '') }}">
+            @error('intro_text')
+            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        <div>
+            <label for="accept_text" class="block text-sm font-medium text-gray-700">Accept</label>
+            <div id="accept_text" class="mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('accept_text', $quest->accept_text ?? '') !!}</div>
+            <input type="hidden" name="accept_text" id="accept_text_hidden" value="{{ old('accept_text', $quest->accept_text ?? '') }}">
+            @error('accept_text')
             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
 
-		<div>
+        <div>
+            <label for="directions_text" class="block text-sm font-medium text-gray-700">Directions</label>
+            <div id="directions_text" class="mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('directions_text', $quest->directions_text ?? '') !!}</div>
+            <input type="hidden" name="directions_text" id="directions_text_hidden" value="{{ old('directions_text', $quest->directions_text ?? '') }}">
+            @error('directions_text')
+            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+
+
+        <div>
+            <label for="complete_text" class="block text-sm font-medium text-gray-700">Complete Text</label>
+            <div id="complete_text" class="mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('complete_text', $quest->complete_text ?? '') !!}</div>
+            <input type="hidden" name="complete_text" id="complete_text_hidden" value="{{ old('complete_text', $quest->complete_text ?? '') }}">
+            @error('complete_text')
+            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+
+        <div>
+            <label for="bonus_xp_text" class="block text-sm font-medium text-gray-700">Bonus XP</label>
+            <div id="bonus_xp_text" class="mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('bonus_xp_text', $quest->bonus_xp_text ?? '') !!}</div>
+            <input type="hidden" name="bonus_xp_text" id="bonus_xp_text_hidden" value="{{ old('bonus_xp_text', $quest->bonus_xp_text ?? '') }}">
+            @error('bonus_xp_text')
+            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        <div>
             <label for="min_level" class="block text-sm font-medium text-gray-700">Minimum Level</label>
-            <input type="number" name="min_level" id="points" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" min="0" value="{{ old('min_level', $quest->min_level ?? '') }}" required>
+            <input type="number" name="min_level" id="xp" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" min="0" value="{{ old('min_level', $quest->min_level ?? '') }}" required>
             @error('min_level')
             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
+        </div>
+
+        <div>
+            <label for="xp" class="block text-sm font-medium text-gray-700">XP</label>
+            <input type="number" name="xp" id="xp" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" min="1" value="{{ old('xp', $quest->xp ?? '') }}" required>
+            @error('xp')
+            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="category_id" class="block text-sm font-medium text-gray-700">Category</label>
+            <select name="category_id" id="category_id" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                <option value="">Select Category</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" @if ($category->id == old('category_id', $quest->category_id ?? '')) selected @endif>{{ $category->name }}</option>
+                @endforeach
+            </select>
         </div>
 
         <div>
@@ -60,16 +100,7 @@
             @enderror
         </div>
 
-        <div>
-            <label for="category_id" class="block text-sm font-medium text-gray-700">Category</label>
-            <select name="category_id" id="category_id" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-                <option value="">Select Category</option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" @if ($category->id == old('category_id', $quest->category_id ?? '')) selected @endif>{{ $category->name }}</option>
-                @endforeach
-            </select>
-        </div>
-
+{{--
         <div>
             <label for="campaign_id" class="block text-sm font-medium text-gray-700">Campaign</label>
             <select name="campaign_id" id="campaign_id" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
@@ -79,41 +110,9 @@
                 @endforeach
             </select>
         </div>
+--}}
 
-        <div>
-            <label for="repeatable" class="block text-sm font-medium text-gray-700">Repeatable</label>
-            <input type="number" name="repeatable" id="repeatable" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                min="0"
-                value="{{ old('repeatable', $quest->repeatable ?? 0) }}">
-            @error('repeatable')
-            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-            <small class="text-gray-500">How many times can this quest be repeated? (0 for non-repeatable)</small>
-        </div>
 
-		<div>
-            <label for="repeatable_text" class="block text-sm font-medium text-gray-700">Repeatable Text</label>
-            <textarea name="repeatable_text" id="repeatable_text" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" rows="5" required>{{ old('repeatable_text', $quest->repeatable_text ?? '') }}</textarea>
-            @error('repeatable_text')
-            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
-
-		<div>
-            <label for="fine_print" class="block text-sm font-medium text-gray-700">Fine Print</label>
-            <textarea name="fine_print" id="fine_print" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" rows="5" required>{{ old('fine_print', $quest->fine_print ?? '') }}</textarea>
-            @error('fine_print')
-            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
-
-		<div>
-            <label for="turn_in_text" class="block text-sm font-medium text-gray-700">Turn In Text</label>
-            <textarea name="turn_in_text" id="turn_in_text" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" rows="5" required>{{ old('turn_in_text', $quest->turn_in_text ?? '') }}</textarea>
-            @error('turn_in_text')
-            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="mt-4 md:col-span-2">
@@ -122,5 +121,70 @@
                 </button>
             </div>
         </div>
+
+
+        {{--<div>
+            <label for="repeatable" class="block text-sm font-medium text-gray-700">Repeatable</label>
+            <input type="number" name="repeatable" id="repeatable" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                   min="0"
+                   value="{{ old('repeatable', $quest->repeatable ?? 0) }}">
+            @error('repeatable')
+            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+            <small class="text-gray-500">How many times can this quest be repeated? (0 for non-repeatable)</small>
+        </div>
+
+        --}}
+
+        <!-- Include the Quill library -->
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+        <!-- Initialize Quill editor -->
+        <script>
+            const quillIntroText = new Quill('#intro_text', {
+                theme: 'snow',
+                scrollingContainer: '#intro_text',
+                height: 300,
+
+            });
+            quillIntroText.on('text-change', function() {
+                const introText = quillIntroText.root.innerHTML; // Get the HTML content
+                document.getElementById('intro_text_hidden').value = introText;
+            });
+
+            const quillAcceptText = new Quill('#accept_text', {
+                theme: 'snow',
+                scrollingContainer: '#intro_text',
+                height: 300,
+            });
+            quillAcceptText.on('text-change', function() {
+                const acceptText = quillAcceptText.root.innerHTML; // Get the HTML content
+                document.getElementById('accept_text_hidden').value = acceptText;
+            });
+
+            const quillDirectionsText = new Quill('#directions_text', {
+                theme: 'snow'
+            });
+            quillDirectionsText.on('text-change', function() {
+                const directionsText = quillDirectionsText.root.innerHTML; // Get the HTML content
+                document.getElementById('directions_text_hidden').value = directionsText;
+            });
+
+            const quillCompleteText = new Quill('#complete_text', {
+                theme: 'snow'
+            });
+            quillCompleteText.on('text-change', function() {
+                const completeText = quillCompleteText.root.innerHTML; // Get the HTML content
+                document.getElementById('complete_text_hidden').value = completeText;
+            });
+
+            const quillBonusXPText = new Quill('#bonus_xp_text', {
+                theme: 'snow'
+            });
+            quillBonusXPText.on('text-change', function() {
+                const bonusXPText = quillBonusXPText.root.innerHTML; // Get the HTML content
+                document.getElementById('bonus_xp_text_hidden').value = bonusXPText;
+            });
+        </script>
     </form>
 </div>

@@ -13,7 +13,7 @@ export default {
         'bg-green-200',
         'bg-red-200',
         'bg-yellow-200',
-        'bg-seance-200'
+        'bg-seance-200',
     ],
 
     theme: {

@@ -19,9 +19,9 @@ class QuestController extends Controller
 		$query = Quest::with('category');
 
 		// Filtering by Category (Optional)
-		if ($request->filled('category')) {
+		/*if ($request->filled('category')) {
 			$query->where('category_id', $request->input('category'));
-		}
+		}*/
 
 		// Searching by Title
 		if ($request->filled('search')) {
@@ -32,14 +32,16 @@ class QuestController extends Controller
 		$sortBy = $request->get('sort');
 		$direction = $request->get('direction', 'asc');
 
-		if ($sortBy && in_array($sortBy, ['title', 'category_id', 'points'])) { // Validate sorting column
+		if ($sortBy && in_array($sortBy, ['min_level', 'title', 'xp'])) { // Validate sorting column
 			$query->orderBy($sortBy, $direction);
 		}
 
 		// Pagination (After Sorting!)
 		// Limit by hero level
-		$quests = $query->where('min_level', '<=', auth()->user()->level)
-                    ->paginate(10);
+
+        // disable level filter for now
+        //->where('min_level', '<=', auth()->user()->level)
+		$quests = $query->paginate(10);
 
 		$categories = Category::all();
 
@@ -69,10 +71,9 @@ class QuestController extends Controller
     {
         $request->validate([
             'title' => 'required|string',
-            'description' => 'required|string',
-            'points' => 'required|integer|min:1',
+            'directions_text' => 'required|string',
+            'xp' => 'required|integer|min:1',
 			'min_level' => 'required|integer|min:0',
-            'repeatable' => 'required|integer',
             'category_id' => 'required|integer',
             // Add validation for other fields as needed
         ]);
@@ -81,9 +82,15 @@ class QuestController extends Controller
         $data = $request->all();
 
         // Add the user_id to the data
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = auth()->user()->id;
 
         $quest = Quest::create($data);
+
+        // log the activity
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($quest)
+            ->log('Quest created');
 
         return redirect()->route('quests.index')
                         ->with('success', 'Quest created successfully!');
@@ -144,13 +151,19 @@ class QuestController extends Controller
 
         $request->validate([
             'title' => 'required|string',
-            'description' => 'required|string',
-            'points' => 'required|integer|min:1',
+            'directions_text' => 'required|string',
+            'xp' => 'required|integer|min:1',
             'category_id' => 'required|integer',
             // Add validation for other fields as needed
         ]);
 
         $quest->update($request->all());
+
+        // Log the update
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($quest)
+            ->log('Quest updated');
 
         return redirect()->route('quests.index')
                         ->with('success', 'Quest updated successfully!');
@@ -185,7 +198,7 @@ class QuestController extends Controller
         if ($quest->repeatable === 0 || $user->questLogs()->where('quest_id', $quest->id)->count() < $quest->repeatable) {
             $user->questLogs()->create([
                 'quest_id' => $quest->id,
-				'xp_awarded' => $quest->points,
+				'xp_awarded' => $quest->xp,
 				'accepted_at' => NOW(),
                 'status' => 'accepted', // Set the initial status to 'accepted'
             ]);

@@ -14,18 +14,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-
-		$seeder = new CreateDefaultRolesAndPermissionsSeeder();
+        $seeder = new CreateDefaultRolesAndPermissionsSeeder();
         $seeder->run();
 
-        User::factory(10)->create();  // Creates 10 users with random data
 
-        Quest::factory(10)->create();;
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@tabletopgaymer.org',
+        ]);
+
+        $this->call([
+            CategorySeeder::class,
+        ]);
+
+        $this->call([
+            QuestSeeder::class,
+        ]);
+
+		;
+
+       // User::factory(10)->create();  // Creates 10 users with random data
+
+       // Quest::factory(10)->create();;
     }
 }
