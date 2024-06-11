@@ -42,4 +42,8 @@ export default {
     },
 
     plugins: [forms],
+    // Disable Preflight
+    corePlugins: {
+        preflight: false,
+    },
 };

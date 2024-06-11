@@ -19,7 +19,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                    <div class="space-y-4">
+                    <div class="space-y-4 quest_body">
                         <div class="bg-white p-4 rounded-md shadow-inner">
                             <p class="text-lg font-semibold text-seance-800">[INTRODUCTION]</p>
                             <p class="mt-2 text-seance-700">{!! $quest->intro_text !!}</p>
@@ -45,7 +45,7 @@
                         @endif
                     </div>
 
-                    <div class="space-y-4">
+                    <div class="space-y-4 quest_body">
                         <div class="bg-white p-4 rounded-md shadow-inner">
                             <p class="text-lg font-semibold text-seance-800">Level: {{ $quest->min_level }}</p>
 
