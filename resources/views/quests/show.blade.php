@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-extrabold text-3xl text-seance-800 dark:text-seance-200 leading-tight">
+        <h2 class="font-extrabold text-3xl text-seance-200 leading-tight">
             {{ __('Quest Details') }}
         </h2>
     </x-slot>
@@ -118,7 +118,7 @@
                             <form action="{{ route('quests.accept', $quest->id) }}" method="POST">
                                 @csrf
                                 <button type="submit"
-                                        class="text-white bg-seance-700 hover:bg-seance-800 focus:ring-4 focus:ring-seance-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-seance-600 dark:hover:bg-seance-700 focus:outline-none dark:focus:ring-seance-800">
+                                        class="text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">
                                     Accept Quest
                                 </button>
                             </form>

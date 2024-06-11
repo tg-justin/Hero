@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-seance-800 border-b border-seance-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-seance-800 border-b border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -9,7 +9,7 @@
                         <img src="{{ asset('images/logo.svg') }}" alt="Tabletop Gaymers Logo" class="w-10 h-18 fill-current text-gray-500">
 
                         {{--
-                           <x-application-logo class="block h-9 w-auto fill-current text-seance-800 dark:text-seance-200" />
+                           <x-application-logo class="block h-9 w-auto fill-current text-seance-200" />
                         --}}
                     </a>
                 </div>
@@ -48,7 +48,7 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-seance-500 dark:text-seance-400 bg-white dark:bg-seance-800 hover:text-seance-700 dark:hover:text-seance-300 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-seance-400 bg-seance-800 hover:text-seance-300 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
@@ -80,7 +80,7 @@
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-seance-400 dark:text-seance-500 hover:text-seance-500 dark:hover:text-seance-400 hover:bg-seance-100 dark:hover:bg-seance-900 focus:outline-none focus:bg-seance-100 dark:focus:bg-seance-900 focus:text-seance-500 dark:focus:text-seance-400 transition duration-150 ease-in-out">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-seance-500 text-seance-400 hover:bg-seance-900 focus:outline-none focus:bg-seance-900 focus:text-seance-400 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -99,9 +99,9 @@
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-seance-200 dark:border-seance-600">
+        <div class="pt-4 pb-1 border-t border-seance-600">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-seance-200">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-base text-seance-200">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
 

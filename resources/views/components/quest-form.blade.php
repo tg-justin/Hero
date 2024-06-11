@@ -116,7 +116,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="mt-4 md:col-span-2">
-                <button type="submit" class="bg-seance-700 hover:bg-seance-800 focus:ring-4 focus:ring-seance-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-seance-600 dark:hover:bg-seance-700 focus:outline-none dark:focus:ring-seance-800">
+                <button type="submit" class="text-white  focus:ring-4  font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">
                     {{ $submitButtonText }}
                 </button>
             </div>

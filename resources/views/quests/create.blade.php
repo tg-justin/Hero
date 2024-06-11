@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-seance-800 dark:text-seance-200 leading-tight">
+        <h2 class="font-semibold text-xl text-seance-200 leading-tight">
             {{ __('Create Quest') }}
         </h2>
     </x-slot>
