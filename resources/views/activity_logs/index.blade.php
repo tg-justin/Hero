@@ -1,5 +1,9 @@
 <x-app-layout>
-
+    <x-slot name="header">
+        <h2 class="font-extrabold text-3xl text-seance-800 dark:text-seance-200 leading-tight">
+            {{ __('Activity Log') }}
+        </h2>
+    </x-slot>
 
     <div class="py-12 bg-cover bg-center" style="background-image: url('{{ asset('images/parchment-background.jpg') }}');">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -9,7 +13,7 @@
                 <table class="min-w-full divide-y divide-seance-200">
                     <thead class="bg-seance-800 text-white">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">directions_text</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Description</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Subject</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Performed By</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Date</th>
@@ -18,7 +22,7 @@
                     <tbody class="bg-white divide-y divide-slate-200">
                     @forelse ($activities as $activity)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-seance-800">{{ $activity->directions_text }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-seance-800">{{ $activity->description }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $activity->subject_display_name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $activity->causer ? $activity->causer->name : 'System' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $activity->created_at->format('Y-m-d H:i:s') }}</td>

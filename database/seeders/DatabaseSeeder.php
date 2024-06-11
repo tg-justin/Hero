@@ -14,7 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $seeder = new CreateDefaultRolesAndPermissionsSeeder();
+        $seeder->run();
+
 
         User::factory()->create([
             'name' => 'Admin',
@@ -29,8 +31,7 @@ class DatabaseSeeder extends Seeder
             QuestSeeder::class,
         ]);
 
-		$seeder = new CreateDefaultRolesAndPermissionsSeeder();
-        $seeder->run();
+		;
 
        // User::factory(10)->create();  // Creates 10 users with random data
 

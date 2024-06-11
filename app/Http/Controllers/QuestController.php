@@ -74,7 +74,6 @@ class QuestController extends Controller
             'directions_text' => 'required|string',
             'xp' => 'required|integer|min:1',
 			'min_level' => 'required|integer|min:0',
-            'repeatable' => 'required|integer',
             'category_id' => 'required|integer',
             // Add validation for other fields as needed
         ]);
