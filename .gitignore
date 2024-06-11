@@ -30,3 +30,4 @@ composer.lock
 *.lock
 package-lock.json
 /public/build
+.idea/
