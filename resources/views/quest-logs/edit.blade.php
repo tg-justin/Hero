@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-extrabold text-3xl text-seance-800 dark:text-seance-200 leading-tight">
+        <h2 class="font-extrabold text-3xl text-seance-200 leading-tight">
             {{ __('Edit Quest Log for ') }} {{ $questLog->user->name }} - {{ $questLog->quest->title }}
         </h2>
     </x-slot>

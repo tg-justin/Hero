@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-extrabold text-3xl text-seance-800 dark:text-seance-200">
+        <h2 class="font-extrabold text-3xl text-seance-200">
             {{ __('Quest Log') }}
         </h2>
     </x-slot>
-    <div class="py-12 bg-cover bg-center" style="background-image: url('{{ asset('images/parchment-background.jpg') }}');">
+    <div class="py-12 bg-cover bg-center" >
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             {{-- Display success message --}}
             @if (session('success'))
@@ -41,7 +41,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $questLog->xp_awarded }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $questLog->xp_bonus }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="{{ route('quest-logs.edit', $questLog) }}" class="text-white bg-seance-700 hover:bg-seance-800 focus:ring-4 focus:ring-seance-300 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-seance-600 dark:hover:bg-seance-700 focus:outline-none dark:focus:ring-seance-800">Edit</a>
+                                    <a href="{{ route('quest-logs.edit', $questLog) }}" class="text-white focus:ring-4 font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Edit</a>
                                 </td>
                             </tr>
                         @endforeach
