@@ -11,16 +11,25 @@ import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/image';
 import 'tinymce/plugins/lists';
+import 'tinymce/plugins/charmap';
+import 'tinymce/plugins/preview';
+import 'tinymce/plugins/anchor';
+import 'tinymce/plugins/pagebreak';
+import 'tinymce/plugins/advlist';
 
 
 window.addEventListener('DOMContentLoaded', () => {
     tinymce.init({
         selector: 'Textarea',
-        plugins: [
-             'autolink', 'link', 'lists',
-        ],
+        plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
+        toolbar_mode: 'floating',
         skin:false,
         content_css:false,
+        setup: function (editor) {
+            editor.on('init', function () {
+                editor.getBody().style.fontSize = '14px';  // Adjust the default font size
+            });
+        }
     });
 });
 
