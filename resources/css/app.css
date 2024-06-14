@@ -1,25 +1,39 @@
 @tailwind base;
 @tailwind components;
+
+@layer base {
+    body {
+        margin: 0 !important;
+    }
+
+}
+
+@layer components {
+    h1 {
+        @apply text-3xl;
+    }
+    h2 {
+        @apply text-2xl;
+    }
+    h3 {
+        @apply text-xl;
+    }
+    a {
+        @apply text-accent;
+    }
+    a:hover {
+        @apply text-accent underline;
+    }
+
+    ul,
+    menu {
+        list-style: disc;
+        @apply pl-4;
+    }
+    ol {
+        list-style: decimal;
+        @apply pl-4;
+    }
+}
+
 @tailwind utilities;
-
-body {
-    margin: 0 !important; /* 1 */
-
-}
-
-a {
-    color: #f26522 !important;
-    /* text-decoration: inherit;*/
-}
-
-a:hover {
-    color: #f26522 !important;
-    text-decoration: underline;
-}
-
-ol,
-ul,
-menu {
-    list-style:disc !important;
-
-}

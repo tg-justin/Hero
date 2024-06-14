@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/default-styles', function () {
+    return view('default-styles');
+});
+
+
 require __DIR__ . '/auth.php';
 
 Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
