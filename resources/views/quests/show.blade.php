@@ -5,11 +5,10 @@
         </h2>
     </x-slot>
 
-
-
     @php
         $questLog = Auth::user()->questLogs()->where('quest_id', $quest->id)->first();
     @endphp
+
     <div class="py-12 bg-cover bg-center"
          >
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -21,25 +20,25 @@
 
                     <div class="md:col-span-3 space-y-4 quest_body">
                         <div class="bg-white p-4 rounded-md shadow-inner">
-                            <p class="text-lg font-semibold text-seance-800">[INTRODUCTION]</p>
+{{--                            <p class="text-lg font-semibold text-seance-800">[INTRODUCTION]</p>--}}
                             <p class="mt-2 text-seance-700">{!! $quest->intro_text !!}</p>
                         </div>
 
                         @if (!$questLog || Auth::user()->hasRole('manager'))
                             <div class="bg-white p-4 rounded-md shadow-inner">
-                                <p class="text-lg font-semibold text-seance-800">[ACCEPT]</p>
+{{--                                <p class="text-lg font-semibold text-seance-800">[ACCEPT]</p>--}}
                                 <p class="mt-2 text-seance-700">{!!$quest->accept_text !!}</p>
                             </div>
                         @endif
                         @if ($questLog || Auth::user()->hasRole('manager'))
                             <div class="bg-white p-4 rounded-md shadow-inner">
-                                <p class="text-lg font-semibold text-seance-800">[DIRECTIONS]</p>
+{{--                                <p class="text-lg font-semibold text-seance-800">[DIRECTIONS]</p>--}}
                                 <p class="mt-2 text-seance-700">{!! $quest->directions_text !!}</p>
                             </div>
                         @endif
                         @if ($questLog || Auth::user()->hasRole('manager'))
                             <div class="bg-white p-4 rounded-md shadow-inner">
-                                <p class="text-lg font-semibold text-seance-800">[Complete]</p>
+{{--                                <p class="text-lg font-semibold text-seance-800">[Complete]</p>--}}
                                 <p class="mt-2 text-seance-700">{!! $quest->complete_text !!}</p>
                             </div>
                         @endif

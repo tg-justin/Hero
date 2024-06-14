@@ -10,6 +10,7 @@ use App\Http\Middleware\Admin;
 use App\Http\Middleware\Manager;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SocialAuthController;
+use App\Http\Controllers\ManagerDashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,6 +54,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/users/{user}/quest-logs', [QuestLogController::class, 'indexForUser'])->name('users.quest-logs');
             Route::get('/quest-logs/{questLog}/edit', [QuestLogController::class, 'edit'])->name('quest-logs.edit');
             Route::put('/quest-logs/{questLog}', [QuestLogController::class, 'update'])->name('quest-logs.update');
+
+            Route::get('/manager/dashboard', [ManagerDashboardController::class, 'index'])->name('manager.dashboard');
+            Route::get('/quest-logs/{questLog}/review', [QuestLogController::class, 'review'])->name('quest-logs.review');
         });
 
         Route::middleware([Admin::class])->group(function () {

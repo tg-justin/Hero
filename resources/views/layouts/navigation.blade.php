@@ -31,6 +31,9 @@
                         <x-nav-link :href="route('heroes.index')" :active="request()->routeIs('heroes.index')">
                             {{ __('Heroes') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('manager.dashboard')" :active="request()->routeIs('manager.dashboard')">
+                            {{ __('Review Quests') }}
+                        </x-nav-link>
                     @endif
                     @if (Auth::user()->hasRole('admin')) {{-- Check for the 'admin' role --}}
                     <x-nav-link :href="route('activitylog')" :active="request()->routeIs('activitylog')">

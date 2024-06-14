@@ -164,6 +164,10 @@ class QuestLogController extends Controller
         return redirect()->route('quest-log.index')->with('success', 'Quest completed!');
     }
 
+    public function review(QuestLog $questLog)
+    {
+        return view('quest-logs.review', compact('questLog'));
+    }
 
 
     // Helper method to determine the status color
