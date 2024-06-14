@@ -9,12 +9,16 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Manager;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\SocialAuthController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 require __DIR__ . '/auth.php';
+
+Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])

@@ -10,7 +10,7 @@
 
                     {{-- Name Input --}}
                     <div>
-                        <x-input-label for="name" :value="__('Display Name')" class="block text-sm font-medium text-seance-700 dark:text-seance-700" />
+                        <x-input-label for="name" :value="__('Hero Name')" class="block text-sm font-medium text-seance-700 dark:text-seance-700" />
                         <x-text-input id="name" class="block mt-1 w-full rounded-md border-seance-300 shadow-sm focus:ring-seance-500 focus:border-seance-500" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>

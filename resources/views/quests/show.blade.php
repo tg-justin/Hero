@@ -17,9 +17,9 @@
 
                 <h1 class="text-4xl font-extrabold mb-4 text-seance-800">{{ $quest->title }}</h1>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
 
-                    <div class="space-y-4 quest_body">
+                    <div class="md:col-span-3 space-y-4 quest_body">
                         <div class="bg-white p-4 rounded-md shadow-inner">
                             <p class="text-lg font-semibold text-seance-800">[INTRODUCTION]</p>
                             <p class="mt-2 text-seance-700">{!! $quest->intro_text !!}</p>
@@ -45,7 +45,7 @@
                         @endif
                     </div>
 
-                    <div class="space-y-4 quest_body">
+                    <div class="md:col-span-2 space-y-4 quest_body">
                         <div class="bg-white p-4 rounded-md shadow-inner">
                             <p class="text-lg font-semibold text-seance-800">Level: {{ $quest->min_level }}</p>
 
@@ -57,13 +57,15 @@
                                           d="M.458 10C1.736 5.943 5.522 3 10 3s8.264 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.736 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
                                           clip-rule="evenodd"/>
                                 </svg>
-                                <p class="text-lg font-semibold text-seance-800">XP Award: {{ $quest->xp }}</p>
+                                <p class="text-lg font-semibold text-seance-800">XP Award: {{ $quest->xp }} @if ($quest->bonus_xp_text)* @endif</p>
                             </div>
 
                             {{-- if bonus_xp is not null, display the bonus_xp--}}
                             @if ($quest->bonus_xp_text)
-                                <p class="text-sm text-seance-800"> {!! $quest->bonus_xp_text !!}</p>
+                                * {!! $quest->bonus_xp_text !!}
                             @endif
+
+
 
                         </div>
                      {{--   <div class="bg-white p-4 rounded-md shadow-inner">
