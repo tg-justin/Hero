@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\ProfileController;
@@ -59,9 +60,11 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/manager/dashboard', [ManagerDashboardController::class, 'index'])->name('manager.dashboard');
             Route::get('/quest-logs/{questLog}/review', [QuestLogController::class, 'review'])->name('quest-logs.review');
+
         });
 
         Route::middleware([Admin::class])->group(function () {
+            Route::resource('categories', CategoryController::class);
             Route::get('/admin/activity-log', [ActivityLogController::class, 'index'])->name('activitylog');
         });
     });

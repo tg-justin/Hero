@@ -36,6 +36,9 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::user()->hasRole('admin')) {{-- Check for the 'admin' role --}}
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                        {{ __('Categories') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('activitylog')" :active="request()->routeIs('activitylog')">
                         {{ __('Activity Log') }}
                     </x-nav-link>
