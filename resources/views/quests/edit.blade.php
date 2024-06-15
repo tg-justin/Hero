@@ -20,7 +20,7 @@
                         </div>
                     @endif
 
-                    @include('quest-logs.partials.edit-form')
+                        <x-quest-form :quest="$quest" />
                 </div>
             </div>
         </div>
