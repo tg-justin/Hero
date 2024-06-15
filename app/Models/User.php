@@ -67,6 +67,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(QuestLog::class);
     }
 
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class, 'hero_badge');
+    }
+
+
     public function totalxp()
     {
         return $this->questLogs()
