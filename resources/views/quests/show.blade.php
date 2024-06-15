@@ -9,8 +9,7 @@
         $questLog = Auth::user()->questLogs()->where('quest_id', $quest->id)->first();
     @endphp
 
-    <div class="py-12 bg-cover bg-center"
-         >
+    <div class="py-12 bg-cover bg-center">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6">
 
@@ -98,9 +97,9 @@
                             Quest</a>
                     @endif
 
-                    @if (Auth::user()->hasRole('hero'))
+                    @if (Auth::user()->hasRole('hero') || Auth::user()->hasRole('manager'))
 
-                        @if ($questLog && $questLog->status === 'accepted')
+                        @if ($questLog && $questLog->status === 'Accepted')
                                 @if($quest->id == 1)
                                     <a href="{{ route('profile.hero-registration') }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md">
                                         Hero Registration
@@ -111,7 +110,7 @@
                                         Complete Quest
                                     </a>
                             @endif
-                        @elseif($questLog && $questLog->status === 'completed')
+                        @elseif($questLog && $questLog->status === 'Completed')
                             <p class="mt-2 px-4 py-2 text-seance-600 bg-white rounded-md">
                                 Quest Completed
                             </p>
@@ -128,7 +127,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </x-app-layout>
 

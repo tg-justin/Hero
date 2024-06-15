@@ -10,19 +10,28 @@
 
 @layer components {
     h1 {
-        @apply text-3xl;
+        @apply text-4xl;
+        @apply font-extrabold;
+        @apply mb-4;
+        @apply text-seance-800;
     }
     h2 {
-        @apply text-2xl;
+        @apply text-3xl;
+        @apply font-extrabold;
+        @apply mb-4;
+        @apply text-seance-800;
     }
     h3 {
         @apply text-xl;
+        @apply font-bold;
+        @apply mb-4;
+        @apply text-seance-800;
     }
     a {
         @apply text-accent;
     }
     a:hover {
-        @apply text-accent underline;
+        @apply text-red underline;
     }
 
     ul,
@@ -33,6 +42,15 @@
     ol {
         list-style: decimal;
         @apply pl-4;
+    }
+    p {
+        display: block;
+        @apply mb-0;
+        @apply mt-4;
+        @apply leading-relaxed;
+        @apply mr-0;
+        @apply ml-0
+
     }
 }
 

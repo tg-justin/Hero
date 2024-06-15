@@ -9,7 +9,7 @@
             {{-- Display success message --}}
             @if (session('success'))
                 <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-md" role="alert">
-                    <p>{{ session('success') }}</p>
+                    <p class="m-0">{{ session('success') }}</p>
                 </div>
             @endif
             <div class="overflow-hidden shadow-xl rounded-lg">
@@ -20,9 +20,9 @@
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Quest Title</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">XP Awarded</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Bonus XP</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Actions</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">XP Awarded</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Bonus XP</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Actions</th>
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-slate-200">
@@ -38,9 +38,9 @@
                                         {{ $questLog->status }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $questLog->xp_awarded }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $questLog->xp_bonus }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-slate-600">{{ $questLog->xp_awarded }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-slate-600">{{ $questLog->xp_bonus }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                     <a href="{{ route('quest-logs.edit', $questLog) }}" class="text-white focus:ring-4 font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Edit</a>
                                 </td>
                             </tr>

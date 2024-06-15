@@ -15,7 +15,7 @@ class ManagerDashboardController extends Controller
         $sortBy = $request->query('sort_by', 'completed_at'); // Default sorting by completed_at
         $sortDirection = $request->query('sort_direction', 'asc'); // Default ascending order
 
-        $questLogs = QuestLog::where('status', 'pending_review')
+        $questLogs = QuestLog::where('status', 'Pending Review')
             ->orderBy($sortBy, $sortDirection)
             ->paginate(10);
 

@@ -16,11 +16,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/default-styles', function () {
-    return view('default-styles');
-});
-
-
 require __DIR__ . '/auth.php';
 
 Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
@@ -31,10 +26,17 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    // this has to be behind auth, so the nav won't throw an error
+    Route::get('/default-styles', function () {
+        return view('default-styles');
+    });
+
     // Profile routes without 'verified' middleware
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+        Route::post('/hero-registration', [ProfileController::class, 'updateHeroRegistration'])->name('profile.update-hero-registration');
+
         Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 

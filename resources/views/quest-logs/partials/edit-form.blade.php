@@ -13,6 +13,8 @@
                         <option value="In Progress" {{ $questLog->status == 'In Progress' ? 'selected' : '' }}>In
                             Progress
                         </option>
+                        <option value="Requested Exception" {{ $questLog->status == 'Requested Exception' ? 'selected' : '' }}>Requested Exception</option>
+                        <option value="Pending Review" {{ $questLog->status == 'Pending Review' ? 'selected' : '' }}>Pending Review</option>
                         <option value="Completed" {{ $questLog->status == 'Completed' ? 'selected' : '' }}>Completed
                         </option>
                         <option value="Failed" {{ $questLog->status == 'Failed' ? 'selected' : '' }}>Failed</option>

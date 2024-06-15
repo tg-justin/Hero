@@ -1,21 +1,25 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-seance-200">
-            {{ __('Hero Information') }}
-        </h2>
 
-        <p class="mt-2 text-mm text-seance-200">
-            After you complete this registration, you will be promoted to a <strong>Level 1 Hero</strong> and will be able to view and accept other quests. If you ever need to change this information, you can do so by visiting your Profile in the Account menu.
-        </p>
+        @if(request()->routeIs('profile.hero-registration'))
+            <h2 class="text-lg font-medium text-seance-200">
+                {{ __('Hero Information') }}
+            </h2>
+
+            <p class="mt-2 text-mm text-seance-200">
+                After you complete this registration, you will be promoted to a <strong>Level 1 Hero</strong> and will be able to view and accept other quests. If you ever need to change this information, you can do so by visiting your Profile in the Account menu.
+            </p>
+        @endif
     </header>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.register-hero') }}" class="mt-6 space-y-6">
+    <form method="POST" action="{{ request()->routeIs('profile.edit') ? route('profile.update-hero-registration') : route('profile.register-hero') }}" class="mt-6 space-y-6">
         @csrf
         @method('post')
+
         <h3 class="text-lg font-medium text-seance-200">Public Information</h3>
         <p class="mt-2 text-mm text-seance-200">
             This information is <strong>visible to other Heroes and may be included in promotional material</strong>. We reserve the right to modify your information for appropriateness. Do not share your exact location, you may leave it blank or enter something regional like "Chicago IL" or "Florida".
@@ -28,7 +32,7 @@
 
         <div>
             <x-input-label for="location" class="block text-sm font-medium text-seance-200" :value="__('Location')" />
-            <x-text-input id="location" name="first_name" type="text" class="mt-1 block w-full" :value="old('location', $user->location)" autofocus autocomplete="location" />
+            <x-text-input id="location" name="location" type="text" class="mt-1 block w-full" :value="old('location', $user->location)" autofocus autocomplete="location" />
             <x-input-error class="mt-2" :messages="$errors->get('location')" />
         </div>
 

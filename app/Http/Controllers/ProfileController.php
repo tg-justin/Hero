@@ -97,4 +97,17 @@ class ProfileController extends Controller
             ->with('success', 'Hero registration submitted successfully!');
 
     }
+
+    public function updateHeroRegistration(Request $request)
+    {
+        if (!$request->user()) {
+            return abort(404);
+        }
+
+        $request->user()->update($request->all());
+
+        return redirect()->route('profile.edit')
+            ->with('success', 'Profile information updated successfully!');
+
+    }
 }
