@@ -19,7 +19,7 @@ class ManagerDashboardController extends Controller
         })->count();
 
         $today = \Carbon\Carbon::today();
-        
+
         $startOfWeek = $today->startOfWeek();
         $startOfMonth = $today->startOfMonth();
         $today = \Carbon\Carbon::today();

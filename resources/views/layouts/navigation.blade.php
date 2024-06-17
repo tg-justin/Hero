@@ -29,7 +29,7 @@
                         <x-nav-link :href="route('manager.dashboard')" :active="request()->routeIs('manager.dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('heroes.index')" :active="request()->routeIs('heroes.index')">
+                        <x-nav-link :href="route('manager.heroes')" :active="request()->routeIs('manager.heroes')">
                             {{ __('Heroes') }}
                         </x-nav-link>
                         <x-nav-link :href="route('manager.review')" :active="request()->routeIs('manager.review')">
@@ -110,7 +110,7 @@
             </x-responsive-nav-link>
             @endif
             @if (Auth::user()->hasRole('manager')) {{-- Check for the 'manager' role --}}
-            <x-responsive-nav-link :href="route('heroes.index')" :active="request()->routeIs('heroes.index')">
+            <x-responsive-nav-link :href="route('manager.heroes')" :active="request()->routeIs('manager.heroes')">
                 {{ __('Heroes') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('manager.dashboard')" :active="request()->routeIs('manager.dashboard')">

@@ -51,13 +51,8 @@ class QuestLogController extends Controller
         $sortBy = $request->get('sort', 'status'); // Default sort by status
         $direction = $request->get('direction', 'asc'); // Default ascending
 
-        if ($sortBy === 'status') {
-            $questLogs->orderByRaw("FIELD(status, 'Requested Exception', 'Accepted', 'Completed', 'Pending Review', 'Failed') $direction");
-        } else {
-            // Handle sorting by other columns (quest.title, xp_awarded, xp_bonus)
-            $questLogs->join('quests', 'quest_logs.quest_id', '=', 'quests.id') // Join quests table
-            ->orderBy("$sortBy", $direction); // Order by quest columns
-        }
+
+        $questLogs->orderByRaw("FIELD(status, 'Requested Exception', 'Pending Review','Accepted', 'Completed', 'Failed') $direction");
 
         $questLogs = $questLogs->get();
 

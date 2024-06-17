@@ -48,7 +48,7 @@
                     @foreach ($questLogs as $questLog)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-800">
-                                <a href="{{ route('heroes.quest-logs', $questLog->user) }}" class="text-seance-600 hover:text-seance-700">
+                                <a href="{{ route('manager.quest-logs', $questLog->user) }}" class="text-seance-600 hover:text-seance-700">
                                     {{ $questLog->user->name }}
                                 </a>
                             </td>

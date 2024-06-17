@@ -51,15 +51,18 @@ Route::middleware('auth')->group(function () {
         Route::post('/quest-log/{questLog}/complete', [QuestLogController::class, 'complete'])->name('quest-log.complete');
 
         Route::middleware([Manager::class])->group(function () {
-            Route::get('/heroes', [HeroController::class, 'index'])->name('heroes.index');
-            Route::get('/heroes/{user}/quest-logs', [QuestLogController::class, 'indexForUser'])->name('heroes.quest-logs');
+            Route::get('/manager/dashboard', [ManagerDashboardController::class, 'index'])->name('manager.dashboard');
+            Route::get('/manager/heroes', [HeroController::class, 'index'])->name('manager.heroes');
+            Route::post('/manager/heroes/{hero}/promote', [HeroController::class, 'promote'])->name('heroes.promote');
+            Route::get('/manager/heroes/{user}/quest-logs', [QuestLogController::class, 'indexForUser'])->name('manager.quest-logs');
+            Route::post('/manager/heroes/{hero}/send-password-reset', [HeroController::class, 'sendPasswordResetEmail'])->name('manager.heroes.sendPasswordReset');
+
+            Route::get('/manager/review', [ManagerDashboardController::class, 'review'])->name('manager.review');
+
+            Route::get('/quest-logs/{questLog}/review', [QuestLogController::class, 'review'])->name('quest-logs.review');
             Route::get('/quest-logs/{questLog}/edit', [QuestLogController::class, 'edit'])->name('quest-logs.edit');
             Route::put('/quest-logs/{questLog}', [QuestLogController::class, 'update'])->name('quest-logs.update');
 
-            Route::get('/manager/dashboard', [ManagerDashboardController::class, 'index'])->name('manager.dashboard');
-
-            Route::get('/manager/review', [ManagerDashboardController::class, 'review'])->name('manager.review');
-            Route::get('/quest-logs/{questLog}/review', [QuestLogController::class, 'review'])->name('quest-logs.review');
 
         });
 

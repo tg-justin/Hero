@@ -28,6 +28,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        Auth::user()->update(['last_login_at' => \Carbon\Carbon::now()]);
+
         return redirect()->intended(route('quests.index', absolute: false));
     }
 

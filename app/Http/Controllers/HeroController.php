@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Role;
 
 class HeroController extends Controller
 {
@@ -20,7 +21,24 @@ class HeroController extends Controller
 
         $heroes = $query->get();
 
-        return view('heroes.index', compact('heroes'));
+        return view('manager.heroes', compact('heroes'));
+    }
+
+    public function promote(User $hero)
+    {
+        /*$this->authorize('promote', $hero); // Check if the user is authorized to promote*/
+
+        $hero->assignRole('manager'); // Assign the 'manager' role
+
+        return back()->with('success', 'Hero promoted to manager successfully!');
+
+    }
+    public function sendPasswordResetEmail(User $hero)
+    {
+        $this->authorize('sendPasswordResetEmail', $hero);
+        Password::sendResetLink(['email' => $hero->email]);
+
+        return back()->with('success', 'Password reset email sent successfully.');
     }
 
 
