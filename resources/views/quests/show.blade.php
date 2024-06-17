@@ -20,7 +20,7 @@
                     <div class="md:col-span-3 space-y-4 quest_body">
                         <div class="bg-white p-4 rounded-md shadow-inner">
 {{--                            <p class="text-lg font-semibold text-seance-800">[INTRODUCTION]</p>--}}
-                            <p class="mt-2 text-seance-700">{!! $quest->intro_text !!}</p>
+                            <p class="mt-2 text-seance-700">{!! $quest->intro_text !!}<br/>HELLO THERE!</p>
                         </div>
 
                         @if (!$questLog || Auth::user()->hasRole('manager'))

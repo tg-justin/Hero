@@ -1,33 +1,29 @@
-/vendor/
-node_modules/
+.env
+/vendor
+/node_modules
+/public/build
+/public/storage
+/public/hot
+
+.env.example
+composer.lock
+package-lock.json
+
+ChatGPT/
+
+#### ARE THESE NEEDED? ####
+
 npm-debug.log
 yarn-error.log
-
 # Laravel 4 specific
 bootstrap/compiled.php
 app/storage/
 
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
-
-# Laravel 5 & Lumen specific with changed public path
-public_html/storage
-public_html/hot
-
 storage/*.key
-.env
 Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
-public/build/assets/app-CrG2wnyX.js
-/public/build
-.env.example
-composer.lock
-package-lock.json
-composer.lock
+
 *.lock
-package-lock.json
-/public/build
 .idea/
