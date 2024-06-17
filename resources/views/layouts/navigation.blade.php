@@ -45,6 +45,9 @@
                         {{ __('Activity Log') }}
                     </x-nav-link>
                     @endif
+                    <x-nav-link :href="route('default.styles')" :active="request()->routeIs('default.styles')">
+                        {{ __('Styles') }}
+                    </x-nav-link>
                 </div>
 
 				<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -122,6 +125,7 @@
                 {{ __('Activity Log') }}
             </x-responsive-nav-link>
             @endif
+
         </div>
 
         <!-- Responsive Settings Options -->

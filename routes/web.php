@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     // this has to be behind auth, so the nav won't throw an error
     Route::get('/default-styles', function () {
         return view('default-styles');
-    });
+    })->name('default.styles');
 
     // Profile routes without 'verified' middleware
     Route::group(['prefix' => 'profile'], function () {
