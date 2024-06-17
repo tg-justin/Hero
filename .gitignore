@@ -1,15 +1,15 @@
-.env
 /vendor
 /node_modules
 /public/build
 /public/storage
 /public/hot
 
-.env.example
-composer.lock
-package-lock.json
+/.env
+/.env.example
+/composer.lock
+/package-lock.json
 
-ChatGPT/
+/ChatGPT
 
 #### ARE THESE NEEDED? ####
 
