@@ -5,7 +5,7 @@
     <ul class="list-none">
         @foreach ($heroes as $hero)
             <li class="flex items-center mb-2">
-                <a href="{{ route('users.quest-logs', $hero) }}" class="text-seance-700 hover:underline">{{ $hero->name }}</a>
+                <a href="{{ route('heroes.quest-logs', $hero) }}" class="text-seance-700 hover:underline">{{ $hero->name }}</a>
                 <span class="ml-auto text-gray-600">{{ $hero->totalxp() }}</span>
             </li>
         @endforeach

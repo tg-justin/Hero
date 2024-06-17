@@ -22,9 +22,7 @@ require __DIR__ . '/auth.php';
 Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     // this has to be behind auth, so the nav won't throw an error
@@ -54,11 +52,13 @@ Route::middleware('auth')->group(function () {
 
         Route::middleware([Manager::class])->group(function () {
             Route::get('/heroes', [HeroController::class, 'index'])->name('heroes.index');
-            Route::get('/users/{user}/quest-logs', [QuestLogController::class, 'indexForUser'])->name('users.quest-logs');
+            Route::get('/heroes/{user}/quest-logs', [QuestLogController::class, 'indexForUser'])->name('heroes.quest-logs');
             Route::get('/quest-logs/{questLog}/edit', [QuestLogController::class, 'edit'])->name('quest-logs.edit');
             Route::put('/quest-logs/{questLog}', [QuestLogController::class, 'update'])->name('quest-logs.update');
 
             Route::get('/manager/dashboard', [ManagerDashboardController::class, 'index'])->name('manager.dashboard');
+
+            Route::get('/manager/review', [ManagerDashboardController::class, 'review'])->name('manager.review');
             Route::get('/quest-logs/{questLog}/review', [QuestLogController::class, 'review'])->name('quest-logs.review');
 
         });

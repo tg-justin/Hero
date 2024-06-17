@@ -46,7 +46,7 @@
             </div>
 
             {{-- Quest Table --}}
-            <div class="overflow-hidden shadow-xl rounded-lg">
+            <div class="overflow-hidden shadow-xl ">
                 <table class="min-w-full divide-y divide-seance-200">
                     <thead class="bg-seance-800 text-white">
 						<tr>
