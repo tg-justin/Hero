@@ -18,12 +18,7 @@
                     <mark>Marked, or highlighted text</mark>
                     and
                     <del>Deleted text</del>
-                    . Lastly, we have examples of
-                    <bold>bold</bold>
-                    and
-                    <italic>italic</italic>
-                    text even though those are not really appropriate to use.
-                    There is also <code>code formatting</code> formatting, but do we plan to actually use this for
+                    . There is also <code>code formatting</code> formatting, but do we plan to actually use this for
                     anything?
                 </p>
                 <p>Cras pharetra mollis fringilla. Ut eget neque arcu. Maecenas pretium feugiat mi, sed placerat metus
