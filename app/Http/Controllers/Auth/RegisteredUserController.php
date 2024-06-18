@@ -54,6 +54,6 @@ class RegisteredUserController extends Controller
                 ->performedOn($user) // Optional: associate the activity with an Eloquent model
             ->log('User registered');
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('quests.index', absolute: false));
     }
 }
