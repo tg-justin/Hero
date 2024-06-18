@@ -5,47 +5,45 @@
         </h2>
     </x-slot>
 
-
-
     @php
         $questLog = Auth::user()->questLogs()->where('quest_id', $quest->id)->first();
     @endphp
-    <div class="py-12 bg-cover bg-center"
-         >
+
+    <div class="py-12 bg-cover bg-center">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6">
 
                 <h1 class="text-4xl font-extrabold mb-4 text-seance-800">{{ $quest->title }}</h1>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
 
-                    <div class="space-y-4 quest_body">
+                    <div class="md:col-span-3 space-y-4 quest_body">
                         <div class="bg-white p-4 rounded-md shadow-inner">
-                            <p class="text-lg font-semibold text-seance-800">[INTRODUCTION]</p>
-                            <p class="mt-2 text-seance-700">{!! $quest->intro_text !!}</p>
+{{--                            <p class="text-lg font-semibold text-seance-800">[INTRODUCTION]</p>--}}
+                            <p class="mt-2 text-seance-700">{!! $quest->intro_text !!}<br/>HELLO THERE!</p>
                         </div>
 
                         @if (!$questLog || Auth::user()->hasRole('manager'))
                             <div class="bg-white p-4 rounded-md shadow-inner">
-                                <p class="text-lg font-semibold text-seance-800">[ACCEPT]</p>
+{{--                                <p class="text-lg font-semibold text-seance-800">[ACCEPT]</p>--}}
                                 <p class="mt-2 text-seance-700">{!!$quest->accept_text !!}</p>
                             </div>
                         @endif
                         @if ($questLog || Auth::user()->hasRole('manager'))
                             <div class="bg-white p-4 rounded-md shadow-inner">
-                                <p class="text-lg font-semibold text-seance-800">[DIRECTIONS]</p>
+{{--                                <p class="text-lg font-semibold text-seance-800">[DIRECTIONS]</p>--}}
                                 <p class="mt-2 text-seance-700">{!! $quest->directions_text !!}</p>
                             </div>
                         @endif
                         @if ($questLog || Auth::user()->hasRole('manager'))
                             <div class="bg-white p-4 rounded-md shadow-inner">
-                                <p class="text-lg font-semibold text-seance-800">[Complete]</p>
+{{--                                <p class="text-lg font-semibold text-seance-800">[Complete]</p>--}}
                                 <p class="mt-2 text-seance-700">{!! $quest->complete_text !!}</p>
                             </div>
                         @endif
                     </div>
 
-                    <div class="space-y-4 quest_body">
+                    <div class="md:col-span-2 space-y-4 quest_body">
                         <div class="bg-white p-4 rounded-md shadow-inner">
                             <p class="text-lg font-semibold text-seance-800">Level: {{ $quest->min_level }}</p>
 
@@ -57,13 +55,15 @@
                                           d="M.458 10C1.736 5.943 5.522 3 10 3s8.264 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.736 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
                                           clip-rule="evenodd"/>
                                 </svg>
-                                <p class="text-lg font-semibold text-seance-800">XP Award: {{ $quest->xp }}</p>
+                                <p class="text-lg font-semibold text-seance-800">XP Award: {{ $quest->xp }} @if ($quest->bonus_xp_text)* @endif</p>
                             </div>
 
                             {{-- if bonus_xp is not null, display the bonus_xp--}}
                             @if ($quest->bonus_xp_text)
-                                <p class="text-sm text-seance-800"> {!! $quest->bonus_xp_text !!}</p>
+                                * {!! $quest->bonus_xp_text !!}
                             @endif
+
+
 
                         </div>
                      {{--   <div class="bg-white p-4 rounded-md shadow-inner">
@@ -97,9 +97,9 @@
                             Quest</a>
                     @endif
 
-                    @if (Auth::user()->hasRole('hero'))
+                    @if (Auth::user()->hasRole('hero') || Auth::user()->hasRole('manager'))
 
-                        @if ($questLog && $questLog->status === 'accepted')
+                        @if ($questLog && $questLog->status === 'Accepted')
                                 @if($quest->id == 1)
                                     <a href="{{ route('profile.hero-registration') }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md">
                                         Hero Registration
@@ -110,7 +110,7 @@
                                         Complete Quest
                                     </a>
                             @endif
-                        @elseif($questLog && $questLog->status === 'completed')
+                        @elseif($questLog && $questLog->status === 'Completed')
                             <p class="mt-2 px-4 py-2 text-seance-600 bg-white rounded-md">
                                 Quest Completed
                             </p>
@@ -127,7 +127,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </x-app-layout>
 

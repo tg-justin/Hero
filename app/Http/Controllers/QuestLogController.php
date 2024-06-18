@@ -51,13 +51,8 @@ class QuestLogController extends Controller
         $sortBy = $request->get('sort', 'status'); // Default sort by status
         $direction = $request->get('direction', 'asc'); // Default ascending
 
-        if ($sortBy === 'status') {
-            $questLogs->orderByRaw("FIELD(status, 'requested_exception', 'accepted', 'completed', 'failed') $direction");
-        } else {
-            // Handle sorting by other columns (quest.title, xp_awarded, xp_bonus)
-            $questLogs->join('quests', 'quest_logs.quest_id', '=', 'quests.id') // Join quests table
-            ->orderBy("$sortBy", $direction); // Order by quest columns
-        }
+
+        $questLogs->orderByRaw("FIELD(status, 'Requested Exception', 'Pending Review','Accepted', 'Completed', 'Failed') $direction");
 
         $questLogs = $questLogs->get();
 
@@ -81,7 +76,7 @@ class QuestLogController extends Controller
         // Authorize the user (e.g., using a middleware or policy)
 
         $request->validate([
-            'status' => 'required|in:Accepted,In Progress,Completed,Failed', // Add other validation rules as needed
+            'status' => 'required|in:Accepted,Requested Exception,In Progress,Completed,Pending Review,Failed', // Add other validation rules as needed
         ]);
 
 
@@ -148,7 +143,7 @@ class QuestLogController extends Controller
         ]);
 
         $questLog->update([
-            'status' => 'completed',
+            'status' => 'Completed',
             'completed_at' => now(),
             'completion_details' => $validatedData['completion_details'],
         ]);
@@ -164,13 +159,17 @@ class QuestLogController extends Controller
         return redirect()->route('quest-log.index')->with('success', 'Quest completed!');
     }
 
+    public function review(QuestLog $questLog)
+    {
+        return view('quest-logs.review', compact('questLog'));
+    }
 
 
     // Helper method to determine the status color
     protected function getStatusColor($status)
     {
         return match ($status) {
-            'In Progress' => 'bg-blue-200', // Added bg-
+            'Pending Review' => 'bg-blue-200', // Added bg-
             'Completed' => 'bg-green-200',  // Added bg-
             'Failed' => 'bg-red-200',      // Added bg-
             'Requested Exception' => 'bg-yellow-200',  // Added bg- (if applicable)

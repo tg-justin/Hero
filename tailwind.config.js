@@ -50,6 +50,7 @@ export default {
                     '900': '#792615',
                     '950': '#411009',
                 },
+                'red' : '#FF0000',
 
             },
         },
@@ -58,6 +59,6 @@ export default {
     plugins: [forms],
     // Disable Preflight
     corePlugins: {
-        preflight: false,
+        preflight: true,
     },
 };

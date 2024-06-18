@@ -27,6 +27,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'first_name',
         'last_name',
         'pronouns',
+        'location',
+        'public_profile',
         'phone_number',
         'country',
         'address',
@@ -35,6 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'zip_code',
         'past_volunteer_experience',
         'level',
+        'last_login_at',
     ];
 
     /**
@@ -64,6 +67,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(QuestLog::class);
     }
+
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class, 'hero_badge');
+    }
+
 
     public function totalxp()
     {

@@ -25,4 +25,10 @@
             <div class="bg-seance-600 h-2.5 rounded-full" style="width: {{ $user->xpPercentage() }}%;"></div>
         </div>
     </div>
+    <div class="flex flex-row space-x-4 ml-5">
+        @foreach ($user->badges as $badge)
+            <img src="{{ asset($badge->image_path) }}" alt="{{ $badge->name }}" class="h-20 w-20">
+        @endforeach
+    </div>
+
 </div>

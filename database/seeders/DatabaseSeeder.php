@@ -18,10 +18,16 @@ class DatabaseSeeder extends Seeder
         $seeder->run();
 
 
-        User::factory()->create([
+        $user = User::create([
             'name' => 'Admin',
-            'email' => 'admin@tabletopgaymer.org',
+            'email' => 'justin@tabletopgaymers.org',
+            'password' => bcrypt('password'),
+            'email_verified_at' => now(),
         ]);
+
+        $user->assignRole('admin');
+        $user->assignRole('manager');
+        $user->assignRole('hero');
 
         $this->call([
             CategorySeeder::class,
@@ -31,7 +37,9 @@ class DatabaseSeeder extends Seeder
             QuestSeeder::class,
         ]);
 
-		;
+        $this->call([
+            BadgeSeeder::class,
+        ]);
 
        // User::factory(10)->create();  // Creates 10 users with random data
 

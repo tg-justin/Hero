@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use App\Models\Quest;
+use App\Models\QuestLog;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+
+// Import the View class
+
+class ManagerDashboardController extends Controller
+{
+    public function index(Request $request): View
+    {
+        $totalActiveHeroes = User::whereDoesntHave('roles', function ($query) {
+            $query->whereIn('name', ['manager', 'admin']); // Exclude users with these roles
+        })->count();
+
+        $today = \Carbon\Carbon::today();
+
+        $startOfWeek = $today->startOfWeek();
+        $startOfMonth = $today->startOfMonth();
+        $today = \Carbon\Carbon::today();
+
+        $unacceptedQuests = Quest::doesntHave('questLogs')->count();
+
+        $unreviewedQuestLogs = QuestLog::where('status', 'Pending Review')->count();
+
+        $questsCompletedToday = QuestLog::where('status', 'Completed')
+            ->whereDate('completed_at', $today)
+            ->count();
+        /*dd($questsCompletedThisWeekQuery, $questsCompletedThisWeekQuery->getBindings());*/
+
+        $questsCompletedThisWeek = QuestLog::where('status', 'Completed')
+            ->whereBetween('completed_at', [$startOfWeek, $today])
+            ->count();
+
+        $questsCompletedThisMonth = QuestLog::where('status', 'Completed')
+            ->whereBetween('completed_at', [$startOfMonth, $today])
+            ->count();
+
+        $topHeroes = User::withCount('questLogs')
+            ->orderBy('quest_logs_count', 'desc')
+            ->limit(5)
+            ->get();
+
+        return view('manager.dashboard', [
+            'totalActiveHeroes' => $totalActiveHeroes,
+            'unacceptedQuests' => $unacceptedQuests,
+            'unreviewedQuestLogs' => $unreviewedQuestLogs,
+            'questsCompletedToday' => $questsCompletedToday,
+            'questsCompletedThisWeek' => $questsCompletedThisWeek,
+            'questsCompletedThisMonth' => $questsCompletedThisMonth,
+            'topHeroes' => $topHeroes
+        ]);
+    }
+    function review(Request $request): View
+    {
+        $sortBy = $request->query('sort_by', 'completed_at'); // Default sorting by completed_at
+        $sortDirection = $request->query('sort_direction', 'asc'); // Default ascending order
+        $totalActiveHeroes = User::count();
+
+        $questLogs = QuestLog::where('status', 'Pending Review')
+            ->orderBy($sortBy, $sortDirection)
+            ->paginate(10);
+        $today = \Carbon\Carbon::today();
+        $startOfWeek = $today->startOfWeek();
+        $startOfMonth = $today->startOfMonth();
+
+        return view('manager.review', compact('questLogs', 'sortBy', 'sortDirection'));
+    }
+}

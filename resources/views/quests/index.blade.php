@@ -15,7 +15,7 @@
             {{-- Display success message --}}
             @if (session('success'))
                 <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-md" role="alert">
-                    <p>{{ session('success') }}</p>
+                    <p class="m-0">{{ session('success') }}</p>
                 </div>
             @endif
 
@@ -46,7 +46,7 @@
             </div>
 
             {{-- Quest Table --}}
-            <div class="overflow-hidden shadow-xl rounded-lg">
+            <div class="overflow-hidden shadow-xl ">
                 <table class="min-w-full divide-y divide-seance-200">
                     <thead class="bg-seance-800 text-white">
 						<tr>
@@ -125,7 +125,7 @@
                     <tbody class="bg-white divide-y divide-slate-200">
                         @foreach ($quests as $quest)
                             <tr>
-                                <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $quest->min_level }}</td>
+                                <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-center text-sm text-slate-600">{{ $quest->min_level }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-800 hover:text-seance-700">
                                     <a href="{{ route('quests.show', $quest->id) }}">
                                         {{ $quest->title }}

@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('quests.index') }}">
                         <img src="{{ asset('images/logo.svg') }}" alt="Tabletop Gaymers Logo" class="w-10 h-18 fill-current text-gray-500">
 
                         {{--
@@ -16,9 +16,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+
 					<x-nav-link :href="route('quests.index')" :active="request()->routeIs('quests.index')">
                         {{ __('Quest Board') }}
                     </x-nav-link>
@@ -28,15 +26,28 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::user()->hasRole('manager')) {{-- Check for the 'manager' role --}}
-                        <x-nav-link :href="route('heroes.index')" :active="request()->routeIs('heroes.index')">
+                        <x-nav-link :href="route('manager.dashboard')" :active="request()->routeIs('manager.dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('manager.heroes')" :active="request()->routeIs('manager.heroes')">
                             {{ __('Heroes') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('manager.review')" :active="request()->routeIs('manager.review')">
+                            {{ __('Review Quests') }}
+                        </x-nav-link>
+
                     @endif
                     @if (Auth::user()->hasRole('admin')) {{-- Check for the 'admin' role --}}
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                        {{ __('Categories') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('activitylog')" :active="request()->routeIs('activitylog')">
                         {{ __('Activity Log') }}
                     </x-nav-link>
                     @endif
+                    <x-nav-link :href="route('default.styles')" :active="request()->routeIs('default.styles')">
+                        {{ __('Styles') }}
+                    </x-nav-link>
                 </div>
 
 				<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -93,9 +104,6 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('quests.index')" :active="request()->routeIs('quests.index')">
                 {{ __('Quest Board') }}
             </x-responsive-nav-link>
@@ -105,8 +113,11 @@
             </x-responsive-nav-link>
             @endif
             @if (Auth::user()->hasRole('manager')) {{-- Check for the 'manager' role --}}
-            <x-responsive-nav-link :href="route('heroes.index')" :active="request()->routeIs('heroes.index')">
+            <x-responsive-nav-link :href="route('manager.heroes')" :active="request()->routeIs('manager.heroes')">
                 {{ __('Heroes') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('manager.dashboard')" :active="request()->routeIs('manager.dashboard')">
+                {{ __('Dashboard') }}
             </x-responsive-nav-link>
             @endif
             @if (Auth::user()->hasRole('admin')) {{-- Check for the 'admin' role --}}
@@ -114,6 +125,7 @@
                 {{ __('Activity Log') }}
             </x-responsive-nav-link>
             @endif
+
         </div>
 
         <!-- Responsive Settings Options -->
