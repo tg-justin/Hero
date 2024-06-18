@@ -50,6 +50,8 @@
                             </tbody>
                         </table>
                     </div>
+                    {{ $questLogs->appends(request()->except('page'))->links() }}
+
                 @else
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
                         <p>{{ $user->name }} has not accepted any quests yet.</p>

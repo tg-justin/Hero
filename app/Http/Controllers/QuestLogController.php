@@ -45,24 +45,25 @@ class QuestLogController extends Controller
 
     public function indexForUser(User $user, Request $request)
     {
-        $questLogs = $user->questLogs()->with('quest.category');
+        $questLogsQuery = $user->questLogs()->with('quest.category'); // Initialize query
 
-        // Sorting logic
-        $sortBy = $request->get('sort', 'status'); // Default sort by status
-        $direction = $request->get('direction', 'asc'); // Default ascending
+        // Sorting logic (same as before)
+        $sortBy = $request->get('sort', 'status');
+        $direction = $request->get('direction', 'asc');
+        $questLogsQuery->orderByRaw("FIELD(status, 'Requested Exception', 'Pending Review','Accepted', 'Completed', 'Failed') $direction");
 
+        // Pagination
+        $questLogs = $questLogsQuery->paginate(15); // 15 items per page
 
-        $questLogs->orderByRaw("FIELD(status, 'Requested Exception', 'Pending Review','Accepted', 'Completed', 'Failed') $direction");
-
-        $questLogs = $questLogs->get();
-
-        $questLogs = $questLogs->map(function ($questLog) {
+        // Status Color Mapping (use collection method on paginated results)
+        $questLogs->getCollection()->transform(function ($questLog) {
             $questLog->statusColor = $this->getStatusColor($questLog->status);
             return $questLog;
         });
 
         return view('quest-logs.index', ['questLogs' => $questLogs, 'user' => $user]);
     }
+
 
     public function edit(QuestLog $questLog)
     {
