@@ -47,118 +47,119 @@
 
             {{-- Quest Table --}}
             <div class="overflow-hidden shadow-xl ">
-                <table class="min-w-full divide-y divide-seance-200">
-                    <thead class="bg-seance-800 text-white">
-						<tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                                <a href="{{ route('quests.index', ['sort' => 'level', 'direction' => request('sort') === 'level' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'level' ? 'text-yellow-400' : '' }}">
-                                    Level
-                                    @if (request('sort') === 'level')
-                                        <span class="ml-1">
-											@if (request('direction') === 'asc')
-                                                <i class="fas fa-sort-up"></i>
-                                            @else
-                                                <i class="fas fa-sort-down"></i>
-                                            @endif
-										</span>
-                                    @else
-                                        <i class="fas fa-sort"></i>
-                                    @endif
-                                </a>
-                            </th>
-							<th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-								<a href="{{ route('quests.index', ['sort' => 'title', 'direction' => request('sort') === 'title' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'title' ? 'text-yellow-400' : '' }}">
-									Quest Title
-									@if (request('sort') === 'title')
-										<span class="ml-1">
-											@if (request('direction') === 'asc')
-												<i class="fas fa-sort-up"></i>
-											@else
-												<i class="fas fa-sort-down"></i>
-											@endif
-										</span>
-									@else
-										<i class="fas fa-sort"></i>
-									@endif
-								</a>
-							</th>
-
-							<th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider hidden md:table-cell">
-								<a href="{{ route('quests.index', ['sort' => 'xp', 'direction' => request('sort') === 'xp' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'xp' ? 'text-yellow-400' : '' }}">
-									XP
-									@if (request('sort') === 'xp')
-										<span class="ml-1">
-											@if (request('direction') === 'asc')
-												<i class="fas fa-sort-up"></i>
-											@else
-												<i class="fas fa-sort-down"></i>
-											@endif
-										</span>
-									@else
-										<i class="fas fa-sort"></i>
-									@endif
-								</a>
-							</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider hidden md:table-cell">
-                                <a href="{{ route('quests.index', ['sort' => 'expires_date', 'direction' => request('sort') === 'expires_date' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'expires_date' ? 'text-yellow-400' : '' }}">
-                                    Expires
-                                    @if (request('sort') === 'xp')
-                                        <span class="ml-1">
-											@if (request('direction') === 'asc')
-                                                <i class="fas fa-sort-up"></i>
-                                            @else
-                                                <i class="fas fa-sort-down"></i>
-                                            @endif
-										</span>
-                                    @else
-                                        <i class="fas fa-sort"></i>
-                                    @endif
-                                </a>
-                            </th>
-							@if (Auth::user()->hasRole('manager'))
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Actions</th>
-							@endif
-						</tr>
-
-
-                    </thead>
-                    <tbody class="bg-white divide-y divide-slate-200">
-                        @foreach ($quests as $quest)
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-seance-200">
+                        <thead class="bg-seance-800 text-white">
                             <tr>
-                                <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-center text-sm text-slate-600">{{ $quest->min_level }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-800 hover:text-seance-700">
-                                    <a href="{{ route('quests.show', $quest->id) }}">
-                                        {{ $quest->title }}
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider hidden md:table-cell">
+                                    <a href="{{ route('quests.index', ['sort' => 'level', 'direction' => request('sort') === 'level' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'level' ? 'text-yellow-400' : '' }}">
+                                        Level
+                                        @if (request('sort') === 'level')
+                                            <span class="ml-1">
+                                                @if (request('direction') === 'asc')
+                                                    <i class="fas fa-sort-up"></i>
+                                                @else
+                                                    <i class="fas fa-sort-down"></i>
+                                                @endif
+                                            </span>
+                                        @else
+                                            <i class="fas fa-sort"></i>
+                                        @endif
                                     </a>
-                                </td>
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                    <a href="{{ route('quests.index', ['sort' => 'title', 'direction' => request('sort') === 'title' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'title' ? 'text-yellow-400' : '' }}">
+                                        Quest Title
+                                        @if (request('sort') === 'title')
+                                            <span class="ml-1">
+                                                @if (request('direction') === 'asc')
+                                                    <i class="fas fa-sort-up"></i>
+                                                @else
+                                                    <i class="fas fa-sort-down"></i>
+                                                @endif
+                                            </span>
+                                        @else
+                                            <i class="fas fa-sort"></i>
+                                        @endif
+                                    </a>
+                                </th>
 
-                                <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $quest->xp }}</td>
-                                <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">
-                                    @if($quest->expires_date)
-                                        {{ \Carbon\Carbon::parse($quest->expires_date)->format('d M Y') }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-
-
-                            @if (Auth::user()->hasRole('manager'))
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <div class="flex space-x-2">
-                                            <a href="{{ route('quests.edit', $quest->id) }}" class="text-white  focus:ring-4  font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Edit</a>
-                                            <form action="{{ route('quests.destroy', $quest->id) }}" method="POST" class="inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-white focus:ring-4  font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Delete</button>
-                                            </form>
-                                        </div>
-                                    </td>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider hidden md:table-cell">
+                                    <a href="{{ route('quests.index', ['sort' => 'xp', 'direction' => request('sort') === 'xp' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'xp' ? 'text-yellow-400' : '' }}">
+                                        XP
+                                        @if (request('sort') === 'xp')
+                                            <span class="ml-1">
+                                                @if (request('direction') === 'asc')
+                                                    <i class="fas fa-sort-up"></i>
+                                                @else
+                                                    <i class="fas fa-sort-down"></i>
+                                                @endif
+                                            </span>
+                                        @else
+                                            <i class="fas fa-sort"></i>
+                                        @endif
+                                    </a>
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider hidden md:table-cell">
+                                    <a href="{{ route('quests.index', ['sort' => 'expires_date', 'direction' => request('sort') === 'expires_date' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}" class="{{ request('sort') === 'expires_date' ? 'text-yellow-400' : '' }}">
+                                        Expires
+                                        @if (request('sort') === 'xp')
+                                            <span class="ml-1">
+                                                @if (request('direction') === 'asc')
+                                                    <i class="fas fa-sort-up"></i>
+                                                @else
+                                                    <i class="fas fa-sort-down"></i>
+                                                @endif
+                                            </span>
+                                        @else
+                                            <i class="fas fa-sort"></i>
+                                        @endif
+                                    </a>
+                                </th>
+                                @if (Auth::user()->hasRole('manager'))
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Actions</th>
                                 @endif
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
 
+
+                        </thead>
+                        <tbody class="bg-white divide-y divide-slate-200">
+                            @foreach ($quests as $quest)
+                                <tr>
+                                    <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-center text-sm text-slate-600">{{ $quest->min_level }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-800 hover:text-seance-700">
+                                        <a href="{{ route('quests.show', $quest->id) }}">
+                                            {{ $quest->title }}
+                                        </a>
+                                    </td>
+
+                                    <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $quest->xp }}</td>
+                                    <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">
+                                        @if($quest->expires_date)
+                                            {{ \Carbon\Carbon::parse($quest->expires_date)->format('d M Y') }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+
+
+                                @if (Auth::user()->hasRole('manager'))
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <div class="flex space-x-2">
+                                                <a href="{{ route('quests.edit', $quest->id) }}" class="text-white  focus:ring-4  font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Edit</a>
+                                                <form action="{{ route('quests.destroy', $quest->id) }}" method="POST" class="inline-block">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-white focus:ring-4  font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Delete</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
                 {{ $quests->appends(request()->except('page'))->links() }}
             </div>
         </div>

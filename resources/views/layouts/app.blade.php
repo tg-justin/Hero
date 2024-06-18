@@ -31,7 +31,7 @@
 			@endif
 
             <!-- Page Content -->
-            <main class="bg-seance-100" style="width: 80%; margin: 0 auto;">
+            <main class="bg-seance-100 mx-auto md:w-4/5 lg:w-80%">
                 @yield('content')
                 @if(isset($slot))
                     {{ $slot }}
