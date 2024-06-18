@@ -60,14 +60,11 @@ class ManagerDashboardController extends Controller
     {
         $sortBy = $request->query('sort_by', 'completed_at'); // Default sorting by completed_at
         $sortDirection = $request->query('sort_direction', 'asc'); // Default ascending order
-        $totalActiveHeroes = User::count();
+
 
         $questLogs = QuestLog::where('status', 'Pending Review')
             ->orderBy($sortBy, $sortDirection)
             ->paginate(10);
-        $today = \Carbon\Carbon::today();
-        $startOfWeek = $today->startOfWeek();
-        $startOfMonth = $today->startOfMonth();
 
         return view('manager.review', compact('questLogs', 'sortBy', 'sortDirection'));
     }

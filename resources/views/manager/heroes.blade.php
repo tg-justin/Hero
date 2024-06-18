@@ -28,7 +28,7 @@
                     </form>
                 </div>
             <div class="bg-white overflow-hidden shadow-xl rounded-lg">
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto shadow-xl rounded-lg">
                     <table class="min-w-full divide-y divide-seance-200">
                         <thead class="bg-seance-800 text-white">
                         <tr>

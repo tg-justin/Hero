@@ -14,36 +14,36 @@
             @endif
 
             @if ($questLogs->count() > 0)
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-seance-200">
-                        <thead class="bg-seance-800 text-white">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                                <a href="{{ route('manager.review', ['sort_by' => 'user_id', 'sort_direction' => $sortBy === 'user_id' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                                    User
-                                    @if ($sortBy === 'user_id')
-                                        <i class="fas fa-sort{{ $sortDirection === 'asc' ? '-up' : '-down' }}"></i>
-                                    @endif
-                                </a>
-                            </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                                <a href="{{ route('manager.review', ['sort_by' => 'quest_id', 'sort_direction' => $sortBy === 'quest_id' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                                    Quest
-                                    @if ($sortBy === 'quest_id')
-                                        <i class="fas fa-sort{{ $sortDirection === 'asc' ? '-up' : '-down' }}"></i>
-                                    @endif
-                                </a>
-                            </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                                <a href="{{ route('manager.review', ['sort_by' => 'completed_at', 'sort_direction' => $sortBy === 'completed_at' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                                    Completed At
-                                    @if ($sortBy === 'completed_at')
-                                        <i class="fas fa-sort{{ $sortDirection === 'asc' ? '-up' : '-down' }}"></i>
-                                    @endif
-                                </a>
-                            </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Actions</th>
-                        </tr>
+                    <div class="overflow-x-auto shadow-xl rounded-lg">
+                    <table class="table-seance">
+                        <thead>
+                            <tr>
+                                <th class="tracking-wider">
+                                    <a href="{{ route('manager.review', ['sort_by' => 'user_id', 'sort_direction' => $sortBy === 'user_id' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                                        User
+                                        @if ($sortBy === 'user_id')
+                                            <i class="fas fa-sort{{ $sortDirection === 'asc' ? '-up' : '-down' }}"></i>
+                                        @endif
+                                    </a>
+                                </th>
+                                <th class="tracking-wider">
+                                    <a href="{{ route('manager.review', ['sort_by' => 'quest_id', 'sort_direction' => $sortBy === 'quest_id' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                                        Quest
+                                        @if ($sortBy === 'quest_id')
+                                            <i class="fas fa-sort{{ $sortDirection === 'asc' ? '-up' : '-down' }}"></i>
+                                        @endif
+                                    </a>
+                                </th>
+                                <th class="tracking-wider">
+                                    <a href="{{ route('manager.review', ['sort_by' => 'completed_at', 'sort_direction' => $sortBy === 'completed_at' && $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                                        Completed At
+                                        @if ($sortBy === 'completed_at')
+                                            <i class="fas fa-sort{{ $sortDirection === 'asc' ? '-up' : '-down' }}"></i>
+                                        @endif
+                                    </a>
+                                </th>
+                                <th class="tracking-wider">Actions</th>
+                            </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-slate-200">
                         @foreach ($questLogs as $questLog)
@@ -68,6 +68,7 @@
                         </tbody>
                     </table>
                 </div>
+                    {{ $questLogs->appends(request()->except('page'))->links() }}
             @else
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
                     <p>No quest logs pending review.</p>

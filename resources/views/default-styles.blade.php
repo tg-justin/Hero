@@ -69,16 +69,34 @@
                 <blockquote>This is a blockquote.</blockquote>
                 <code>This is inline code.</code>
                 <pre>This is preformatted text.</pre>
-                <table>
-                    <tr>
-                        <th>Table Header</th>
-                        <th>Table Header</th>
-                    </tr>
-                    <tr>
-                        <td>Table Data</td>
-                        <td>Table Data</td>
-                    </tr>
-                </table>
+                <div class="overflow-x-auto shadow-xl rounded-lg">
+                    <table class="table-seance">
+                        <thead>
+                            <tr>
+                                <th>Table Header</th>
+                                <th>Table Header</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Table Data</td>
+                                <td>Table Data</td>
+                            </tr>
+                            <tr>
+                                <td>Table Data</td>
+                                <td>Table Data</td>
+                            </tr>
+                            <tr>
+                                <td>Table Data</td>
+                                <td>Table Data</td>
+                            </tr>
+                            <tr>
+                                <td>Table Data</td>
+                                <td>Table Data</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

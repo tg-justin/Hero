@@ -17,27 +17,27 @@
                 </div>
             @endif
 
-            <div class="overflow-hidden shadow-xl rounded-lg">
-                <table class="min-w-full divide-y divide-seance-200">
-                    <thead class="bg-seance-800 text-white">
+            <div class="overflow-x-auto shadow-xl rounded-lg">
+                <table class="table-seance">
+                    <thead>
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                        <th scope="col" class="tracking-wider">
                             Category Name
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                        <th scope="col" class="tracking-wider">
                             Description
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Actions</th>
+                        <th scope="col" class="tracking-wider">Actions</th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-slate-200">
                     @foreach ($categories as $category)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-800">
+                            <td>
                                 {{ $category->name }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $category->description }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <td>{{ $category->description }}</td>
+                            <td>
                                 <div class="flex space-x-2">
                                     <a href="{{ route('categories.edit', $category) }}" class="text-white focus:ring-4 font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Edit</a>
                                     <form action="{{ route('categories.destroy', $category) }}" method="POST" class="inline-block">
@@ -51,7 +51,7 @@
                     @endforeach
                     </tbody>
                 </table>
-            </div>
+            </div>{{ $categories->appends(request()->except('page'))->links() }}
         </div>
     </div>
 </x-app-layout>

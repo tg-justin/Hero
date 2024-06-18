@@ -15,33 +15,34 @@
             <div class="overflow-hidden shadow-xl rounded-lg">
                 <x-hero-profile :user="$user" />
                 @if ($questLogs->count() > 0)
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-seance-200">
-                            <thead class="bg-seance-800 text-white">
+                    <div class="overflow-x-auto shadow-xl rounded-lg">
+                        <table class="table-seance">
+                            <thead >
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Quest Title</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status</th>
-                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider hidden md:table-cell">XP Awarded</th>
-                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider hidden md:table-cell">Bonus XP</th>
-                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider">Actions</th>
+                                <th scope="col" class="tracking-wider">Quest Title</th>
+                                <th scope="col" class="tracking-wider">Status</th>
+                                <th scope="col" class="tracking-wider hidden md:table-cell">XP Awarded</th>
+                                <th scope="col" class="tracking-wider hidden md:table-cell">Bonus XP</th>
+                                <th scope="col" class="tracking-wider">Actions</th>
                             </tr>
+
                             </thead>
-                            <tbody class="bg-white divide-y divide-slate-200">
+                            <tbody>
                             @foreach ($questLogs as $questLog)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-800 hover:text-seance-700">
+                                    <td>
                                         <a href="{{ route('quests.show', $questLog->quest->id) }}">
                                             {{ $questLog->quest->title }}
                                         </a>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td>
                                         <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-slate-600 rounded {{ $questLog->statusColor }}">
                                             {{ $questLog->status }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-slate-600 hidden md:table-cell">{{ $questLog->xp_awarded }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-slate-600 hidden md:table-cell">{{ $questLog->xp_bonus }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                    <td class="hidden md:table-cell">{{ $questLog->xp_awarded }}</td>
+                                    <td class="hidden md:table-cell">{{ $questLog->xp_bonus }}</td>
+                                    <td>
                                         <a href="{{ route('quest-logs.edit', $questLog) }}" class="text-white focus:ring-4 font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Edit</a>
                                     </td>
                                 </tr>

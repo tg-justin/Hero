@@ -5,7 +5,40 @@
     body {
         margin: 0 !important;
     }
+    table:not([cellpadding]) th,
+    table:not([cellpadding]) td {
+        @apply px-6 py-4 !important;; /* Your desired padding using Tailwind classes */
+    }
 
+    .table-seance {
+        @apply min-w-full divide-y divide-seance-200; /* Table container */
+    }
+
+    .table-seance thead {
+        @apply bg-seance-800 text-white; /* Table header */
+    }
+
+    .table-seance tbody tr {
+        @apply bg-white; /* Table row (even) */
+    }
+
+    .table-seance tbody tr:nth-child(odd) {
+        @apply bg-gray-50; /* Table row (odd) - for alternating colors */
+    }
+
+    .table-seance th,
+    .table-seance td {
+        @apply px-6 py-4 whitespace-nowrap text-sm font-medium; /* Table cell */
+        @apply p-5;
+    }
+
+    .table-seance th{
+        @apply text-left text-xs uppercase tracking-wider;
+    }
+
+    .table-seance td{
+        @apply text-slate-800;
+    }
 }
 
 @layer components {

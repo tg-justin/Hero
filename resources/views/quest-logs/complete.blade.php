@@ -6,23 +6,24 @@
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div>
-                <h2>Congratulations on completing your quest!</h2>
-
-                <p>To help us verify your progress and award you the appropriate rewards, please provide a detailed description of your quest experience in the box below.</p>
-
-                <p>Here's what we'd love to know:</p>
-
-                <p><strong>Summary of Actions</strong>: Briefly describe the key actions you took to accomplish the quest's objectives.</p>
-
-                <p><strong>Challenges Faced</strong>: Did you encounter any obstacles or difficulties during the quest? How did you overcome them?</p>
-
-                <p><strong>Lessons Learned</strong>: What did you learn from this experience? Did you gain any new skills or knowledge?</p>
-
-                <p><strong>Proof of Completion</strong>: If applicable, include any relevant information that proves you completed the quest (e.g., screenshots, links to files, etc.).</p>
-            </div>
-
             <div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6">
+                <div class="mb-5">
+                    <h2>Congratulations on completing your quest!</h2>
+
+                    <p>To help us verify your progress and award you the appropriate rewards, please provide a detailed description of your quest experience in the box below.</p>
+
+                    <p>Here's what we'd love to know:</p>
+
+                    <p><strong>Summary of Actions</strong>: Briefly describe the key actions you took to accomplish the quest's objectives.</p>
+
+                    <p><strong>Challenges Faced</strong>: Did you encounter any obstacles or difficulties during the quest? How did you overcome them?</p>
+
+                    <p><strong>Lessons Learned</strong>: What did you learn from this experience? Did you gain any new skills or knowledge?</p>
+
+                    <p><strong>Proof of Completion</strong>: If applicable, include any relevant information that proves you completed the quest (e.g., screenshots, links to files, etc.).</p>
+                </div>
+
+
                 <form action="{{ route('quest-log.complete', $questLog) }}" method="POST">
                     @csrf
 
@@ -41,10 +42,11 @@
                         </select>
                     </div>--}}
 
-                    <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    <button type="submit" class="text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">
                         Complete Quest
                     </button>
                 </form>
+
             </div>
         </div>
     </div>
