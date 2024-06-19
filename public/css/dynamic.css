@@ -1,0 +1,72 @@
+.dynamic * {
+}
+
+.dynamic h1, .dynamic h2, .dynamic h3, .dynamic h4 {
+    color: #662d91;
+    font-weight: 800;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.15;
+}
+
+.dynamic h1 {
+    font-size: 2.25rem;
+}
+
+.dynamic h2 {
+    font-size: 1.855rem;
+}
+
+.dynamic h3 {
+    font-size: 1.35rem;
+}
+
+.dynamic h4 {
+    font-size: 1.15rem;
+}
+
+.dynamic p {
+    margin-top: 0.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.dynamic a {
+    font-weight: bolder;
+    color: #F26522;
+    text-decoration: none;
+}
+
+.dynamic a:hover {
+    font-weight: bolder;
+    color: #FF0000;
+    text-decoration: underline;
+}
+
+.dynamic ul, .dynamic ol {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    padding-left: 2.5rem;
+}
+
+.dynamic ul li, .dynamic ol li {
+    margin: 0;
+    padding: 0;
+}
+
+.dynamic .bonus_xp p {
+    color: green;
+    font-size: .875rem;
+}
+
+.dynamic blockquote {
+    margin: 1.5rem 2.5rem;
+    padding: .75rem 1.5rem;
+    font-size: 1.15em;
+    color: #333;
+    border-left: 3px solid #662d91;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.dynamic blockquote p {
+    margin: 0;
+}

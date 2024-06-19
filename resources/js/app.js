@@ -20,14 +20,17 @@ import 'tinymce/plugins/advlist';
 
 window.addEventListener('DOMContentLoaded', () => {
     tinymce.init({
-        selector: 'Textarea',
+        license_key: 'gpl',
+        selector: 'textarea',
         plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
         toolbar_mode: 'floating',
         skin:false,
-        content_css:false,
+        content_css:'/css/dynamic.css',
         setup: function (editor) {
             editor.on('init', function () {
-                editor.getBody().style.fontSize = '14px';  // Adjust the default font size
+                editor.getBody().classList.add('dynamic');
+                editor.getBody().style.fontSize = '16px';  // Adjust the default font size
+                editor.getBody().style.fontFamily = 'Figtree, Helvetica, Trebuchet MS, sans-serif';  // Adjust the default font family
             });
         }
     });
