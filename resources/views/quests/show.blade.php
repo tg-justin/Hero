@@ -26,8 +26,8 @@
             <div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6"> {{-- PAGE: BEGIN --}}
                 <h1 class="text-4xl font-extrabold mb-4 text-seance-800">{{ $quest->title }}</h1>
 
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-4"> {{-- COLUMNS: BEGIN --}}
-                    <div class="md:col-span-3 space-y-4 dynamic"> {{-- LEFT_COLUMN: BEGIN --}}
+                <div class="grid grid-cols-1 md:grid-cols-6 gap-4"> {{-- COLUMNS: BEGIN --}}
+                    <div class="md:col-span-4 space-y-4 dynamic"> {{-- LEFT_COLUMN: BEGIN --}}
                         <div class="bg-white p-4 rounded-md shadow-inner"> {{-- QUEST BODY: BEGIN --}}
                             {!! $quest->intro_text !!}
                             @if (!$questLog || $isEditor)

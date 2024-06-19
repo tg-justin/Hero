@@ -83,6 +83,7 @@ class QuestController extends Controller
     {
         $request->validate([
             'title' => 'required|string',
+            'intro_text' => 'required|string',
             'directions_text' => 'required|string',
             'xp' => 'required|integer|min:1',
             'min_level' => 'required|integer|min:0',
@@ -104,8 +105,10 @@ class QuestController extends Controller
             ->performedOn($quest)
             ->log('Quest created');
 
-        return redirect()->route('quests.index')
-            ->with('success', 'Quest created successfully!');
+//        return redirect()->route('quests.index')
+//            ->with('success', 'Quest created successfully!');
+
+        return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST CREATED!');
     }
 
     /**
@@ -177,8 +180,13 @@ class QuestController extends Controller
             ->performedOn($quest)
             ->log('Quest updated');
 
-        return redirect()->route('quests.index')
-            ->with('success', 'Quest updated successfully!');
+//        return redirect()->route('quests.index')
+//            ->with('success', 'Quest updated successfully!');
+
+        return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST UPDATED!');
+
+
+
     }
 
     /**
@@ -220,7 +228,7 @@ class QuestController extends Controller
         }
 
 //        return redirect()->route('quest-log.index')->with('success', 'Quest accepted!');
-        return redirect()->route('quests.show', $quest->id)->with('success', 'Quest accepted!');
+        return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST ACCEPTED!');
     }
 
 }
