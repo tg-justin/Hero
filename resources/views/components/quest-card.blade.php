@@ -3,7 +3,7 @@
         <h4 class="text-lg font-semibold text-seance-800">{{ $quest->title }}</h4>
         <span class="text-xs text-white px-2 py-1 rounded-full {{ $questLog->statusColor }}">{{ $questLog->status }}</span>
     </div>
-    <p class="text-sm text-seance-700 mb-2">{!! Str::limit($quest->directions_text, 75) !!}</p>
+{{--    <p class="text-sm text-seance-700 mb-2">{!! Str::limit($quest->directions_text, 75) !!}</p>--}}
     <div class="flex items-center space-x-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
             <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -17,16 +17,16 @@
             View Quest
         </a>
 
-        @if (!is_null($questLog) && $questLog->status === 'accepted')
-            @if($quest->id == 1)
-                <a href="{{ route('profile.hero-registration') }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md">
-                    Hero Registration
-                </a>
-            @else
-                <a href="{{ route('quest-log.complete-form', $questLog) }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md">
-                    Complete Quest
-                </a>
-            @endif
-        @endif
+{{--        @if (!is_null($questLog) && $questLog->status === 'Accepted')--}}
+{{--            @if($quest->id == 1)--}}
+{{--                <a href="{{ route('profile.hero-registration') }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md">--}}
+{{--                    Hero Registration--}}
+{{--                </a>--}}
+{{--            @else--}}
+{{--                <a href="{{ route('quest-log.complete-form', $questLog) }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md">--}}
+{{--                    Complete Quest--}}
+{{--                </a>--}}
+{{--            @endif--}}
+{{--        @endif--}}
     </div>
 </div>

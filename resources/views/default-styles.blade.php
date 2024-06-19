@@ -1,72 +1,74 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-extrabold text-3xl text-seance-200">
+        <h1 class="font-extrabold text-3xl text-seance-200">
             {{ __('Title') }}
-        </h2>
+        </h1>
     </x-slot>
     <div class="py-12 bg-cover bg-center">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="quest_body">
-                <h1>Heading 1</h1>
-                <p>Sample paragraph text with <a href="https://example.com/">Example - Link 1</a> and <a
-                        href="https://example.com/">Example - Link 1</a>. We also have an example of different
-                    formattings including <em>Emphasis, which is typically displayed as italic</em>; <strong>Strong or
-                        bold</strong>; <u>Underline</u>; and <s>Strikethrough</s>.
-                <p>
-                <p>Though they are not used as often, we also have <sub>Subscript</sub> and <sup>Superscript</sup> text.
-                    Not to mention
-                    <mark>Marked, or highlighted text</mark>
-                    and
-                    <del>Deleted text</del>
-                    . There is also <code>code formatting</code> formatting, but do we plan to actually use this for
-                    anything?
-                </p>
-                <p>Cras pharetra mollis fringilla. Ut eget neque arcu. Maecenas pretium feugiat mi, sed placerat metus
-                    elementum laoreet. Vivamus orci libero, hendrerit ut bibendum eget, pretium vel urna. Vestibulum id
-                    orci feugiat, ultrices ex et, semper neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Duis hendrerit, diam vitae consectetur malesuada, nibh erat consectetur nisl, sit amet commodo sem
-                    est eget lectus. Phasellus pellentesque dui libero, ac sollicitudin nibh ultricies nec. Aliquam erat
-                    volutpat.
-                </p>
+            <div class="dynamic">
+                <h1>Heading 1 - Sample Heading Text</h1>
+
+                <p>Here are a couple of paragraphs with no formatting so you can understand and view the line spacing.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis auctor nunc, quis
+                    rutrum ligula scelerisque ut. Fusce eget lacinia orci. Ut pretium orci arcu, nec condimentum nibh
+                    molestie ac. Donec placerat massa ultricies mauris blandit, at lobortis magna volutpat. Curabitur
+                    lobortis elementum quam, et aliquam lectus rhoncus quis. Ut porttitor a ligula ornare auctor.</p>
+
+                <p>Here is the second paragraph so you can see the spacing between them. Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit. Phasellus convallis auctor nunc, quis rutrum ligula scelerisque ut.
+                    Fusce eget lacinia orci. Ut pretium orci arcu, nec condimentum nibh molestie ac.</p>
+
                 <h2>Heading 2</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pharetra mollis fringilla. Ut eget
-                    neque arcu. Maecenas pretium feugiat mi, sed placerat metus elementum laoreet. Vivamus orci libero,
-                    hendrerit ut bibendum eget, pretium vel urna. </p>
-                <p>Vestibulum id orci feugiat, ultrices ex et, semper neque. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Duis hendrerit, diam vitae consectetur malesuada, nibh erat consectetur nisl, sit
-                    amet commodo sem est eget lectus. Phasellus pellentesque dui libero, ac sollicitudin nibh ultricies
-                    nec. Aliquam erat volutpat.</p>
+
+                <p>This is a paragraph with an <a href="https://example.com/">Example Link</a> and a another
+                    <a href="https://loremflickr.com/">Sample Link</a>. We also have examples of <em>emphasis, rendered
+                    as italic</em>; <strong>strong as bold</strong>; <u>underline should never be used</u> and is
+                    the same as <ins>inserted text</ins>;
+                    <s>strikethrough serves little purpose</s> and is identical to <del>deleted text</del>;
+                    there is <mark>marked text</mark>; <q>quoted text</q>; <small>small text</small>
+                    and <code>code formatting</code>.</p>
+
+                <p>The biggest problem with <sub>subscript</sub> and <sup>superscript</sup> is that they mess up the
+                    line spacing. For these reason alone, they suck and shouldn't be used.</p>
+
+                <p>This is a third paragraph shown for spacing.</p>
+
                 <h3>Heading 3</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pharetra mollis fringilla. Ut eget
-                    neque arcu. Maecenas pretium feugiat mi, sed placerat metus elementum laoreet. Vivamus orci libero,
-                    hendrerit ut bibendum eget, pretium vel urna. </p>
-                <p>Vestibulum id orci feugiat, ultrices ex et, semper neque. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Duis hendrerit, diam vitae consectetur malesuada, nibh erat consectetur nisl, sit
-                    amet commodo sem est eget lectus. Phasellus pellentesque dui libero, ac sollicitudin nibh ultricies
-                    nec. Aliquam erat volutpat.</p>
+
+                <p>Simple paragraph for spacing before our lists.</p>
+
                 <ul>
                     <li>List Item 1</li>
                     <li>List Item 2</li>
                 </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pharetra mollis fringilla. Ut eget
-                    neque arcu. Maecenas pretium feugiat mi, sed placerat metus elementum laoreet. Vivamus orci libero,
-                    hendrerit ut bibendum eget, pretium vel urna. </p>
-                <p>Vestibulum id orci feugiat, ultrices ex et, semper neque. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Duis hendrerit, diam vitae consectetur malesuada, nibh erat consectetur nisl, sit
-                    amet commodo sem est eget lectus. Phasellus pellentesque dui libero, ac sollicitudin nibh ultricies
-                    nec. Aliquam erat volutpat.</p>
+
+                <p>Between the lists.</p>
+
                 <ol>
                     <li>Ordered List Item 1</li>
                     <li>Ordered List Item 2</li>
                 </ol>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pharetra mollis fringilla. Ut eget
-                    neque arcu. Maecenas pretium feugiat mi, sed placerat metus elementum laoreet. Vivamus orci libero,
-                    hendrerit ut bibendum eget, pretium vel urna. </p>
-                <p>Vestibulum id orci feugiat, ultrices ex et, semper neque. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Duis hendrerit, diam vitae consectetur malesuada, nibh erat consectetur nisl, sit
-                    amet commodo sem est eget lectus. Phasellus pellentesque dui libero, ac sollicitudin nibh ultricies
-                    nec. Aliquam erat volutpat.</p>
-                <blockquote>This is a blockquote.</blockquote>
+
+                <p>And after the lists.</p>
+
+                <h4>Heading 4</h4>
+                <p>Cras pharetra mollis fringilla. Ut eget neque arcu. Maecenas pretium feugiat mi, sed placerat metus
+                    elementum laoreet. Vivamus orci libero, hendrerit ut bibendum eget, pretium vel urna. Vestibulum id
+                    orci feugiat, ultrices ex et, semper neque.
+                </p>
+                <p>Cras pharetra mollis fringilla. Ut eget neque arcu. Maecenas pretium feugiat mi, sed placerat metus
+                    elementum laoreet. Vivamus orci libero, hendrerit ut bibendum eget, pretium vel urna. Vestibulum id
+                    orci feugiat, ultrices ex et, semper neque.
+                </p>
+
+                <blockquote>
+                    <p>This is a blockquote. Cras pharetra mollis fringilla. Ut eget neque arcu. Maecenas pretium
+                        feugiat mi, sed placerat metus elementum laoreet. Vivamus orci libero, hendrerit ut bibendum
+                        eget, pretium vel urna. Vestibulum id orci feugiat, ultrices ex et, semper neque.</p>
+                </blockquote>
+
+
                 <code>This is inline code.</code>
                 <pre>This is preformatted text.</pre>
                 <div class="overflow-x-auto shadow-xl rounded-lg">

@@ -6,127 +6,108 @@
     </x-slot>
 
     @php
-        $questLog = Auth::user()->questLogs()->where('quest_id', $quest->id)->first();
+        $user = Auth::user();
+        $questLog = $user->questLogs()->where('quest_id', $quest->id)->first() ?? null;
+        $userLevel = $user->level;
+        $questLevel = $quest->min_level;
+        $isEditor = ($user->hasRole('manager') || $user->hasRole('admin'));
     @endphp
 
-    <div class="py-12 bg-cover bg-center">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6">
+    <div class="py-12 bg-cover bg-center"> {{-- BODY_A: BEGIN --}}
+        <div class="max-w-7xl mx-auto px-6 lg:px-8"> {{-- BODY_B: BEGIN --}}
 
+            {{-- Display success message --}}
+            @if (session('success'))
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-md" role="alert">
+                    <p class="m-0">{{ session('success') }}</p>
+                </div>
+            @endif
+
+            <div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6"> {{-- PAGE: BEGIN --}}
                 <h1 class="text-4xl font-extrabold mb-4 text-seance-800">{{ $quest->title }}</h1>
 
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-6 gap-4"> {{-- COLUMNS: BEGIN --}}
+                    <div class="md:col-span-4 space-y-4 dynamic"> {{-- LEFT_COLUMN: BEGIN --}}
+                        <div class="bg-white p-4 rounded-md shadow-inner"> {{-- QUEST BODY: BEGIN --}}
+                            {!! $quest->intro_text !!}
+                            @if (!$questLog || $isEditor)
+                                {!!$quest->accept_text !!}
+                            @endif
+                            @if ($questLog && $questLog->status == 'Accepted' || $isEditor)
+                                {!! $quest->directions_text !!}
+                            @endif
+                            @if ($questLog && $questLog->status == 'Completed' || $isEditor)
+                                {!! $quest->complete_text !!}
+                            @endif
+                        </div> {{-- QUEST BODY: END --}}
+                    </div> {{-- LEFT_COLUMN: END --}}
 
-                    <div class="md:col-span-3 space-y-4 quest_body">
-                        <div class="bg-white p-4 rounded-md shadow-inner">
-{{--                            <p class="text-lg font-semibold text-seance-800">[INTRODUCTION]</p>--}}
-                            <p class="mt-2 text-seance-700">{!! $quest->intro_text !!}<br/>HELLO THERE!</p>
-                        </div>
+                    <div class="md:col-span-2 space-y-4"> {{-- RIGHT_COLUMN: BEGIN --}}
+                        <div
+                            class="bg-white p-4 rounded-md shadow-inner text-lg text-seance-800"> {{-- STATS: BEGIN --}}
 
-                        @if (!$questLog || Auth::user()->hasRole('manager'))
-                            <div class="bg-white p-4 rounded-md shadow-inner">
-{{--                                <p class="text-lg font-semibold text-seance-800">[ACCEPT]</p>--}}
-                                <p class="mt-2 text-seance-700">{!!$quest->accept_text !!}</p>
-                            </div>
-                        @endif
-                        @if ($questLog || Auth::user()->hasRole('manager'))
-                            <div class="bg-white p-4 rounded-md shadow-inner">
-{{--                                <p class="text-lg font-semibold text-seance-800">[DIRECTIONS]</p>--}}
-                                <p class="mt-2 text-seance-700">{!! $quest->directions_text !!}</p>
-                            </div>
-                        @endif
-                        @if ($questLog || Auth::user()->hasRole('manager'))
-                            <div class="bg-white p-4 rounded-md shadow-inner">
-{{--                                <p class="text-lg font-semibold text-seance-800">[Complete]</p>--}}
-                                <p class="mt-2 text-seance-700">{!! $quest->complete_text !!}</p>
-                            </div>
-                        @endif
-                    </div>
-
-                    <div class="md:col-span-2 space-y-4 quest_body">
-                        <div class="bg-white p-4 rounded-md shadow-inner">
-                            <p class="text-lg font-semibold text-seance-800">Level: {{ $quest->min_level }}</p>
-
-                            <div class="flex items-center mb-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500 mr-2"
-                                     viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                                    <path fill-rule="evenodd"
-                                          d="M.458 10C1.736 5.943 5.522 3 10 3s8.264 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.736 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                                          clip-rule="evenodd"/>
-                                </svg>
-                                <p class="text-lg font-semibold text-seance-800">XP Award: {{ $quest->xp }} @if ($quest->bonus_xp_text)* @endif</p>
-                            </div>
-
-                            {{-- if bonus_xp is not null, display the bonus_xp--}}
+                            <p><span class="font-semibold">Level:</span> {{ $quest->min_level }}</p>
+                            <p><span class="font-semibold">XP Award:</span> {{ $quest->xp }}</p>
                             @if ($quest->bonus_xp_text)
-                                * {!! $quest->bonus_xp_text !!}
+                                <p><span class="text-lg font-semibold text-seance-800">Bonus XP:</span>
+                                    {{ strip_tags($quest->bonus_xp_text) }}</p>
+                            @endif
+                            @if(false)
+                                <p><span class="font-semibold">Category:</span> {{ $quest->category->name }}</p>
+                            @endif
+                            @if ($quest->campaign)
+                                <p><span class="font-semibold">Campaign:</span> {{ $quest->campaign->title }}</p>
+                            @endif
+                            @if ($quest->repeatable)
+                                <p><span class="font-semibold">Repeatable:</span> {{ $quest->repeatable }}</p>
+                            @endif
+                        </div> {{-- STATS: END --}}
+
+                        <div class="bg-white p-4 rounded-md shadow-inner"> {{-- BUTTONS: BEGIN --}}
+
+                            @if(!$questLog && ($userLevel > 0 || $questLevel == 0))
+                                <form action="{{ route('quests.accept', $quest->id) }}" method="POST">
+                                    @csrf
+                                    <div class="mx-auto">
+                                        <button type="submit" class="tg-button-purple" style="width: 100%">
+                                            Accept Quest
+                                        </button>
+                                    </div>
+                                </form>
                             @endif
 
+                            @if($isEditor)
+                                <div class="mx-auto">
+                                    <a href="{{ route('quests.edit', $quest->id) }}"
+                                       class="tg-button-orange">Edit Quest</a>
+                                </div>
+                            @endif
 
-
-                        </div>
-                     {{--   <div class="bg-white p-4 rounded-md shadow-inner">
-                            <p class="text-lg font-semibold text-seance-800">Category:</p>
-                            <p class="mt-2 text-seance-700">{{ $quest->category->name }}</p>
-                        </div>--}}
-                       {{-- @if ($quest->campaign)
-                            <div class="bg-white p-4 rounded-md shadow-inner">
-                                <p class="text-lg font-semibold text-seance-800">Campaign:</p>
-                                <p class="mt-2 text-seance-700">{{ $quest->campaign->title }}</p>
-                            </div>
-                        @endif--}}
-                        {{--<div class="bg-white p-4 rounded-md shadow-inner">
-                            <p class="text-lg font-semibold text-seance-800">Repeatable:</p>
-                            <p class="mt-2 text-seance-700">{{ $quest->repeatable }}</p>
-
-                        </div>--}}
-
-                       {{-- <div class="bg-white p-4 rounded-md shadow-inner">
-                            <p class="text-lg font-semibold text-seance-800">Additional Details:</p>
-                            <p class="mt-2 text-seance-700">{{ $quest->bonus_xp_text }}</p>
-                            <p class="mt-2 text-seance-700">{{ $quest->complete_text }}</p>
-                        </div>--}}
-                    </div>
-                </div>
-
-                <div class="flex justify-end mt-8">
-                    @if (Auth::user()->hasRole('manager'))
-                        <a href="{{ route('quests.edit', $quest->id) }}"
-                           class="mt-2 px-4 py-2 bg-seance-600 hover:bg-seance-700 text-white rounded-md">Edit
-                            Quest</a>
-                    @endif
-
-                    @if (Auth::user()->hasRole('hero') || Auth::user()->hasRole('manager'))
-
-                        @if ($questLog && $questLog->status === 'Accepted')
-                                @if($quest->id == 1)
-                                    <a href="{{ route('profile.hero-registration') }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md">
-                                        Hero Registration
-                                    </a>
-                                @else
+                            @if($questLog && $questLog->status == 'Accepted' && $quest->id != 1)
+                                <div class="mx-auto">
                                     <a href="{{ route('quest-log.complete-form', $questLog) }}"
-                                       class="mt-2 px-4 py-2 bg-seance-600 hover:bg-seance-700 text-white rounded-md">
-                                        Complete Quest
-                                    </a>
+                                       class="tg-button-green">Complete Quest</a>
+                                </div>
                             @endif
-                        @elseif($questLog && $questLog->status === 'Completed')
-                            <p class="mt-2 px-4 py-2 text-seance-600 bg-white rounded-md">
-                                Quest Completed
-                            </p>
-                        @elseif (!$questLog)
-                            <form action="{{ route('quests.accept', $quest->id) }}" method="POST">
-                                @csrf
-                                <button type="submit"
-                                        class="text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">
-                                    Accept Quest
-                                </button>
-                            </form>
-                        @endif
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
+
+                            @if($questLog && $questLog->status == 'Accepted' && $quest->id == 1)
+                                <div class="mx-auto">
+                                    <a href="{{ route('profile.hero-registration') }}"
+                                       class="tg-button-green">Complete Hero Registration</a>
+                                </div>
+                            @endif
+
+                            @if($questLog && $questLog->status == 'Completed')
+                                <div class="mx-auto">
+                                    <p class="tg-button-gray">Quest Already Completed!</p>
+                                </div>
+                            @endif
+
+                        </div> {{-- BUTTONS: END --}}
+                    </div> {{-- RIGHT_COLUMN: END --}}
+                </div> {{-- COLUMNS: END --}}
+            </div> {{-- PAGE: END --}}
+        </div> {{-- BODY_B: END --}}
+    </div> {{-- BODY_A: END --}}
 </x-app-layout>
 

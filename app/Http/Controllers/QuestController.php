@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Quest;  // Replace with your Quest model path
+use App\Models\Quest;
+
+// Replace with your Quest model path
 use App\Models\Category;
 use App\Models\Campaign;
 
@@ -15,38 +17,48 @@ class QuestController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-	{
-		$query = Quest::with('category');
+    {
+        $query = Quest::with('category');
 
-		// Filtering by Category (Optional)
-		/*if ($request->filled('category')) {
-			$query->where('category_id', $request->input('category'));
-		}*/
+        // Filtering by Category
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->input('category'));
+        }
 
-		// Searching by Title
-		if ($request->filled('search')) {
-			$query->where('title', 'like', '%' . $request->input('search') . '%');
-		}
+        // Searching by Title
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->input('search') . '%');
+        }
 
-		// Sorting Logic
-		$sortBy = $request->get('sort');
-		$direction = $request->get('direction', 'asc');
+        // Limit by hero level if the user is authenticated and not a manager
+//        if (auth()->check() && !auth()->user()->hasRole('manager')) {
+//            $query->where('min_level', '<=', auth()->user()->level);
+//        }
 
-		if ($sortBy && in_array($sortBy, ['min_level', 'title', 'xp'])) { // Validate sorting column
-			$query->orderBy($sortBy, $direction);
-		}
+        // Limit Level 0 Heroes to Level 0 Quests, unless they are a manager.
+        if (auth()->check()) {
+            $user = auth()->user();
+            if ($user->level == 0 && !$user->hasRole('manager')) {
+                // Level 0 heroes see only level 0 quests
+                $query->where('min_level', '=', 0);
+            }
+        }
 
-		// Pagination (After Sorting!)
-		// Limit by hero level
+        // Sorting Logic
+        $sortBy = $request->get('sort');
+        $direction = $request->get('direction', 'asc');
 
-        // disable level filter for now
-        //->where('min_level', '<=', auth()->user()->level)
-		$quests = $query->paginate(10);
+        if ($sortBy && in_array($sortBy, ['min_level', 'title', 'xp'])) { // Validate sorting column
+            $query->orderBy($sortBy, $direction);
+        }
 
-		$categories = Category::all();
+        // Pagination (After Sorting!)
+        $quests = $query->paginate(25);
 
-		return view('quests.index', compact('quests', 'categories'));
-	}
+        $categories = Category::all();
+
+        return view('quests.index', compact('quests', 'categories'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -56,24 +68,25 @@ class QuestController extends Controller
     public function create()
     {
         $categories = Category::all();
-		$campaigns = Campaign::all(); // Fetch all campaigns
+        $campaigns = Campaign::all(); // Fetch all campaigns
 
-		return view('quests.create', compact('categories', 'campaigns'));
+        return view('quests.create', compact('categories', 'campaigns'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string',
+            'intro_text' => 'required|string',
             'directions_text' => 'required|string',
             'xp' => 'required|integer|min:1',
-			'min_level' => 'required|integer|min:0',
+            'min_level' => 'required|integer|min:0',
             'category_id' => 'required|integer',
             // Add validation for other fields as needed
         ]);
@@ -92,14 +105,16 @@ class QuestController extends Controller
             ->performedOn($quest)
             ->log('Quest created');
 
-        return redirect()->route('quests.index')
-                        ->with('success', 'Quest created successfully!');
+//        return redirect()->route('quests.index')
+//            ->with('success', 'Quest created successfully!');
+
+        return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST CREATED!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -111,13 +126,13 @@ class QuestController extends Controller
         }
 
 
-		return view('quests.show', compact('quest'));
+        return view('quests.show', compact('quest'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -128,17 +143,17 @@ class QuestController extends Controller
             return abort(404);
         }
 
-		$categories = Category::all();
-		$campaigns = Campaign::all(); // Fetch all campaigns
+        $categories = Category::all();
+        $campaigns = Campaign::all(); // Fetch all campaigns
 
-		return view('quests.edit', compact('quest', 'categories', 'campaigns'));
+        return view('quests.edit', compact('quest', 'categories', 'campaigns'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -165,14 +180,19 @@ class QuestController extends Controller
             ->performedOn($quest)
             ->log('Quest updated');
 
-        return redirect()->route('quests.index')
-                        ->with('success', 'Quest updated successfully!');
+//        return redirect()->route('quests.index')
+//            ->with('success', 'Quest updated successfully!');
+
+        return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST UPDATED!');
+
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -189,8 +209,9 @@ class QuestController extends Controller
             ->with('success', 'Quest deleted successfully!');
 
     }
-        // QuestController.php
-        public function accept(Quest $quest)
+
+    // QuestController.php
+    public function accept(Quest $quest)
     {
         $user = auth()->user();
 
@@ -198,15 +219,16 @@ class QuestController extends Controller
         if ($quest->repeatable === 0 || $user->questLogs()->where('quest_id', $quest->id)->count() < $quest->repeatable) {
             $user->questLogs()->create([
                 'quest_id' => $quest->id,
-				'xp_awarded' => $quest->xp,
-				'accepted_at' => NOW(),
+                'xp_awarded' => $quest->xp,
+                'accepted_at' => NOW(),
                 'status' => 'accepted', // Set the initial status to 'accepted'
             ]);
         } else {
             // Handle the case where the user has reached the repeat limit (optional)
         }
 
-        return redirect()->route('quest-log.index')->with('success', 'Quest accepted!');
+//        return redirect()->route('quest-log.index')->with('success', 'Quest accepted!');
+        return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST ACCEPTED!');
     }
 
 }
