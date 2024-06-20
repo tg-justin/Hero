@@ -20,7 +20,7 @@
 				<div class="mt-8">  {{-- Quest Log Section --}}
 					<div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6">
 
-						@if ($acceptedQuests->count() == 0 && $exceptionRequests->count() == 0 && $completedQuests->count() == 0)
+						@if ($acceptedQuests->count() == 0 && $pendingReview->count() == 0 && $completedQuests->count() == 0)
 							<p class="text-center text-lg font-semibold">Visit the <a href="/quests">Quest Board</a> to get started!</p>
 						@else
 							@if ($acceptedQuests->count() > 0)
