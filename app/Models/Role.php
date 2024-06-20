@@ -8,8 +8,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Role extends Model
 {
-    use HasFactory;
-    use HasRoles;
+	use HasFactory;
+	use HasRoles;
 
-    protected $fillable = ['name', 'guard_name', 'display_name', 'directions_text'];
+	protected $fillable = ['name', 'guard_name', 'display_name', 'directions_text'];
 }

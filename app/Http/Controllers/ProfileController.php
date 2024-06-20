@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\User;
-use App\Models\QuestLog;
-
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,100 +11,102 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
-    {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
-    }
+	/**
+	 * Display the user's profile form.
+	 */
+	public function edit(Request $request): View
+	{
+		return view('profile.edit', [
+			'user' => $request->user(),
+		]);
+	}
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
+	/**
+	 * Delete the user's account.
+	 */
+	public function destroy(Request $request): RedirectResponse
+	{
+		$request->validateWithBag('userDeletion', [
+			'password' => ['required', 'current_password'],
+		]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+		$user = $request->user();
 
-        $request->user()->save();
+		Auth::logout();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
+		$user->delete();
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+		$request->session()->invalidate();
+		$request->session()->regenerateToken();
 
-        $user = $request->user();
+		return Redirect::to('/');
+	}
 
-        Auth::logout();
+	public function heroRegistration(Request $request)
+	{
+		// Check if the user has already finished the hero registration
 
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
-    }
-
-    public function heroRegistration(Request $request)
-    {
-        // Check if the user has already finished the hero registration
-
-        if ($request->user()->questLogs()->where('status', 'completed')->count() > 0) {
-            return redirect()->route('quests.index')
-                                ->with('success', 'You have already completed the hero registration!
+		if ($request->user()->questLogs()->where('status', 'completed')->count() > 0)
+		{
+			return redirect()->route('quests.index')
+				->with('success', 'You have already completed the hero registration!
                                 You can update your profile information from your profile page.');
-        }
+		}
 
-        return view('profile.hero-registration', [
-            'user' => $request->user(),
-        ]);
-    }
+		return view('profile.hero-registration', [
+			'user' => $request->user(),
+		]);
+	}
 
-    public function submitHeroRegistration(Request $request)
-    {
-        if (!$request->user()) {
-            return abort(404);
-        }
+	public function submitHeroRegistration(Request $request)
+	{
+		if (!$request->user())
+		{
+			return abort(404);
+		}
 
-        $request->user()->update($request->all());
+		$request->user()->update($request->all());
 
-        // Find the quest log entry for the first quest and mark it as completed
-        $questLog = $request->user()->questLogs()->first();
+		// Find the quest log entry for the first quest and mark it as completed
+		$questLog = $request->user()->questLogs()->first();
 
-        $questLog->status = 'completed';
-        $questLog->completed_at = now();
-        $questLog->save();
+		$questLog->status = 'completed';
+		$questLog->completed_at = now();
+		$questLog->save();
 
-        $request->user()->levelUp();
+		$request->user()->levelUp();
 
-        return redirect()->route('quests.index')
-            ->with('success', 'Hero registration submitted successfully!');
+		return redirect()->route('quests.index')
+			->with('success', 'Hero registration submitted successfully!');
+	}
 
-    }
+	/**
+	 * Update the user's profile information.
+	 */
+	public function update(ProfileUpdateRequest $request): RedirectResponse
+	{
+		$request->user()->fill($request->validated());
 
-    public function updateHeroRegistration(Request $request)
-    {
-        if (!$request->user()) {
-            return abort(404);
-        }
+		if ($request->user()->isDirty('email'))
+		{
+			$request->user()->email_verified_at = null;
+		}
 
-        $request->user()->update($request->all());
+		$request->user()->save();
 
-        return redirect()->route('profile.edit')
-            ->with('success', 'Profile information updated successfully!');
+		return Redirect::route('profile.edit')->with('status', 'profile-updated');
+	}
 
-    }
+	public function updateHeroRegistration(Request $request)
+	{
+		if (!$request->user())
+		{
+			return abort(404);
+		}
+
+		$request->user()->update($request->all());
+
+		return redirect()->route('profile.edit')
+			->with('success', 'Profile information updated successfully!');
+	}
 }

@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Badge extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    public function heroes()
-    {
-        return $this->belongsToMany(User::class, 'hero_badge');
-    }
-
+	public function heroes()
+	{
+		return $this->belongsToMany(User::class, 'hero_badge');
+	}
 }

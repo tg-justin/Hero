@@ -5,19 +5,21 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    public function up()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('location')->nullable()->after('pronouns');
-            $table->text('public_profile')->nullable()->after('location'); // Change to TEXT and nullable
-        });
-    }
+	public function up()
+	{
+		Schema::table('users', function(Blueprint $table)
+		{
+			$table->string('location')->nullable()->after('pronouns');
+			$table->text('public_profile')->nullable()->after('location'); // Change to TEXT and nullable
+		});
+	}
 
-    public function down()
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['location', 'public_profile']);
-        });
-    }
+	public function down()
+	{
+		Schema::table('users', function(Blueprint $table)
+		{
+			$table->dropColumn(['location', 'public_profile']);
+		});
+	}
 };
 

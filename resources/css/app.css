@@ -2,89 +2,101 @@
 @tailwind components;
 
 @layer base {
-    body {
-        margin: 0 !important;
-    }
-    table:not([cellpadding]) th,
-    table:not([cellpadding]) td {
-        @apply px-6 py-4 !important;; /* Your desired padding using Tailwind classes */
-    }
+	body {
+		margin: 0 !important;
+	}
 
-    .table-seance {
-        @apply min-w-full divide-y divide-seance-200; /* Table container */
-    }
+	table:not([cellpadding]) th,
+	table:not([cellpadding]) td {
+		@apply px-6 py-4 !important;; /* Your desired padding using Tailwind classes */
+	}
 
-    .table-seance thead {
-        @apply bg-seance-800 text-white; /* Table header */
-    }
+	.table-seance {
+		@apply min-w-full divide-y divide-seance-200;
+		/* Table container */
+	}
 
-    .table-seance tbody tr {
-        @apply bg-white; /* Table row (even) */
-    }
+	.table-seance thead {
+		@apply bg-seance-800 text-white;
+		/* Table header */
+	}
 
-    .table-seance tbody tr:nth-child(odd) {
-        @apply bg-gray-50; /* Table row (odd) - for alternating colors */
-    }
+	.table-seance tbody tr {
+		@apply bg-white;
+		/* Table row (even) */
+	}
 
-    .table-seance th,
-    .table-seance td {
-        @apply px-6 py-4 whitespace-nowrap text-sm font-medium; /* Table cell */
-        @apply p-5;
-    }
+	.table-seance tbody tr:nth-child(odd) {
+		@apply bg-gray-50;
+		/* Table row (odd) - for alternating colors */
+	}
 
-    .table-seance th{
-        @apply text-left text-xs uppercase tracking-wider;
-    }
+	.table-seance th,
+	.table-seance td {
+		@apply px-6 py-4 whitespace-nowrap text-sm font-medium;
+		/* Table cell */
+		@apply p-5;
+	}
 
-    .table-seance td{
-        @apply text-slate-800;
-    }
+	.table-seance th {
+		@apply text-left text-xs uppercase tracking-wider;
+	}
+
+	.table-seance td {
+		@apply text-slate-800;
+	}
 }
 
 @layer components {
-    h1 {
-        @apply text-4xl;
-        @apply font-extrabold;
-        @apply mb-4;
-        @apply text-seance-800;
-    }
-    h2 {
-        @apply text-3xl;
-        @apply font-extrabold;
-        @apply mb-4;
-        @apply text-seance-800;
-    }
-    h3 {
-        @apply text-xl;
-        @apply font-bold;
-        @apply mb-4;
-        @apply text-seance-800;
-    }
-    a {
-        @apply text-accent;
-    }
-    a:hover {
-        @apply text-red underline;
-    }
+	h1 {
+		@apply text-4xl;
+		@apply font-extrabold;
+		@apply mb-4;
+		@apply text-seance-800;
+	}
 
-    ul,
-    menu {
-        list-style: disc;
-        @apply pl-4;
-    }
-    ol {
-        list-style: decimal;
-        @apply pl-4;
-    }
-    p {
-        display: block;
-        @apply mb-0;
-        @apply mt-4;
-        @apply leading-relaxed;
-        @apply mr-0;
-        @apply ml-0
+	h2 {
+		@apply text-3xl;
+		@apply font-extrabold;
+		@apply mb-4;
+		@apply text-seance-800;
+	}
 
-    }
+	h3 {
+		@apply text-xl;
+		@apply font-bold;
+		@apply mb-4;
+		@apply text-seance-800;
+	}
+
+	a {
+		@apply text-accent;
+	}
+
+	a:hover {
+		@apply text-red underline;
+	}
+
+	ul,
+	menu {
+		list-style: disc;
+		@apply pl-4;
+	}
+
+	ol {
+		list-style: decimal;
+		@apply pl-4;
+	}
+
+	p {
+		display: block;
+		@apply mb-0;
+		@apply mt-4;
+		@apply leading-relaxed;
+		@apply mr-0;
+		@apply ml-0
+
+	}
 }
 
 @tailwind utilities;

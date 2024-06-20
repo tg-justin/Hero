@@ -1,44 +1,44 @@
 .tg-button-purple, .tg-button-orange, .tg-button-green, .tg-button-gray, .tg-button-purple:hover, .tg-button-orange:hover, .tg-button-green:hover, .tg-button-gray:hover {
-    margin: 0.5rem auto;
-    padding: 0.5rem 1.0rem;
-    text-decoration-line: none;
-    font-weight: 800;
-    border-radius: 0.5rem;
-    text-align: center;
-    display: block;
+	margin: 0.5rem auto;
+	padding: 0.5rem 1.0rem;
+	text-decoration-line: none;
+	font-weight: 800;
+	border-radius: 0.5rem;
+	text-align: center;
+	display: block;
 }
 
 .tg-button-purple {
-    background-color: #9547d6; /*bg-seance-600*/
-    color: #dddddd; /*light-gray*/
+	background-color: #9547d6; /*bg-seance-600*/
+	color: #dddddd; /*light-gray*/
 }
 
 .tg-button-purple:hover {
-    background-color: #8035bb; /*bg-seance-700*/
-    color: #ffffff; /*white*/
+	background-color: #8035bb; /*bg-seance-700*/
+	color: #ffffff; /*white*/
 }
 
 .tg-button-orange {
-    background-color: #f26522; /*bg-orange-500*/
-    color: #dddddd; /*light-gray*/
+	background-color: #f26522; /*bg-orange-500*/
+	color: #dddddd; /*light-gray*/
 }
 
 .tg-button-orange:hover {
-    background-color: #e34813; /*bg-orange-600*/
-    color: #ffffff; /*white*/
+	background-color: #e34813; /*bg-orange-600*/
+	color: #ffffff; /*white*/
 }
 
 .tg-button-green {
-    background-color: #16a34a; /*bg-green-600*/
-    color: #dddddd; /*light-gray*/
+	background-color: #16a34a; /*bg-green-600*/
+	color: #dddddd; /*light-gray*/
 }
 
 .tg-button-green:hover {
-    background-color: #15803d; /*bg-green-700*/
-    color: #ffffff; /*white*/
+	background-color: #15803d; /*bg-green-700*/
+	color: #ffffff; /*white*/
 }
 
 .tg-button-gray, .tg-button-gray:hover {
-    background-color: #d1d5db; /*bg-gray-300*/
-    color: #8035bb; /*bg-seance-600*/
+	background-color: #d1d5db; /*bg-gray-300*/
+	color: #8035bb; /*bg-seance-600*/
 }

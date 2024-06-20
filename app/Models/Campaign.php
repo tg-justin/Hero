@@ -4,20 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Quest;
 
 class Campaign extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'directions_text',
-        'is_active',
-    ];
+	protected $fillable = [
+		'title',
+		'directions_text',
+		'is_active',
+	];
 
-    public function quests()
-    {
-        return $this->hasMany(Quest::class);
-    }
+	public function quests()
+	{
+		return $this->hasMany(Quest::class);
+	}
 }
