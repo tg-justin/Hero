@@ -15,7 +15,7 @@ class QuestForm extends Component
 
 	public $submitButtonText;
 
-	public function __construct($quest = null)
+	public function __construct($quest = NULL)
 	{
 		$this->quest = $quest;
 		$this->categories = Category::all();

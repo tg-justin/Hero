@@ -44,7 +44,7 @@ class PasswordResetTest extends TestCase
 
 			$response->assertStatus(200);
 
-			return true;
+			return TRUE;
 		});
 	}
 
@@ -69,7 +69,7 @@ class PasswordResetTest extends TestCase
 				->assertSessionHasNoErrors()
 				->assertRedirect(route('login'));
 
-			return true;
+			return TRUE;
 		});
 	}
 }

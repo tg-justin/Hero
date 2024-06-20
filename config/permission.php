@@ -75,8 +75,8 @@ return [
 		/*
 		 * Change this if you want to name the related pivots other than defaults
 		 */
-		'role_pivot_key' => null, //default 'role_id',
-		'permission_pivot_key' => null, //default 'permission_id',
+		'role_pivot_key' => NULL, //default 'role_id',
+		'permission_pivot_key' => NULL, //default 'permission_id',
 
 		/*
 		 * Change this if you want to name the related model primary key other than
@@ -101,14 +101,14 @@ return [
 	 * Set this to false if you want to implement custom logic for checking permissions.
 	 */
 
-	'register_permission_check_method' => true,
+	'register_permission_check_method' => TRUE,
 
 	/*
 	 * When set to true, Laravel\Octane\Events\OperationTerminated event listener will be registered
 	 * this will refresh permissions on every TickTerminated, TaskTerminated and RequestTerminated
 	 * NOTE: This should not be needed in most cases, but an Octane/Vapor combination benefited from it.
 	 */
-	'register_octane_reset_listener' => false,
+	'register_octane_reset_listener' => FALSE,
 
 	/*
 	 * Teams Feature.
@@ -120,14 +120,14 @@ return [
 	 * (view the latest version of this package's migration file)
 	 */
 
-	'teams' => false,
+	'teams' => FALSE,
 
 	/*
 	 * Passport Client Credentials Grant
 	 * When set to true the package will use Passports Client to check permissions
 	 */
 
-	'use_passport_client_credentials' => false,
+	'use_passport_client_credentials' => FALSE,
 
 	/*
 	 * When set to true, the required permission names are added to exception messages.
@@ -135,7 +135,7 @@ return [
 	 * setting is false here for optimum safety.
 	 */
 
-	'display_permission_in_exception' => false,
+	'display_permission_in_exception' => FALSE,
 
 	/*
 	 * When set to true, the required role names are added to exception messages.
@@ -143,14 +143,14 @@ return [
 	 * setting is false here for optimum safety.
 	 */
 
-	'display_role_in_exception' => false,
+	'display_role_in_exception' => FALSE,
 
 	/*
 	 * By default wildcard permission lookups are disabled.
 	 * See documentation to understand supported syntax.
 	 */
 
-	'enable_wildcard_permission' => false,
+	'enable_wildcard_permission' => FALSE,
 
 	/*
 	 * The class to use for interpreting wildcard permissions.
