@@ -64,7 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
 	public function completedQuests()
 	{
-		return $this->questLogs()->where('status', 'completed')->with('quest');
+		return $this->questLogs()->where('status', 'Completed')->with('quest');
 	}
 
 	public function questLogs()
@@ -117,7 +117,7 @@ class User extends Authenticatable implements MustVerifyEmail
 	public function totalxp()
 	{
 		return $this->questLogs()
-			->where('status', 'completed') // Only consider completed quests
+			->where('status', 'Completed') // Only consider completed quests
 			->sum(
 				DB::raw('xp_awarded + COALESCE(xp_bonus, 0)') // Sum awarded XP and bonus XP (handle nulls)
 			);

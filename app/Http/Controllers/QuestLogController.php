@@ -54,7 +54,7 @@ class QuestLogController extends Controller
 		// Sorting logic (same as before)
 		$sortBy = $request->get('sort', 'status');
 		$direction = $request->get('direction', 'asc');
-		$questLogsQuery->orderByRaw("FIELD(status, 'requested_exception', 'pending_review', 'accepted', 'completed', 'failed') $direction");
+		$questLogsQuery->orderByRaw("FIELD(status, 'requested_exception', 'Pending Review', 'Accepted', 'Completed', 'failed') $direction");
 
 		// Pagination
 		$questLogs = $questLogsQuery->paginate(15); // 15 items per page
@@ -112,7 +112,7 @@ class QuestLogController extends Controller
 		]);
 
 		$questLog->update([
-			'status' => 'completed',
+			'status' => 'Completed',
 			'completed_at' => now(),
 			'completion_details' => $validatedData['completion_details'],
 		]);
@@ -133,7 +133,7 @@ class QuestLogController extends Controller
 		// Authorize the user (e.g., using a middleware or policy)
 
 		$request->validate([
-			'status' => 'required|in:accepted,requested_exception,in_progress,completed,pending_review,failed', // Add other validation rules as needed
+			'status' => 'required|in:Accepted,Requested Exception,In Progress,Completed,Pending Review,Failed', // Add other validation rules as needed
 		]);
 
 		$questLog->update($request->all());
@@ -141,7 +141,7 @@ class QuestLogController extends Controller
 		// Log activity if bonus xp was updated
 
 		// If we care completing a quest see if the user levels up
-		if ($request->input('status') === 'completed')
+		if ($request->input('status') === 'Completed')
 		{
 			// Check if completed_at has already been set. If so, skip the update
 			if (!$questLog->completed_at)

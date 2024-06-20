@@ -46,7 +46,7 @@ class ProfileController extends Controller
 	{
 		// Check if the user has already finished the hero registration
 
-		if ($request->user()->questLogs()->where('status', 'completed')->count() > 0)
+		if ($request->user()->questLogs()->where('status', 'Completed')->count() > 0)
 		{
 			return redirect()->route('quests.index')
 				->with('success', 'You have already completed the hero registration!
@@ -70,7 +70,7 @@ class ProfileController extends Controller
 		// Find the quest log entry for the first quest and mark it as completed
 		$questLog = $request->user()->questLogs()->first();
 
-		$questLog->status = 'completed';
+		$questLog->status = 'Completed';
 		$questLog->completed_at = now();
 		$questLog->save();
 

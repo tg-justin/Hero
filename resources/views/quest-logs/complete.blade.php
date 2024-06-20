@@ -31,7 +31,7 @@
 					{{--<div class="mb-4">
 						<label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status:</label>
 						<select name="status" id="status" class="form-select w-full">
-							<option value="completed" {{ $questLog->status === 'completed' ? 'selected' : '' }}>Completed</option>
+							<option value="Completed" {{ $questLog->status === 'Completed' ? 'selected' : '' }}>Completed</option>
 						</select>
 					</div>--}}
 

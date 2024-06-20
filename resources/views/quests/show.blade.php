@@ -32,10 +32,10 @@
 							@if (!$questLog || $isEditor)
 								{!!$quest->accept_text !!}
 							@endif
-							@if ($questLog && $questLog->status == 'accepted' || $isEditor)
+							@if ($questLog && $questLog->status == 'Accepted' || $isEditor)
 								{!! $quest->directions_text !!}
 							@endif
-							@if ($questLog && $questLog->status == 'completed' || $isEditor)
+							@if ($questLog && $questLog->status == 'Completed' || $isEditor)
 								{!! $quest->complete_text !!}
 							@endif
 						</div> {{-- QUEST BODY: END --}}
@@ -75,19 +75,19 @@
 								</div>
 							@endif
 
-							@if($questLog && $questLog->status == 'accepted' && $quest->id != 1)
+							@if($questLog && $questLog->status == 'Accepted' && $quest->id != 1)
 								<div class="mx-auto">
 									<a href="{{ route('quest-log.complete-form', $questLog) }}" class="tg-button-green">Complete Quest</a>
 								</div>
 							@endif
 
-							@if($questLog && $questLog->status == 'accepted' && $quest->id == 1)
+							@if($questLog && $questLog->status == 'Accepted' && $quest->id == 1)
 								<div class="mx-auto">
 									<a href="{{ route('profile.hero-registration') }}" class="tg-button-green">Complete Hero Registration</a>
 								</div>
 							@endif
 
-							@if($questLog && $questLog->status == 'completed')
+							@if($questLog && $questLog->status == 'Completed')
 								<div class="mx-auto">
 									<p class="tg-button-gray">Quest Already Completed!</p>
 								</div>

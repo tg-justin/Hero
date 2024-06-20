@@ -232,7 +232,7 @@ class QuestController extends Controller
 				'quest_id' => $quest->id,
 				'xp_awarded' => $quest->xp,
 				'accepted_at' => NOW(),
-				'status' => 'accepted', // Set the initial status to 'accepted'
+				'status' => 'Accepted', // Set the initial status to 'Accepted'
 			]);
 		}
 		else
