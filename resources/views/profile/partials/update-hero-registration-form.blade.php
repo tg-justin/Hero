@@ -12,10 +12,6 @@
 		@endif
 	</header>
 
-	<form id="send-verification" method="post" action="{{ route('verification.send') }}">
-		@csrf
-	</form>
-
 	<form method="POST" action="{{ request()->routeIs('profile.edit') ? route('profile.update-hero-registration') : route('profile.register-hero') }}" class="mt-6 space-y-6">
 		@csrf
 		@method('post')
@@ -25,12 +21,13 @@
 			This information is <strong>visible to other Heroes and may be included in promotional material</strong>.
 			We reserve the right to modify your information for appropriateness. Do not share your exact location, you
 			may leave it blank or enter something regional like "Chicago IL" or "Florida".</p>
-		<div>
-			<x-input-label for="name" class="block text-sm font-medium text-seance-200" :value="__('Hero Name')"/>
-			<x-text-input id="name" name="first_name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" autofocus autocomplete="name"/>
-			<x-input-error class="mt-2" :messages="$errors->get('name')"/>
-		</div>
-
+		@if(request()->routeIs('profile.hero-registration'))
+			<div>
+				<x-input-label for="name" class="block text-sm font-medium text-seance-200" :value="__('Hero Name')"/>
+				<x-text-input id="name" name="first_name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" autofocus autocomplete="name"/>
+				<x-input-error class="mt-2" :messages="$errors->get('name')"/>
+			</div>
+		@endif
 		<div>
 			<x-input-label for="location" class="block text-sm font-medium text-seance-200" :value="__('Location')"/>
 			<x-text-input id="location" name="location" type="text" class="mt-1 block w-full" :value="old('location', $user->location)" autofocus autocomplete="location"/>

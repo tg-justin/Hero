@@ -18,30 +18,38 @@
 			@endif
 
 			{{-- Search and Filter Form --}}
-			<div class="mb-4 bg-white p-4 rounded-md shadow-md">
-				<form action="{{ route('quests.index') }}" method="GET">
-					<div class="flex items-center space-x-4">
-						{{-- <div>
-							 <label for="category" class="block text-sm font-medium text-gray-700">Category:</label>
-							 <select name="category" id="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-								 <option value="">All Categories</option>
-								 @foreach ($categories as $category)
-									 <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-								 @endforeach
-							 </select>
-						 </div>--}}
+			@if(Auth::user()->level > 0)
+				<div class="mb-4 bg-white p-4 rounded-md shadow-md">
+					<form action="{{ route('quests.index') }}" method="GET">
+						<div class="flex items-center space-x-4">
+							{{-- <div>
+								 <label for="category" class="block text-sm font-medium text-gray-700">Category:</label>
+								 <select name="category" id="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+									 <option value="">All Categories</option>
+									 @foreach ($categories as $category)
+										 <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+									 @endforeach
+								 </select>
+							 </div>--}}
 
-						<div class="flex-grow">
-							<label for="search" class="block text-sm font-medium text-gray-700">Search:</label>
-							<input type="text" name="search" id="search" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-								   placeholder="Search by title" value="{{ request('search') }}">
+							<div class="flex-grow">
+								<label for="search" class="block text-sm font-medium text-gray-700">Search:</label>
+								<input type="text" name="search" id="search" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+									   placeholder="Search by title" value="{{ request('search') }}">
+							</div>
+
+							<button type="submit" class="px-4 py-2 bg-seance-700 hover:bg-seance-800 text-white rounded-md"> Search</button>
 						</div>
-
-						<button type="submit" class="px-4 py-2 bg-seance-700 hover:bg-seance-800 text-white rounded-md"> Search</button>
-					</div>
-				</form>
-			</div>
-
+					</form>
+				</div>
+			@else
+				<div class="mb-4 bg-white p-4 rounded-md shadow-md">
+					<h3>Welcome Hero!</h3>
+					<p class="">Greetings, {{ Auth::user()->name }}!
+						</p>
+					<p>We've been expecting you. Take a look around the quest board and select a task that speaks to your heart. Your legend awaits!</p>
+				</div>
+			@endif
 			{{-- Quest Table --}}
 			<div class="overflow-hidden shadow-xl ">
 				<div class="overflow-x-auto shadow-xl rounded-lg">

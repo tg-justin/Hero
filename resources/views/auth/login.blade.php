@@ -24,6 +24,7 @@
 			<x-input-error :messages="$errors->get('password')" class="mt-2"/>
 		</div>
 
+
 		<!-- Remember Me -->
 		<div class="block mt-4">
 			<label for="remember_me" class="inline-flex items-center">
@@ -31,19 +32,23 @@
 					   name="remember">
 				<span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
 			</label>
+			<x-primary-button class="float-right ms-3">
+				{{ __('Log in') }}
+			</x-primary-button>
 		</div>
 
-		<div class="flex items-center justify-end mt-4">
+		<div class="mt-4">
+			<a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+				dark:focus:ring-offset-gray-800"
+			   href="{{ route('register') }}" class="text-indigo-600 hover:text-indigo-900">Don't have an account?</a>
 			@if (Route::has('password.request'))
-				<a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+				<a class="float-right underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+				dark:focus:ring-offset-gray-800"
 				   href="{{ route('password.request') }}">
 					{{ __('Forgot your password?') }}
 				</a>
 			@endif
 
-			<x-primary-button class="ms-3">
-				{{ __('Log in') }}
-			</x-primary-button>
 		</div>
 	</form>
 </x-guest-layout>
