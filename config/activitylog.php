@@ -7,7 +7,7 @@ return [
 	/*
 	 * If set to false, no activities will be saved to the database.
 	 */
-	'enabled' => env('ACTIVITY_LOGGER_ENABLED', true),
+	'enabled' => env('ACTIVITY_LOGGER_ENABLED', TRUE),
 
 	/*
 	 * When the clean-command is executed, all recording activities older than
@@ -25,12 +25,12 @@ return [
 	 * You can specify an auth driver here that gets user models.
 	 * If this is null we'll use the current Laravel auth driver.
 	 */
-	'default_auth_driver' => null,
+	'default_auth_driver' => NULL,
 
 	/*
 	 * If set to true, the subject returns soft deleted models.
 	 */
-	'subject_returns_soft_deleted_models' => false,
+	'subject_returns_soft_deleted_models' => FALSE,
 
 	/*
 	 * This model will be used to log activity.

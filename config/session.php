@@ -34,7 +34,7 @@ return [
 
 	'lifetime' => env('SESSION_LIFETIME', 120),
 
-	'expire_on_close' => env('SESSION_EXPIRE_ON_CLOSE', false),
+	'expire_on_close' => env('SESSION_EXPIRE_ON_CLOSE', FALSE),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -47,7 +47,7 @@ return [
 	|
 	*/
 
-	'encrypt' => env('SESSION_ENCRYPT', false),
+	'encrypt' => env('SESSION_ENCRYPT', FALSE),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -182,7 +182,7 @@ return [
 	|
 	*/
 
-	'http_only' => env('SESSION_HTTP_ONLY', true),
+	'http_only' => env('SESSION_HTTP_ONLY', TRUE),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -212,6 +212,6 @@ return [
 	|
 	*/
 
-	'partitioned' => env('SESSION_PARTITIONED_COOKIE', false),
+	'partitioned' => env('SESSION_PARTITIONED_COOKIE', FALSE),
 
 ];

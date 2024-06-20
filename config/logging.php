@@ -33,7 +33,7 @@ return [
 
 	'deprecations' => [
 		'channel' => env('LOG_DEPRECATIONS_CHANNEL', 'null'),
-		'trace' => env('LOG_DEPRECATIONS_TRACE', false),
+		'trace' => env('LOG_DEPRECATIONS_TRACE', FALSE),
 	],
 
 	/*
@@ -55,14 +55,14 @@ return [
 		'stack' => [
 			'driver' => 'stack',
 			'channels' => explode(',', env('LOG_STACK', 'single')),
-			'ignore_exceptions' => false,
+			'ignore_exceptions' => FALSE,
 		],
 
 		'single' => [
 			'driver' => 'single',
 			'path' => storage_path('logs/laravel.log'),
 			'level' => env('LOG_LEVEL', 'debug'),
-			'replace_placeholders' => true,
+			'replace_placeholders' => TRUE,
 		],
 
 		'daily' => [
@@ -70,7 +70,7 @@ return [
 			'path' => storage_path('logs/laravel.log'),
 			'level' => env('LOG_LEVEL', 'debug'),
 			'days' => env('LOG_DAILY_DAYS', 14),
-			'replace_placeholders' => true,
+			'replace_placeholders' => TRUE,
 		],
 
 		'slack' => [
@@ -79,7 +79,7 @@ return [
 			'username' => env('LOG_SLACK_USERNAME', 'Laravel Log'),
 			'emoji' => env('LOG_SLACK_EMOJI', ':boom:'),
 			'level' => env('LOG_LEVEL', 'critical'),
-			'replace_placeholders' => true,
+			'replace_placeholders' => TRUE,
 		],
 
 		'papertrail' => [
@@ -109,13 +109,13 @@ return [
 			'driver' => 'syslog',
 			'level' => env('LOG_LEVEL', 'debug'),
 			'facility' => env('LOG_SYSLOG_FACILITY', LOG_USER),
-			'replace_placeholders' => true,
+			'replace_placeholders' => TRUE,
 		],
 
 		'errorlog' => [
 			'driver' => 'errorlog',
 			'level' => env('LOG_LEVEL', 'debug'),
-			'replace_placeholders' => true,
+			'replace_placeholders' => TRUE,
 		],
 
 		'null' => [

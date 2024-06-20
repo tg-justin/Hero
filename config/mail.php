@@ -45,7 +45,7 @@ return [
 			'encryption' => env('MAIL_ENCRYPTION', 'tls'),
 			'username' => env('MAIL_USERNAME'),
 			'password' => env('MAIL_PASSWORD'),
-			'timeout' => null,
+			'timeout' => NULL,
 			'local_domain' => env('MAIL_EHLO_DOMAIN'),
 		],
 
@@ -59,9 +59,9 @@ return [
 			'auth_mode' => 'oauth2', // Add this line
 			'stream' => [
 				'ssl' => [
-					'allow_self_signed' => true,
-					'verify_peer' => false,
-					'verify_peer_name' => false,
+					'allow_self_signed' => TRUE,
+					'verify_peer' => FALSE,
+					'verify_peer_name' => FALSE,
 				],
 			],
 		],
