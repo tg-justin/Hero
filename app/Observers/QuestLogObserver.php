@@ -9,7 +9,7 @@ class QuestLogObserver
 {
 	public function updated(QuestLog $questLog)
 	{
-		if ($questLog->wasChanged('status') && $questLog->status === 'Completed')
+		if ($questLog->wasChanged('status') && $questLog->status === 'completed')
 		{
 			$hero = $questLog->user;
 
