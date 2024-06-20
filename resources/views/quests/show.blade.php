@@ -7,7 +7,7 @@
 
 	@php
 		$user = Auth::user();
-		$questLog = $user->questLogs()->where('quest_id', $quest->id)->first() ?? null;
+		$questLog = $user->questLogs()->where('quest_id', $quest->id)->first() ?? NULL;
 		$userLevel = $user->level;
 		$questLevel = $quest->min_level;
 		$isEditor = ($user->hasRole('manager') || $user->hasRole('admin'));
@@ -48,7 +48,7 @@
 							@if ($quest->bonus_xp_text)
 								<p><span class="text-lg font-semibold text-seance-800">Bonus XP:</span> {{ strip_tags($quest->bonus_xp_text) }}</p>
 							@endif
-							@if(false)
+							@if(FALSE)
 								<p><span class="font-semibold">Category:</span> {{ $quest->category->name }}</p>
 							@endif
 							@if ($quest->campaign)

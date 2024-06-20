@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\QuestLog;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class QuestLogController extends Controller
 {

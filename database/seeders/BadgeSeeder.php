@@ -44,25 +44,25 @@ class BadgeSeeder extends Seeder
 				'name' => 'Dragon Slayer',
 				'slug' => 'dragon-slayer',
 				'description' => 'Defeated a dragon in a quest.(Completed a quest worth more than 500 xp.)',
-				'level_requirement' => null,
+				'level_requirement' => NULL,
 			],
 			[
 				'name' => 'Treasure Hunter',
 				'slug' => 'treasure-hunter',
 				'description' => 'Discovered 5 hidden treasures. (Claimed 5 rewards.)',
-				'level_requirement' => null,
+				'level_requirement' => NULL,
 			],
 			[
 				'name' => 'Loremaster',
 				'slug' => 'loremaster',
 				'description' => 'Completed 5 guide writing quests.',
-				'level_requirement' => null,
+				'level_requirement' => NULL,
 			],
 			[
 				'name' => 'Swift Strider',
 				'slug' => 'swift-strider',
 				'description' => 'Completed a quest in record time.(Months before the deadline.)',
-				'level_requirement' => null,
+				'level_requirement' => NULL,
 			],
 		];
 

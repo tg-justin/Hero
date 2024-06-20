@@ -20,7 +20,7 @@ return new class extends Migration {
 		{
 			throw new Exception('Error: config/permission.php not loaded. Run [php artisan config:clear] and try again.');
 		}
-		if ($teams && empty($columnNames['team_foreign_key'] ?? null))
+		if ($teams && empty($columnNames['team_foreign_key'] ?? NULL))
 		{
 			throw new Exception('Error: team_foreign_key on config/permission.php not loaded. Run [php artisan config:clear] and try again.');
 		}
@@ -131,7 +131,7 @@ return new class extends Migration {
 		});
 
 		app('cache')
-			->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
+			->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : NULL)
 			->forget(config('permission.cache.key'));
 	}
 

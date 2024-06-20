@@ -19,7 +19,7 @@ class QuestSeeder extends Seeder
 				'category_id' => 1,
 				'min_level' => 0,
 				'repeatable' => 0,
-				'expires_date' => null, // This quest doesn't expire
+				'expires_date' => NULL, // This quest doesn't expire
 			],
 			[
 				'user_id' => 1, // Assuming the admin user has an ID of 1
