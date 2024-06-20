@@ -1,6 +1,6 @@
 <x-guest-layout>
 	<div class="py-12 bg-cover bg-center">
-		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+		<div class="max-w-7xl mx-auto px-2 lg:px-8">
 			<div class="text-center mb-8"> {{-- Welcome Message Section --}}
 				<h1 class="text-4xl md:text-5xl font-extrabold text-seance-800 dark:text-seance-800 mb-4">Welcome to Tabletop Gaymers</h1>
 				<p class="text-lg md:text-xl text-seance-700 dark:text-seance-700">A place for LGBTQ+ gamers and allies to connect, quest, and build community.</p>

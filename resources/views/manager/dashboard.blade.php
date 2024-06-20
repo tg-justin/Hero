@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12 bg-cover bg-center">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-2 lg:px-8">
 
             {{-- Key Statistics --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -40,26 +40,25 @@
             {{-- Top Heroes --}}
             <div class="bg-white overflow-hidden shadow-xl rounded-lg">
                 <h2 class="text-xl font-semibold px-6 py-3 bg-seance-800 text-white">Top Heroes</h2>
-                <table class="min-w-full divide-y divide-seance-200">
+                <table class="table-seance">
                     <thead class="bg-seance-800 text-white">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Hero</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Level</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Quests Completed
+                        <th class="tracking-wider">Hero</th>
+                        <th class="tracking-wider">Level</th>
+                        <th class="tracking-wider">Quests Completed
                         </th>
                     </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-slate-200">
+                    <tbody>
                     @foreach ($topHeroes as $hero)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-800">
-                                <a href="{{ route('manager.quest-logs', $hero) }}"
-                                   class="text-seance-600 hover:text-seance-700">
+                            <td>
+                                <a href="{{ route('manager.quest-logs', $hero) }}">
                                     {{ $hero->name }}
                                 </a>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $hero->level }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $hero->quest_logs_count }}</td>
+                            <td>{{ $hero->level }}</td>
+                            <td>{{ $hero->quest_logs_count }}</td>
                         </tr>
                     @endforeach
                     </tbody>

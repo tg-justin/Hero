@@ -32,10 +32,10 @@
 								</div>
 							@endif
 
-							@if ($exceptionRequests->count() > 0)
-								<h3 class="text-lg font-semibold mt-8 mb-4">Exception Requests</h3>
+							@if ($pendingReview->count() > 0)
+								<h3 class="text-lg font-semibold mt-8 mb-4">Pending Review</h3>
 								<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-									@foreach ($exceptionRequests as $questLog)
+									@foreach ($pendingReview as $questLog)
 										<x-quest-card :quest="$questLog->quest" :questLog="$questLog" :statusColor="$questLog->statusColor"/>
 									@endforeach
 								</div>

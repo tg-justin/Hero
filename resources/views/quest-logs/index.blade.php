@@ -5,7 +5,7 @@
 		</h2>
 	</x-slot>
 	<div class="py-12 bg-cover bg-center">
-		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+		<div class="max-w-7xl mx-auto px-2 lg:px-8">
 			{{-- Display success message --}}
 			@if (session('success'))
 				<div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-md" role="alert">
@@ -33,7 +33,7 @@
 										<a href="{{ route('quests.show', $questLog->quest->id) }}">{{ $questLog->quest->title }}</a>
 									</td>
 									<td>
-										<span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-slate-600 rounded {{ $questLog->statusColor }}">{{$questLog->status }}</span>
+										<span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-slate-200 rounded {{ $questLog->statusColor }}">{{$questLog->status }}</span>
 									</td>
 									<td class="hidden md:table-cell">{{ $questLog->xp_awarded }}</td>
 									<td class="hidden md:table-cell">{{ $questLog->xp_bonus }}</td>

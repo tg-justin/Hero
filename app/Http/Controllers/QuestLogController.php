@@ -21,30 +21,30 @@ class QuestLogController extends Controller
 		$user = $request->user();
 
 		// Eager load quest log entries with associated quest data
-		$acceptedQuests = auth()->user()->questLogs()->where('status', 'accepted')->with('quest')->get();
-		$exceptionRequests = auth()->user()->questLogs()->where('status', 'requested_exception')->with('quest')->get();
-		$completedQuests = auth()->user()->questLogs()->where('status', 'completed')->with('quest')->get();
+		$acceptedQuests = auth()->user()->questLogs()->where('status', 'Accepted')->with('quest')->get();
+		$pendingReview = auth()->user()->questLogs()->where('status', 'Pending Review')->with('quest')->get();
+		$completedQuests = auth()->user()->questLogs()->where('status', 'Completed')->with('quest')->get();
 
 		// Add statusColor to each questLog
 		$acceptedQuests = $acceptedQuests->map(function($questLog)
 		{
-			$questLog->statusColor = 'bg-seance-200';
+			$questLog->statusColor = 'bg-seance-600';
 			return $questLog;
 		});
 
-		$exceptionRequests = $exceptionRequests->map(function($questLog)
+		$exceptionRequests = $pendingReview->map(function($questLog)
 		{
-			$questLog->statusColor = 'bg-yellow-200';
+			$questLog->statusColor = 'bg-blue-600';
 			return $questLog;
 		});
 
 		$completedQuests = $completedQuests->map(function($questLog)
 		{ // Changed $quest to $questLog
-			$questLog->statusColor = 'bg-green-200';
+			$questLog->statusColor = 'bg-green-600';
 			return $questLog;
 		});
 
-		return view('quest-logs.quest-log', compact('acceptedQuests', 'exceptionRequests', 'completedQuests', 'user'));
+		return view('quest-logs.quest-log', compact('acceptedQuests', 'pendingReview', 'completedQuests', 'user'));
 	}
 
 	public function indexForUser(User $user, Request $request)
@@ -73,12 +73,12 @@ class QuestLogController extends Controller
 	{
 		return match ($status)
 		{
-			'pending-review' => 'bg-blue-200', // Added bg-
-			'completed' => 'bg-green-200',  // Added bg-
-			'failed' => 'bg-red-200',      // Added bg-
-			'requested_exception' => 'bg-yellow-200',  // Added bg- (if applicable)
-			'accepted' => 'bg-seance-200',  // Assuming 'seance' is defined in your config
-			default => 'bg-gray-200',      // Added bg-
+			'Pending Review' => 'bg-blue-600', // Added bg-
+			'Completed' => 'bg-green-600',  // Added bg-
+			'FAiled' => 'bg-red-600',      // Added bg-
+			'Requested Exception' => 'bg-yellow-600',  // Added bg- (if applicable)
+			'Accepted' => 'bg-seance-600',  // Assuming 'seance' is defined in your config
+			default => 'bg-gray-600',      // Added bg-
 		};
 	}
 

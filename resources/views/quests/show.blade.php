@@ -14,7 +14,7 @@
 	@endphp
 
 	<div class="py-12 bg-cover bg-center"> {{-- BODY_A: BEGIN --}}
-		<div class="max-w-7xl mx-auto px-6 lg:px-8"> {{-- BODY_B: BEGIN --}}
+		<div class="max-w-7xl mx-auto px-2 lg:px-8"> {{-- BODY_B: BEGIN --}}
 
 			{{-- Display success message --}}
 			@if (session('success'))

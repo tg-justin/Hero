@@ -5,7 +5,7 @@
 		</h2>
 	</x-slot>
 
-	<div class="max-w-7xl mx-auto px-6 lg:px-8">
+	<div class="max-w-7xl mx-auto px-2 lg:px-8">
 		<div class="py-12 bg-cover bg-center">
 			{{-- Search Form --}}
 			<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 p-6 text-gray-900">
@@ -32,32 +32,32 @@
 			</div>
 			<div class="bg-white overflow-hidden shadow-xl rounded-lg">
 				<div class="overflow-x-auto shadow-xl rounded-lg">
-					<table class="min-w-full divide-y divide-seance-200">
-						<thead class="bg-seance-800 text-white">
+					<table class="table-seance">
+						<thead>
 						<tr>
-							<th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Name</th>
-							<th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Email</th>
-							<th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Role</th>
-							<th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Last Login</th>
-							<th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Actions</th>
+							<th class="tracking-wider">Name</th>
+							<th class="tracking-wider">Email</th>
+							<th class="tracking-wider">Role</th>
+							<th class="tracking-wider">Last Login</th>
+							<th class="tracking-wider">Actions</th>
 						</tr>
 						</thead>
-						<tbody class="bg-white divide-y divide-slate-200">
+						<tbody>
 						@foreach ($heroes as $hero)
 							<tr>
-								<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-800">
+								<td>
 									@if($hero->hasRole('hero'))
-										<a href="{{ route('manager.quest-logs', ['user' => $hero->id]) }}" class="text-seance-600 hover:text-seance-700">
+										<a href="{{ route('manager.quest-logs', ['user' => $hero->id]) }}">
 											{{ $hero->name }}
 										</a>
 									@else
 										{{ $hero->name }}
 									@endif
 								</td>
-								<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ $hero->email }}</td>
-								<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">{{ ucwords(trim($hero->roles->pluck('name')->implode(', '))) }}
+								<td>{{ $hero->email }}</td>
+								<td>{{ ucwords(trim($hero->roles->pluck('name')->implode(', '))) }}
 								</td>
-								<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">
+								<td>
 									{{--TODO idk how this variable works--}}
 									{{-- @if (!$hero->is_active)
 										 Active
@@ -66,7 +66,7 @@
 									 @endif--}}
 									{{ $hero->last_login_at }}
 								</td>
-								<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+								<td>
 									@if($hero->hasRole('hero') && !$hero->hasRole('manager'))
 										<form action="{{ route('heroes.promote', $hero->id) }}" method="POST" class="inline">
 											@csrf

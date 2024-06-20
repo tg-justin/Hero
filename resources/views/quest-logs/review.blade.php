@@ -7,7 +7,7 @@
 	</x-slot>
 
 	<div class="py-12 bg-cover bg-center">
-		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+		<div class="max-w-7xl mx-auto px-2 lg:px-8">
 			<x-hero-profile :user="$questLog->user"/>
 			<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
 				<h3 class="text-lg font-semibold mb-2">Quest Log Details</h3>
