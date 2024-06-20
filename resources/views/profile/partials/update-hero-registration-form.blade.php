@@ -21,6 +21,7 @@
 			This information is <strong>visible to other Heroes and may be included in promotional material</strong>.
 			We reserve the right to modify your information for appropriateness. Do not share your exact location, you
 			may leave it blank or enter something regional like "Chicago IL" or "Florida".</p>
+
 		@if(request()->routeIs('profile.hero-registration'))
 			<div>
 				<x-input-label for="name" class="block text-sm font-medium " :value="__('Hero Name')"/>
@@ -28,6 +29,7 @@
 				<x-input-error class="mt-2" :messages="$errors->get('name')"/>
 			</div>
 		@endif
+
 		<div>
 			<x-input-label for="location" class="block text-sm font-medium" :value="__('Location')"/>
 			<x-text-input id="location" name="location" type="text" class="mt-1 block w-full" :value="old('location', $user->location)" autofocus autocomplete="location"/>
@@ -35,10 +37,17 @@
 		</div>
 
 		<div>
-			<x-input-label for="public_profile" class="block text-sm font-medium " :value="__('Public Profile')"/>
-			<x-text-input id="public_profile" name="public_profile" type="text" class="mt-1 block w-full" :value="old('public_profile', $user->public_profile)" autofocus autocomplete="public_profile"/>
-			<x-input-error class="mt-2" :messages="$errors->get('location')"/>
+			<x-input-label for="public_profile" class="block text-sm font-medium" :value="__('Public Profile')"/>
+			<textarea id="public_profile" name="public_profile"
+					  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">{{ old('public_profile', $user->public_profile) }}</textarea>
+			<x-input-error class="mt-2" :messages="$errors->get('public_profile')"/>
 		</div>
+
+{{--		<div>--}}
+{{--			<x-input-label for="public_profile" class="block text-sm font-medium " :value="__('Public Profile')"/>--}}
+{{--			<x-text-input id="public_profile" name="public_profile" type="text" class="mt-1 block w-full" :value="old('public_profile', $user->public_profile)" autofocus autocomplete="public_profile"/>--}}
+{{--			<x-input-error class="mt-2" :messages="$errors->get('location')"/>--}}
+{{--		</div>--}}
 
 		<h3>Personal Information</h3>
 		<p class="mt-2 text-mm">
