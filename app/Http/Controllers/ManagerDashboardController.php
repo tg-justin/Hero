@@ -28,18 +28,18 @@ class ManagerDashboardController extends Controller
 
 		$unacceptedQuests = Quest::doesntHave('questLogs')->count();
 
-		$unreviewedQuestLogs = QuestLog::where('status', 'pending_review')->count();
+		$unreviewedQuestLogs = QuestLog::where('status', 'Pending Review')->count();
 
-		$questsCompletedToday = QuestLog::where('status', 'completed')
+		$questsCompletedToday = QuestLog::where('status', 'Completed')
 			->whereDate('completed_at', $today)
 			->count();
 		/*dd($questsCompletedThisWeekQuery, $questsCompletedThisWeekQuery->getBindings());*/
 
-		$questsCompletedThisWeek = QuestLog::where('status', 'completed')
+		$questsCompletedThisWeek = QuestLog::where('status', 'Completed')
 			->whereBetween('completed_at', [$startOfWeek, $today])
 			->count();
 
-		$questsCompletedThisMonth = QuestLog::where('status', 'completed')
+		$questsCompletedThisMonth = QuestLog::where('status', 'Completed')
 			->whereBetween('completed_at', [$startOfMonth, $today])
 			->count();
 
@@ -64,7 +64,7 @@ class ManagerDashboardController extends Controller
 		$sortBy = $request->query('sort_by', 'completed_at'); // Default sorting by completed_at
 		$sortDirection = $request->query('sort_direction', 'asc'); // Default ascending order
 
-		$questLogs = QuestLog::where('status', 'pending_review')
+		$questLogs = QuestLog::where('status', 'Pending Review')
 			->orderBy($sortBy, $sortDirection)
 			->paginate(10);
 

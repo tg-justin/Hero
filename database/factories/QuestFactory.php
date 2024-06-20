@@ -50,7 +50,7 @@ class QuestFactory extends Factory
 	public function completed()
 	{
 		return $this->state([
-			'status' => 'completed',
+			'status' => 'Completed',
 		]);
 	}
 	// You can add more states here for different quest types or statuses

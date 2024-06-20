@@ -7,7 +7,7 @@
 	</x-slot>
 
 	<div class="py-12 bg-cover bg-center">
-		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+		<div class="max-w-7xl mx-auto px-2 lg:px-8">
 			@if (session('success'))
 				<div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-md" role="alert">
 					<p class="m-0">{{ session('success') }}</p>

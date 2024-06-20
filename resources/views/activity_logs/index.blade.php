@@ -6,7 +6,7 @@
 	</x-slot>
 
 	<div class="py-12 bg-cover bg-center">
-		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+		<div class="max-w-7xl mx-auto px-2 lg:px-8">
 			<div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6">
 				<h3 class="text-2xl font-semibold text-seance-200 mb-4">Recent Happenings in the Realm</h3>
 				<div class="overflow-x-auto shadow-xl rounded-lg">

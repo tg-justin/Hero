@@ -23,7 +23,7 @@ class CreateCampaignsTable extends Migration
 			$table->id();
 			$table->string('title');
 			$table->text('directions_text')->nullable();
-			$table->boolean('is_active')->default(true);
+			$table->boolean('is_active')->default(TRUE);
 			$table->timestamps();
 		});
 	}

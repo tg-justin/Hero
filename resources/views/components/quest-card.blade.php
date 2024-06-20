@@ -17,7 +17,7 @@
 			View Quest
 		</a>
 
-		{{--        @if (!is_null($questLog) && $questLog->status === 'accepted')--}}
+		{{--        @if (!is_null($questLog) && $questLog->status === 'Accepted')--}}
 		{{--            @if($quest->id == 1)--}}
 		{{--                <a href="{{ route('profile.hero-registration') }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md">--}}
 		{{--                    Hero Registration--}}

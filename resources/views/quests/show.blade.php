@@ -7,14 +7,14 @@
 
 	@php
 		$user = Auth::user();
-		$questLog = $user->questLogs()->where('quest_id', $quest->id)->first() ?? null;
+		$questLog = $user->questLogs()->where('quest_id', $quest->id)->first() ?? NULL;
 		$userLevel = $user->level;
 		$questLevel = $quest->min_level;
 		$isEditor = ($user->hasRole('manager') || $user->hasRole('admin'));
 	@endphp
 
 	<div class="py-12 bg-cover bg-center"> {{-- BODY_A: BEGIN --}}
-		<div class="max-w-7xl mx-auto px-6 lg:px-8"> {{-- BODY_B: BEGIN --}}
+		<div class="max-w-7xl mx-auto px-2 lg:px-8"> {{-- BODY_B: BEGIN --}}
 
 			{{-- Display success message --}}
 			@if (session('success'))
@@ -32,10 +32,10 @@
 							@if (!$questLog || $isEditor)
 								{!!$quest->accept_text !!}
 							@endif
-							@if ($questLog && $questLog->status == 'accepted' || $isEditor)
+							@if ($questLog && $questLog->status == 'Accepted' || $isEditor)
 								{!! $quest->directions_text !!}
 							@endif
-							@if ($questLog && $questLog->status == 'completed' || $isEditor)
+							@if ($questLog && $questLog->status == 'Completed' || $isEditor)
 								{!! $quest->complete_text !!}
 							@endif
 						</div> {{-- QUEST BODY: END --}}
@@ -48,7 +48,7 @@
 							@if ($quest->bonus_xp_text)
 								<p><span class="text-lg font-semibold text-seance-800">Bonus XP:</span> {{ strip_tags($quest->bonus_xp_text) }}</p>
 							@endif
-							@if(false)
+							@if(FALSE)
 								<p><span class="font-semibold">Category:</span> {{ $quest->category->name }}</p>
 							@endif
 							@if ($quest->campaign)
@@ -75,19 +75,19 @@
 								</div>
 							@endif
 
-							@if($questLog && $questLog->status == 'accepted' && $quest->id != 1)
+							@if($questLog && $questLog->status == 'Accepted' && $quest->id != 1)
 								<div class="mx-auto">
 									<a href="{{ route('quest-log.complete-form', $questLog) }}" class="tg-button-green">Complete Quest</a>
 								</div>
 							@endif
 
-							@if($questLog && $questLog->status == 'accepted' && $quest->id == 1)
+							@if($questLog && $questLog->status == 'Accepted' && $quest->id == 1)
 								<div class="mx-auto">
 									<a href="{{ route('profile.hero-registration') }}" class="tg-button-green">Complete Hero Registration</a>
 								</div>
 							@endif
 
-							@if($questLog && $questLog->status == 'completed')
+							@if($questLog && $questLog->status == 'Completed')
 								<div class="mx-auto">
 									<p class="tg-button-gray">Quest Already Completed!</p>
 								</div>

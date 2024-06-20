@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\QuestLog;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class QuestLogController extends Controller
 {
@@ -20,30 +21,30 @@ class QuestLogController extends Controller
 		$user = $request->user();
 
 		// Eager load quest log entries with associated quest data
-		$acceptedQuests = auth()->user()->questLogs()->where('status', 'accepted')->with('quest')->get();
-		$exceptionRequests = auth()->user()->questLogs()->where('status', 'requested_exception')->with('quest')->get();
-		$completedQuests = auth()->user()->questLogs()->where('status', 'completed')->with('quest')->get();
+		$acceptedQuests = auth()->user()->questLogs()->where('status', 'Accepted')->with('quest')->get();
+		$pendingReview = auth()->user()->questLogs()->where('status', 'Pending Review')->with('quest')->get();
+		$completedQuests = auth()->user()->questLogs()->where('status', 'Completed')->with('quest')->get();
 
 		// Add statusColor to each questLog
 		$acceptedQuests = $acceptedQuests->map(function($questLog)
 		{
-			$questLog->statusColor = 'bg-seance-200';
+			$questLog->statusColor = 'bg-seance-600';
 			return $questLog;
 		});
 
-		$exceptionRequests = $exceptionRequests->map(function($questLog)
+		$exceptionRequests = $pendingReview->map(function($questLog)
 		{
-			$questLog->statusColor = 'bg-yellow-200';
+			$questLog->statusColor = 'bg-blue-600';
 			return $questLog;
 		});
 
 		$completedQuests = $completedQuests->map(function($questLog)
 		{ // Changed $quest to $questLog
-			$questLog->statusColor = 'bg-green-200';
+			$questLog->statusColor = 'bg-green-600';
 			return $questLog;
 		});
 
-		return view('quest-logs.quest-log', compact('acceptedQuests', 'exceptionRequests', 'completedQuests', 'user'));
+		return view('quest-logs.quest-log', compact('acceptedQuests', 'pendingReview', 'completedQuests', 'user'));
 	}
 
 	public function indexForUser(User $user, Request $request)
@@ -53,7 +54,7 @@ class QuestLogController extends Controller
 		// Sorting logic (same as before)
 		$sortBy = $request->get('sort', 'status');
 		$direction = $request->get('direction', 'asc');
-		$questLogsQuery->orderByRaw("FIELD(status, 'requested_exception', 'pending_review', 'accepted', 'completed', 'failed') $direction");
+		$questLogsQuery->orderByRaw("FIELD(status, 'requested_exception', 'Pending Review', 'Accepted', 'Completed', 'failed') $direction");
 
 		// Pagination
 		$questLogs = $questLogsQuery->paginate(15); // 15 items per page
@@ -72,12 +73,12 @@ class QuestLogController extends Controller
 	{
 		return match ($status)
 		{
-			'pending-review' => 'bg-blue-200', // Added bg-
-			'completed' => 'bg-green-200',  // Added bg-
-			'failed' => 'bg-red-200',      // Added bg-
-			'requested_exception' => 'bg-yellow-200',  // Added bg- (if applicable)
-			'accepted' => 'bg-seance-200',  // Assuming 'seance' is defined in your config
-			default => 'bg-gray-200',      // Added bg-
+			'Pending Review' => 'bg-blue-600', // Added bg-
+			'Completed' => 'bg-green-600',  // Added bg-
+			'FAiled' => 'bg-red-600',      // Added bg-
+			'Requested Exception' => 'bg-yellow-600',  // Added bg- (if applicable)
+			'Accepted' => 'bg-seance-600',  // Assuming 'seance' is defined in your config
+			default => 'bg-gray-600',      // Added bg-
 		};
 	}
 
@@ -111,7 +112,7 @@ class QuestLogController extends Controller
 		]);
 
 		$questLog->update([
-			'status' => 'completed',
+			'status' => 'Completed',
 			'completed_at' => now(),
 			'completion_details' => $validatedData['completion_details'],
 		]);
@@ -132,7 +133,7 @@ class QuestLogController extends Controller
 		// Authorize the user (e.g., using a middleware or policy)
 
 		$request->validate([
-			'status' => 'required|in:accepted,requested_exception,in_progress,completed,pending_review,failed', // Add other validation rules as needed
+			'status' => 'required|in:Accepted,Requested Exception,In Progress,Completed,Pending Review,Failed', // Add other validation rules as needed
 		]);
 
 		$questLog->update($request->all());
@@ -140,7 +141,7 @@ class QuestLogController extends Controller
 		// Log activity if bonus xp was updated
 
 		// If we care completing a quest see if the user levels up
-		if ($request->input('status') === 'completed')
+		if ($request->input('status') === 'Completed')
 		{
 			// Check if completed_at has already been set. If so, skip the update
 			if (!$questLog->completed_at)

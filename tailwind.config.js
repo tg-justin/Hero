@@ -9,11 +9,11 @@ export default {
 		'./resources/views/**/*.blade.php',
 	],
 	safelist: [
-		'bg-blue-200',
-		'bg-green-200',
+		'bg-blue-600',
+		'bg-green-600',
 		'bg-red-200',
-		'bg-yellow-200',
-		'bg-seance-200',
+		'bg-yellow-600',
+		'bg-seance-600',
 	],
 	darkMode: 'class',  // Use 'class' strategy for dark mode
 	theme: {

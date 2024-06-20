@@ -47,11 +47,11 @@ class HeroController extends Controller
 	{
 		return match ($status)
 		{
-			'in_progress' => 'bg-blue-200',
-			'completed' => 'bg-green-200',
+			'In Progress' => 'bg-blue-200',
+			'Completed' => 'bg-green-200',
 			'failed' => 'bg-red-200',
-			'expired' => 'bg-yellow-200',
-			'accepted' => 'bg-seance-200',  // Assuming 'seance' is defined in your config
+			'Expired' => 'bg-yellow-200',
+			'Accepted' => 'bg-seance-200',  // Assuming 'seance' is defined in your config
 			default => 'bg-gray-200',
 		};
 	}

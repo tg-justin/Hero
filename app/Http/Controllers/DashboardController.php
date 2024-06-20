@@ -25,7 +25,7 @@ class DashboardController extends Controller
 			->orderByDesc(
 				QuestLog::select(DB::raw('sum(xp_awarded + COALESCE(xp_bonus, 0)) as total_xp'))
 					->whereColumn('user_id', 'users.id') // Make sure you're comparing with users.id from the main query
-					->where('status', 'completed')
+					->where('status', 'Completed')
 					->limit(1)
 			)
 			->take(5)
@@ -40,7 +40,7 @@ class DashboardController extends Controller
 			->orderByDesc(
 				QuestLog::select(DB::raw('sum(xp_awarded + COALESCE(xp_bonus, 0)) as total_xp'))
 					->whereColumn('user_id', 'users.id') // Make sure you're comparing with users.id from the main query
-					->where('status', 'completed')
+					->where('status', 'Completed')
 					->limit(1)
 			)
 			->get();
