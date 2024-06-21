@@ -29,16 +29,17 @@ import 'tinymce/plugins/visualblocks';
 import 'tinymce/plugins/fullscreen';
 // import 'tinymce/plugins/paste';
 
-
 import Alpine from 'alpinejs';
 import tinymce from "tinymce";
 
 window.addEventListener('DOMContentLoaded', () =>
 {
 	tinymce.init({
+		selector: 'textarea.tinymce-full',
 		license_key: 'gpl',
 		promotion: false,
-		selector: 'textarea.tinymce',
+		menubar: false,
+		statusbar: false,
 		min_height: 150,
 		autoresize_bottom_margin: 0,
 		plugins: [
@@ -47,8 +48,6 @@ window.addEventListener('DOMContentLoaded', () =>
 			'insertdatetime', 'media', 'table', 'wordcount', 'pagebreak',
 			'emoticons', 'paste'
 		],
-		menubar: false,
-		statusbar: false,
 		toolbar_mode: 'floating',
 		toolbar: 'blocks bold italic removeformat link unlink ' +
 			'alignleft aligncenter alignright ' +
@@ -80,7 +79,7 @@ window.addEventListener('DOMContentLoaded', () =>
 	tinymce.init({
 		license_key: 'gpl',
 		promotion: false,
-		selector: 'textarea.tinymce-basic',
+		selector: 'textarea.tinymce',
 		min_height: 300,
 		autoresize_bottom_margin: 0,
 		plugins: [

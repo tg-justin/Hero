@@ -18,7 +18,7 @@
 
 			<div>
 				<label for="intro_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">Introduction</strong> (always shown)</label>
-				<textarea id="intro_text" name="intro_text" class="tinymce mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('intro_text', $quest->intro_text ?? '') !!}</textarea>
+				<textarea id="intro_text" name="intro_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('intro_text', $quest->intro_text ?? '') !!}</textarea>
 				@error('intro_text')
 				<p class="mt-1 text-sm text-red">{{ $message }}</p>
 				@enderror
@@ -26,7 +26,7 @@
 
 			<div>
 				<label for="accept_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong>Accept</strong> (shown before they accept)</label>
-				<textarea id="accept_text" name="accept_text" class="tinymce mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('accept_text', $quest->accept_text ?? '') !!}</textarea>
+				<textarea id="accept_text" name="accept_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('accept_text', $quest->accept_text ?? '') !!}</textarea>
 				@error('accept_text')
 				<p class="mt-1 text-sm text-red">{{ $message }}</p>
 				@enderror
@@ -34,7 +34,7 @@
 
 			<div>
 				<label for="directions_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong>Directions</strong> (shown after they accept)</label>
-				<textarea id="directions_text" name="directions_text" class="tinymce mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('directions_text', $quest->directions_text ?? '') !!}</textarea>
+				<textarea id="directions_text" name="directions_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('directions_text', $quest->directions_text ?? '') !!}</textarea>
 				@error('directions_text')
 				<p class="mt-1 text-sm text-red">{{ $message }}</p>
 				@enderror
@@ -42,7 +42,7 @@
 
 			<div>
 				<label for="complete_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong>Complete Text</strong> (shown after they complete)</label>
-				<textarea id="complete_text" name="complete_text" class="tinymce mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('complete_text', $quest->complete_text ?? '') !!}</textarea>
+				<textarea id="complete_text" name="complete_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('complete_text', $quest->complete_text ?? '') !!}</textarea>
 				@error('complete_text')
 				<p class="mt-1 text-sm text-red">{{ $message }}</p>
 				@enderror
@@ -80,12 +80,15 @@
 			</div>
 
 			<div>
-				<label for="category_id" class="block text-lg pl-1 pt-0 font-medium text-gray-700">Category</label>
+				<label for="category_id" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">Category</strong></label>
 				<select name="category_id" id="category_id" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-					<option value="">Select Category</option>
+					<option value="">-- Select --</option>
 					@foreach ($categories as $category)
-						<option value="{{ $category->id }}" @if ($category->id == old('category_id', $quest->category_id ?? '')) selected @endif>{{ $category->name }}</option>
+						<option value="{{ $category->id }}" @if ($category->id != old('category_id', $quest->category_id ?? '')) selected @endif>{{ $category->name }}</option>
 					@endforeach
+					@error('category_id')
+					<p class="mt-1 text-sm text-red">{{ $message }}</p>
+					@enderror
 				</select>
 			</div>
 

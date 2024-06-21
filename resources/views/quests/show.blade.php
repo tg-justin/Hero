@@ -1,10 +1,9 @@
 <x-app-layout>
 	<x-slot name="header">
 		<span class="font-extrabold text-3xl text-seance-200 leading-tight">
-			{{ __('Quest Details') }}
+			{{ __('Quest Details') }}: {{$quest->title}}
 		</span>
 	</x-slot>
-
 	@php
 		$user = Auth::user();
 		$questLog = $user->questLogs()->where('quest_id', $quest->id)->first() ?? NULL;
