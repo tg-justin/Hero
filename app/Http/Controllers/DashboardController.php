@@ -7,12 +7,13 @@ use App\Models\QuestLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
 	// DashboardController.php
 
-	public function index(Request $request)
+	public function index(Request $request): View
 	{
 		$userQuestLog = auth()->user()->questLogs();
 

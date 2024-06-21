@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class HeroController extends Controller
 {
-	public function index(Request $request)
+	public function index(Request $request): View
 	{
 		$query = User::whereHas('roles', function($query)
 		{
@@ -25,7 +27,7 @@ class HeroController extends Controller
 		return view('manager.heroes', compact('heroes'));
 	}
 
-	public function promote(User $hero)
+	public function promote(User $hero): RedirectResponse
 	{
 		/*$this->authorize('promote', $hero); // Check if the user is authorized to promote*/
 
@@ -34,7 +36,7 @@ class HeroController extends Controller
 		return back()->with('success', 'Hero promoted to manager successfully!');
 	}
 
-	public function sendPasswordResetEmail(User $hero)
+	public function sendPasswordResetEmail(User $hero): RedirectResponse
 	{
 		$this->authorize('sendPasswordResetEmail', $hero);
 		Password::sendResetLink(['email' => $hero->email]);
@@ -43,7 +45,7 @@ class HeroController extends Controller
 	}
 
 // Helper method to get status color (you can move this to a Trait or Helper class if you prefer)
-	protected function getStatusColor($status)
+	protected function getStatusColor($status): string
 	{
 		return match ($status)
 		{

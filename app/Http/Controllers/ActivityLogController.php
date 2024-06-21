@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Quest;
 use App\Models\QuestLog;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Spatie\Activitylog\Models\Activity;
 
 class ActivityLogController extends Controller
 {
-	public function index(Request $request)
+	public function index(Request $request): View
 	{
 		// Fetch activities with sorting/filtering/pagination
 		$activities = Activity::latest()
@@ -35,7 +36,7 @@ class ActivityLogController extends Controller
 
 	// app/Helpers/activity_helpers.php
 
-	public function getSubjectDisplayName($subject)
+	public function getSubjectDisplayName($subject): string
 	{
 		if (is_null($subject))
 		{ // Check if $subject is null

@@ -42,7 +42,7 @@ class ProfileController extends Controller
 		return Redirect::to('/');
 	}
 
-	public function heroRegistration(Request $request)
+	public function heroRegistration(Request $request): View|RedirectResponse
 	{
 		// Check if the user has already finished the hero registration
 
@@ -58,7 +58,7 @@ class ProfileController extends Controller
 		]);
 	}
 
-	public function submitHeroRegistration(Request $request)
+	public function submitHeroRegistration(Request $request): RedirectResponse
 	{
 		if (!$request->user())
 		{
@@ -97,7 +97,7 @@ class ProfileController extends Controller
 		return Redirect::route('profile.edit')->with('status', 'profile-updated');
 	}
 
-	public function updateHeroRegistration(Request $request)
+	public function updateHeroRegistration(Request $request): RedirectResponse
 	{
 		if (!$request->user())
 		{
