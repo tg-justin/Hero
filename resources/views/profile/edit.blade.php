@@ -12,31 +12,31 @@
 					<p class="m-0">{{ session('success') }}</p>
 				</div>
 			@endif
-			<div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-4"> {{-- PAGE: BEGIN --}}
-				<div class="p-4 sm:p-8 bg-seance-800 shadow sm:rounded-lg mb-2">
+
+				<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
 					<div class="max-w-xl">
 						@include('profile.partials.update-profile-information-form')
 					</div>
 				</div>
 
-				<div class="p-4 sm:p-8 bg-seance-800 shadow sm:rounded-lg mb-2">
+				<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
 					<div class="max-w-xl">
 						@include('profile.partials.update-hero-registration-form')
 					</div>
 				</div>
 
-				<div class="p-4 sm:p-8 bg-seance-800 shadow sm:rounded-lg mb-2">
+				<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
 					<div class="max-w-xl">
 						@include('profile.partials.update-password-form')
 					</div>
 				</div>
 
-				<div class="p-4 sm:p-8 bg-seance-800 shadow sm:rounded-lg mb-2">
+				<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
 					<div class="max-w-xl">
 						@include('profile.partials.delete-user-form')
 					</div>
 				</div>
-			</div>
+
 		</div>
 	</div>
 </x-app-layout>

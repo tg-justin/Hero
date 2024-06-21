@@ -31,7 +31,7 @@
 							<p>HELLO!!!!</p>
 							{!! $quest->intro_text !!}
 							@if (!$questLog || $isEditor)
-								{!!$quest->accept_text !!}
+								{!! $quest->accept_text !!}
 							@endif
 							@if ($questLog && $questLog->status == 'Accepted' || $isEditor)
 								{!! $quest->directions_text !!}
