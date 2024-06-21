@@ -1,8 +1,6 @@
 <x-app-layout>
 	<x-slot name="header">
-		<span class="font-extrabold text-3xl text-seance-200 leading-tight">
-			{{ __('Profile') }}
-		</span>
+		{{ __('Profile') }}
 	</x-slot>
 
 	<div class="py-6 bg-cover bg-center">
@@ -13,29 +11,29 @@
 				</div>
 			@endif
 
-				<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
-					<div class="max-w-xl">
-						@include('profile.partials.update-profile-information-form')
-					</div>
+			<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
+				<div class="max-w-xl">
+					@include('profile.partials.update-profile-information-form')
 				</div>
+			</div>
 
-				<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
-					<div class="max-w-xl">
-						@include('profile.partials.update-hero-registration-form')
-					</div>
+			<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
+				<div class="max-w-xl">
+					@include('profile.partials.update-hero-registration-form')
 				</div>
+			</div>
 
-				<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
-					<div class="max-w-xl">
-						@include('profile.partials.update-password-form')
-					</div>
+			<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
+				<div class="max-w-xl">
+					@include('profile.partials.update-password-form')
 				</div>
+			</div>
 
-				<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
-					<div class="max-w-xl">
-						@include('profile.partials.delete-user-form')
-					</div>
+			<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
+				<div class="max-w-xl">
+					@include('profile.partials.delete-user-form')
 				</div>
+			</div>
 
 		</div>
 	</div>

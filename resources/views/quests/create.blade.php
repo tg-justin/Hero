@@ -1,8 +1,6 @@
 <x-app-layout>
 	<x-slot name="header">
-		<h2 class="font-semibold text-xl text-seance-200 leading-tight">
-			{{ __('Create Quest') }}
-		</h2>
+		{{ __('Create New Quest') }}
 	</x-slot>
 
 	<div class="py-12">

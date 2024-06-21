@@ -1,8 +1,6 @@
 <x-app-layout>
 	<x-slot name="header">
-		<span class="font-extrabold text-3xl text-seance-200 leading-tight">
-			{{ __('Complete Quest: ') }} {{ $questLog->quest->title }}
-		</span>
+		{{ __('Complete Quest: ') }} {{ $questLog->quest->title }}
 	</x-slot>
 	<div class="py-12">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

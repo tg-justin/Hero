@@ -20,13 +20,32 @@
 	@include('layouts.navigation')
 
 	<!-- Page Heading -->
-	@if (isset($header))
-		<header class="bg-seance-800 shadow">
-			<div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-				{{ $header }}
+
+	<header class="bg-seance-800 shadow">
+		<div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between items-center">
+				<span class="header-title">
+					@if (isset($header))
+						{{ $header }}
+					@endif
+				</span>
+				<span>
+					@if (isset($headerRight))
+						{{ $headerRight }}
+					@endif
+				</span>
 			</div>
-		</header>
-	@endif
+		</div>
+	</header>
+
+	{{--	@if (isset($header))--}}
+	{{--		<header class="bg-seance-800 shadow">--}}
+	{{--			<div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 page-title">--}}
+	{{--				{{ $header }}--}}
+	{{--			</div>--}}
+	{{--		</header>--}}
+	{{--	@endif--}}
+
 	@if (session('level_up_message'))
 		<x-level-up-notification :message="session('level_up_message')"/>
 	@endif

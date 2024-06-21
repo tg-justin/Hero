@@ -1,8 +1,6 @@
 <x-app-layout>
 	<x-slot name="header">
-		<span class="font-extrabold text-3xl text-seance-200 leading-tight">
-			{{ __('Edit Quest') }}
-		</span>
+		{{ __('Edit Quest') }}: {{$quest->title}}
 	</x-slot>
 
 	<div class="py-12">

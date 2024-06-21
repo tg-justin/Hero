@@ -1,8 +1,6 @@
 <x-app-layout>
 	<x-slot name="header">
-		<span class="font-extrabold text-3xl text-seance-200 leading-tight">
-			{{ __('Activity Log') }}
-		</span>
+		{{ __('Activity Log') }}
 	</x-slot>
 
 	<div class="py-6 bg-cover bg-center">
@@ -38,4 +36,3 @@
 		</div>
 	</div>
 </x-app-layout>
-

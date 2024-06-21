@@ -1,8 +1,6 @@
 <x-app-layout>
 	<x-slot name="header">
-		<h2 class="font-extrabold text-3xl text-seance-200">
-			{{ __('Dashboard') }}
-		</h2>
+		{{ __('Dashboard') }}
 	</x-slot>
 
 	@if ($userQuestLog->count() == 0)

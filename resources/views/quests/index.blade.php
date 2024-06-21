@@ -1,13 +1,14 @@
 @php use Carbon\Carbon; @endphp
 <x-app-layout>
 	<x-slot name="header">
-		<div class="flex justify-between items-center">
-			<span class="font-extrabold text-3xl text-seance-200">Quest Board</span>
-			@if (Auth::user()->hasRole('manager'))
-				<a href="{{ route('quests.create') }}" class="text-white  focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Create New Quest</a>
-			@endif
-		</div>
+		{{ __('Quest Board') }}
 	</x-slot>
+	<x-slot name="headerRight">
+		@if (Auth::user()->hasRole('manager'))
+			<a href="{{ route('quests.create') }}" class="header-button">Create New Quest</a>
+		@endif
+	</x-slot>
+
 	<div class="py-4 bg-cover bg-center">
 		<div class="max-w-7xl mx-auto px-2 lg:px-8">
 			{{-- Display success message --}}
@@ -46,7 +47,7 @@
 				<div class="mb-4 bg-white p-4 rounded-md shadow-md">
 					<h3>Welcome Hero!</h3>
 					<p class="">Greetings, {{ Auth::user()->name }}!
-						</p>
+					</p>
 					<p>We've been expecting you. Take a look around the quest board and select a task that speaks to your heart. Your legend awaits!</p>
 				</div>
 			@endif

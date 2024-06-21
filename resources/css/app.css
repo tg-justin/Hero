@@ -2,6 +2,27 @@
 @tailwind components;
 
 @layer base {
+
+	.header-button {
+		@apply text-white;
+		@apply focus:ring-4;
+		@apply font-medium;
+		@apply rounded-lg;
+		@apply text-sm;
+		@apply px-5;
+		@apply py-2.5;
+		@apply bg-seance-600;
+		@apply hover:bg-seance-700;
+		@apply focus:outline-none;
+		@apply focus:ring-seance-800;
+	}
+	.header-title {
+		@apply font-extrabold;
+		@apply text-3xl;
+		@apply text-seance-200;
+		@apply leading-tight;
+	}
+
 	body {
 		margin: 0 !important;
 	}
