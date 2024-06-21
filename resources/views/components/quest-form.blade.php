@@ -17,7 +17,7 @@
 		<div class="md:col-span-4 space-y-4">
 
 			<div>
-				<label for="intro_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">Introduction</strong>(always shown)</label>
+				<label for="intro_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">Introduction</strong> (always shown)</label>
 				<textarea id="intro_text" name="intro_text" class="tinymce mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('intro_text', $quest->intro_text ?? '') !!}</textarea>
 				@error('intro_text')
 				<p class="mt-1 text-sm text-red">{{ $message }}</p>

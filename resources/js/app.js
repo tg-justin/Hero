@@ -27,6 +27,9 @@ import 'tinymce/plugins/code';
 import 'tinymce/plugins/help';
 import 'tinymce/plugins/visualblocks';
 import 'tinymce/plugins/fullscreen';
+// import 'tinymce/plugins/paste';
+
+
 import Alpine from 'alpinejs';
 import tinymce from "tinymce";
 
@@ -42,15 +45,11 @@ window.addEventListener('DOMContentLoaded', () =>
 			'advlist', 'autolink', 'autoresize', 'lists', 'link', 'image', 'charmap', 'preview',
 			'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
 			'insertdatetime', 'media', 'table', 'wordcount', 'pagebreak',
-			'emoticons'
+			'emoticons', 'paste'
 		],
 		menubar: false,
 		statusbar: false,
 		toolbar_mode: 'floating',
-		// toolbar: 'undo redo | blocks | bold italic backcolor removeformat | ' +
-		//     'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | ' +
-		//     'link unlink charmap emoticons | ' +
-		//     'fullscreen code',
 		toolbar: 'blocks bold italic removeformat link unlink ' +
 			'alignleft aligncenter alignright ' +
 			'bullist numlist outdent indent charmap emoticons ' +
@@ -70,8 +69,56 @@ window.addEventListener('DOMContentLoaded', () =>
 				editor.getBody().style.fontSize = '16px';  // Adjust the default font size
 				editor.getBody().style.fontFamily = 'Figtree, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji';  // Adjust the default font family
 			});
+		},
+		paste_preprocess: function(plugin, args) {
+			// Strip out images from the pasted content
+			args.content = args.content.replace(/<img[^>]*>/g, '');
 		}
 	});
+
+
+	tinymce.init({
+		license_key: 'gpl',
+		promotion: false,
+		selector: 'textarea.tinymce-basic',
+		min_height: 300,
+		autoresize_bottom_margin: 0,
+		plugins: [
+			'advlist', 'autolink', 'autoresize', 'lists', 'link',
+			'insertdatetime', 'media', 'table', 'wordcount', 'pagebreak', 'paste'
+		],
+		menubar: false,
+		statusbar: false,
+		toolbar_mode: 'floating',
+		toolbar: 'bold italic removeformat link unlink ',
+		toolbar_sticky: true,
+		link_context_toolbar: true,
+		skin: false,
+		content_css: [
+			'https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap',
+			'/css/dynamic.css'
+		],
+		setup: function(editor)
+		{
+			editor.on('init', function()
+			{
+				editor.getBody().classList.add('dynamic');
+				editor.getBody().style.fontSize = '16px';  // Adjust the default font size
+				editor.getBody().style.fontFamily = 'Figtree, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji';  // Adjust the default font family
+			});
+		},
+		paste_preprocess: function(plugin, args) {
+			// Strip out images from the pasted content
+			args.content = args.content.replace(/<img[^>]*>/g, '');
+		}
+	});
+
+
+
+
+
+
+
 });
 
 window.Alpine = Alpine;

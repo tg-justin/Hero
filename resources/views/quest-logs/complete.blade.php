@@ -22,7 +22,7 @@
 
 					<div class="mb-4">
 						<label for="completion_details" class="block text-gray-700 text-sm font-bold mb-2">Completion Details:</label>
-						<textarea name="completion_details" placeholder="Describe how you completed the quest" class="form-textarea w-full" rows="5"></textarea>
+						<textarea name="completion_details" placeholder="Describe how you completed the quest" class="tinymce-basic form-textarea w-full" rows="5"></textarea>
 						@error('completion_details')
 						<p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
 						@enderror
