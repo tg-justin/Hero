@@ -1,7 +1,7 @@
 <x-app-layout>
 	<x-slot name="header">
 		<div class="flex justify-between items-center">
-			<span class="font-extrabold text-3xl text-seance-200">Category Board</span>
+			<h2 class="font-extrabold text-3xl text-seance-200">Category Board</h2>
 
 			<a href="{{ route('categories.create') }}" class="text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">
 				Create New Category
@@ -40,7 +40,7 @@
 							<td>
 								<div class="flex space-x-2">
 									<a href="{{ route('categories.edit', $category) }}" class="text-white focus:ring-4 font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Edit</a>
-									<form action="{{ route('categories.destroy', $category) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this category?');">
+									<form action="{{ route('categories.destroy', $category) }}" method="POST" class="inline-block">
 										@csrf
 										@method('DELETE')
 										<button type="submit" class="text-white focus:ring-4 font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Delete</button>

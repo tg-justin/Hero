@@ -19,10 +19,12 @@
 					<x-nav-link :href="route('quests.index')" :active="request()->routeIs('quests.index')">
 						{{ __('Quest Board') }}
 					</x-nav-link>
-					<x-nav-link :href="route('quest-log.index')" :active="request()->routeIs('quest-log.index')">
-						{{ __('Quest Log') }}
-					</x-nav-link>
-
+					@if (Auth::user()->hasRole('hero'))
+						{{-- Check for the 'hero' role --}}
+						<x-nav-link :href="route('quest-log.index')" :active="request()->routeIs('quest-log.index')">
+							{{ __('Quest Log') }}
+						</x-nav-link>
+					@endif
 					@if (Auth::user()->hasRole('manager'))
 						{{-- Check for the 'manager' role --}}
 						<x-nav-link :href="route('manager.dashboard')" :active="request()->routeIs('manager.dashboard')">
@@ -113,11 +115,12 @@
 			<x-responsive-nav-link :href="route('quests.index')" :active="request()->routeIs('quests.index')">
 				{{ __('Quest Board') }}
 			</x-responsive-nav-link>
-
-			<x-responsive-nav-link :href="route('quest-log.index')" :active="request()->routeIs('quest-log.index')">
-				{{ __('Quest Log') }}
-			</x-responsive-nav-link>
-
+			@if (Auth::user()->hasRole('hero'))
+				{{-- Check for the 'hero' role --}}
+				<x-responsive-nav-link :href="route('quest-log.index')" :active="request()->routeIs('quest-log.index')">
+					{{ __('Quest Log') }}
+				</x-responsive-nav-link>
+			@endif
 			@if (Auth::user()->hasRole('manager'))
 				{{-- Check for the 'manager' role --}}
 				<x-responsive-nav-link :href="route('manager.heroes')" :active="request()->routeIs('manager.heroes')">

@@ -1,8 +1,8 @@
 <x-app-layout>
 	<x-slot name="header">
-		<span class="font-extrabold text-3xl text-seance-200">
+		<h2 class="font-extrabold text-3xl text-seance-200">
 			{{ __('Manager Dashboard') }}
-		</span>
+		</h2>
 	</x-slot>
 
 	<div class="py-6 bg-cover bg-center">

@@ -1,8 +1,8 @@
 <x-app-layout>
 	<x-slot name="header">
-		<span class="font-extrabold text-3xl text-seance-200">
+		<h2 class="font-extrabold text-3xl text-seance-200">
 			{{ __('Hero Management') }}
-		</span>
+		</h2>
 	</x-slot>
 
 	<div class="max-w-7xl mx-auto px-2 lg:px-8">

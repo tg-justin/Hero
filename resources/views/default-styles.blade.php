@@ -1,8 +1,8 @@
 <x-app-layout>
 	<x-slot name="header">
-		<span class="font-extrabold text-3xl text-seance-200">
+		<h1 class="font-extrabold text-3xl text-seance-200">
 			{{ __('Title') }}
-		</span>
+		</h1>
 	</x-slot>
 	<div class="py-6 bg-cover bg-center">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">

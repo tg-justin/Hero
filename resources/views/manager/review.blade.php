@@ -1,9 +1,9 @@
 @php use Carbon\Carbon; @endphp
 <x-app-layout>
 	<x-slot name="header">
-		<span class="font-extrabold text-3xl text-seance-200">
+		<h2 class="font-extrabold text-3xl text-seance-200">
 			{{ __('Quest Logs for Review') }}
-		</span>
+		</h2>
 	</x-slot>
 
 	<div class="py-6 bg-cover bg-center">

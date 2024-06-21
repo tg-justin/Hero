@@ -1,8 +1,8 @@
 <x-app-layout>
 	<x-slot name="header">
-		<span class="font-extrabold text-3xl text-seance-200 leading-tight">
+		<h2 class="font-semibold text-xl text-seance-200 leading-tight">
 			{{ __('Create Category') }}
-		</span>
+		</h2>
 	</x-slot>
 
 	<div class="py-12">
