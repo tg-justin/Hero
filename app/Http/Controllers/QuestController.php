@@ -125,10 +125,8 @@ class QuestController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show($id)
+	public function show(Quest $quest)
 	{
-		$quest = Quest::find($id);
-
 		if (!$quest)
 		{
 			return abort(404);
