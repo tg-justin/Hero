@@ -1,8 +1,8 @@
 <x-app-layout>
 	<x-slot name="header">
-		<h2 class="font-extrabold text-3xl text-seance-200 leading-tight">
+		<span class="font-extrabold text-3xl text-seance-200 leading-tight">
 			{{ __('Quest Details') }}
-		</h2>
+		</span>
 	</x-slot>
 
 	@php
@@ -13,7 +13,7 @@
 		$isEditor = ($user->hasRole('manager') || $user->hasRole('admin'));
 	@endphp
 
-	<div class="py-12 bg-cover bg-center"> {{-- BODY_A: BEGIN --}}
+	<div class="py-6 bg-cover bg-center"> {{-- BODY_A: BEGIN --}}
 		<div class="max-w-7xl mx-auto px-2 lg:px-8"> {{-- BODY_B: BEGIN --}}
 
 			{{-- Display success message --}}
