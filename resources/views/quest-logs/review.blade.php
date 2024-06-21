@@ -6,7 +6,7 @@
 		</h2>
 	</x-slot>
 
-	<div class="py-12 bg-cover bg-center">
+	<div class="py-6 bg-cover bg-center">
 		<div class="max-w-7xl mx-auto px-2 lg:px-8">
 			<x-hero-profile :user="$questLog->user"/>
 			<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">

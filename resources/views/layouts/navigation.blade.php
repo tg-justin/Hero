@@ -80,13 +80,18 @@
 						<!-- Authentication -->
 						<form method="POST" action="{{ route('logout') }}">
 							@csrf
-
+							<input type="hidden" name="_token" id="logout-token" value="{{ csrf_token() }}">
 							<x-dropdown-link :href="route('logout')"
-											 onclick="event.preventDefault();
+											 onclick="event.preventDefault();updateToken();
                                                 this.closest('form').submit();">
 								{{ __('Log Out') }}
 							</x-dropdown-link>
 						</form>
+						<script>
+							function updateToken() {
+								document.getElementById('logout-token').value = '{{ csrf_token() }}';
+							}
+						</script>
 					</x-slot>
 				</x-dropdown>
 			</div>

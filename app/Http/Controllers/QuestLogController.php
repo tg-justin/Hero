@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\QuestLog;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+
 
 class QuestLogController extends Controller
 {
@@ -14,9 +16,9 @@ class QuestLogController extends Controller
 	 *
 	 * @param Request $request
 	 *
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\View\View
 	 */
-	public function index(Request $request)
+	public function index(Request $request): View
 	{
 		$user = $request->user();
 
@@ -47,7 +49,7 @@ class QuestLogController extends Controller
 		return view('quest-logs.quest-log', compact('acceptedQuests', 'pendingReview', 'completedQuests', 'user'));
 	}
 
-	public function indexForUser(User $user, Request $request)
+	public function indexForUser(User $user, Request $request): View
 	{
 		$questLogsQuery = $user->questLogs()->with('quest.category'); // Initialize query
 
@@ -69,7 +71,7 @@ class QuestLogController extends Controller
 		return view('quest-logs.index', ['questLogs' => $questLogs, 'user' => $user]);
 	}
 
-	protected function getStatusColor($status)
+	protected function getStatusColor($status): string
 	{
 		return match ($status)
 		{
@@ -82,13 +84,13 @@ class QuestLogController extends Controller
 		};
 	}
 
-	public function edit(QuestLog $questLog)
+	public function edit(QuestLog $questLog) :View
 	{
 		// Authorize the user (e.g., using a middleware or policy)
 		return view('quest-logs.edit', compact('questLog'));
 	}
 
-	public function showCompleteForm(QuestLog $questLog)
+	public function showCompleteForm(QuestLog $questLog): View
 	{
 		// Authorization check: Ensure the user owns this quest log
 		if (auth()->user()->id !== $questLog->user_id)
@@ -99,7 +101,7 @@ class QuestLogController extends Controller
 		return view('quest-logs.complete', compact('questLog'));
 	}
 
-	public function complete(QuestLog $questLog, Request $request)
+	public function complete(QuestLog $questLog, Request $request): RedirectResponse
 	{
 		// Authorize the user (make sure only the hero who owns the quest log can complete it)
 		if (auth()->user()->id !== $questLog->user_id)
@@ -128,7 +130,7 @@ class QuestLogController extends Controller
 		return redirect()->route('quest-log.index')->with('success', 'Quest completed!');
 	}
 
-	public function update(Request $request, QuestLog $questLog)
+	public function update(Request $request, QuestLog $questLog): RedirectResponse
 	{
 		// Authorize the user (e.g., using a middleware or policy)
 
@@ -180,7 +182,7 @@ class QuestLogController extends Controller
 
 	// Helper method to determine the status color
 
-	public function review(QuestLog $questLog)
+	public function review(QuestLog $questLog): View
 	{
 		return view('quest-logs.review', compact('questLog'));
 	}

@@ -4,7 +4,7 @@
 			{{ __('Quest Log') }}
 		</h2>
 	</x-slot>
-	<div class="py-12 bg-cover bg-center">
+	<div class="py-6 bg-cover bg-center">
 		<div class="max-w-7xl mx-auto px-2 lg:px-8">
 			{{-- Display success message --}}
 			@if (session('success'))

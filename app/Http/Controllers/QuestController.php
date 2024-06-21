@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Quest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 // Replace with your Quest model path
 
@@ -15,9 +16,11 @@ class QuestController extends Controller
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @return \Illuminate\Http\Response
+	 * @param \Illuminate\Http\Request $request
+	 *
+	 * @return \Illuminate\View\View
 	 */
-	public function index(Request $request)
+	public function index(Request $request): View
 	{
 		$query = Quest::with('category');
 
@@ -71,9 +74,9 @@ class QuestController extends Controller
 	 *
 	 * @param Request $request
 	 *
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function store(Request $request)
+	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
 			'title' => 'required|string',
@@ -108,9 +111,9 @@ class QuestController extends Controller
 	/**
 	 * Show the form for creating a new resource.
 	 *
-	 * @return \Illuminate\Http\Response
+	 * @return View
 	 */
-	public function create()
+	public function create(): View
 	{
 		$categories = Category::all();
 		$campaigns = Campaign::all(); // Fetch all campaigns
@@ -121,17 +124,12 @@ class QuestController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param int $id
+	 * @param \App\Models\Quest $quest
 	 *
-	 * @return \Illuminate\Http\Response
+	 * @return View
 	 */
-	public function show(Quest $quest)
+	public function show(Quest $quest):View
 	{
-		if (!$quest)
-		{
-			return abort(404);
-		}
-
 		return view('quests.show', compact('quest'));
 	}
 
@@ -140,17 +138,10 @@ class QuestController extends Controller
 	 *
 	 * @param int $id
 	 *
-	 * @return \Illuminate\Http\Response
+	 * @return View
 	 */
-	public function edit($id)
+	public function edit(Quest $quest): View
 	{
-		$quest = Quest::find($id);
-
-		if (!$quest)
-		{
-			return abort(404);
-		}
-
 		$categories = Category::all();
 		$campaigns = Campaign::all(); // Fetch all campaigns
 
@@ -161,19 +152,12 @@ class QuestController extends Controller
 	 * Update the specified resource in storage.
 	 *
 	 * @param Request $request
-	 * @param int $id
+	 * @param \App\Models\Quest $quest
 	 *
-	 * @return \Illuminate\Http\Response
+	 * @return \Illuminate\Http\RedirectResponse
 	 */
-	public function update(Request $request, $id)
+	public function update(Request $request, Quest $quest): RedirectResponse
 	{
-		$quest = Quest::find($id);
-
-		if (!$quest)
-		{
-			return abort(404);
-		}
-
 		$request->validate([
 			'title' => 'required|string',
 			'directions_text' => 'required|string',
@@ -199,19 +183,12 @@ class QuestController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param int $id
+	 * @param \App\Models\Quest $quest
 	 *
-	 * @return \Illuminate\Http\Response
+	 * @return void
 	 */
-	public function destroy($id)
+	public function destroy(Quest $quest): RedirectResponse
 	{
-		$quest = Quest::find($id);
-
-		if (!$quest)
-		{
-			return abort(404);
-		}
-
 		$quest->delete();
 
 		return redirect()->route('quests.index')
@@ -219,7 +196,7 @@ class QuestController extends Controller
 	}
 
 	// QuestController.php
-	public function accept(Quest $quest)
+	public function accept(Quest $quest): RedirectResponse
 	{
 		$user = auth()->user();
 
@@ -235,7 +212,7 @@ class QuestController extends Controller
 		}
 		else
 		{
-			// Handle the case where the user has reached the repeat limit (optional)
+			//TODO: Handle the case where the user has reached the repeat limit (optional)
 		}
 
 //        return redirect()->route('quest-log.index')->with('success', 'Quest accepted!');

@@ -1,11 +1,11 @@
 <x-app-layout>
 	<x-slot name="header">
-		<h2 class="font-extrabold text-3xl text-seance-200 leading-tight">
+		<span class="font-extrabold text-3xl text-seance-200 leading-tight">
 			{{ __('Activity Log') }}
-		</h2>
+		</span>
 	</x-slot>
 
-	<div class="py-12 bg-cover bg-center">
+	<div class="py-6 bg-cover bg-center">
 		<div class="max-w-7xl mx-auto px-2 lg:px-8">
 			<div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6">
 				<h3 class="text-2xl font-semibold text-seance-200 mb-4">Recent Happenings in the Realm</h3>
