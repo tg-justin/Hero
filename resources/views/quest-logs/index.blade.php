@@ -4,6 +4,7 @@
 			{{ __('Quest Log') }}
 		</h2>
 	</x-slot>
+
 	<div class="py-6 bg-cover bg-center">
 		<div class="max-w-7xl mx-auto px-2 lg:px-8">
 			{{-- Display success message --}}
@@ -12,7 +13,8 @@
 					<p class="m-0">{{ session('success') }}</p>
 				</div>
 			@endif
-			<div class="overflow-hidden shadow-xl rounded-lg">
+
+			<div class="overflow-hidden rounded-lg">
 				<x-hero-profile :user="$user"/>
 				@if ($questLogs->count() > 0)
 					<div class="overflow-x-auto shadow-xl rounded-lg">

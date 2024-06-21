@@ -15,9 +15,9 @@
 				</div>
 			@endif
 
-			<div class="overflow-hidden shadow-xl rounded-lg">
+			<div class="overflow-hidden rounded-lg">
 				<x-hero-profile :user="$user"/>
-				<div class="mt-8">  {{-- Quest Log Section --}}
+
 					<div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6">
 
 						@if ($acceptedQuests->count() == 0 && $pendingReview->count() == 0 && $completedQuests->count() == 0)
@@ -52,7 +52,7 @@
 						@endif
 
 					</div>
-				</div>
+
 			</div>
 		</div>
 	</div>

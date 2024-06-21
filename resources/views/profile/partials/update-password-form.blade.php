@@ -1,10 +1,10 @@
 <section>
 	<header>
-		<h2 class="text-lg font-medium text-gray-100">
+		<h2 class="text-lg font-medium">
 			{{ __('Update Password') }}
 		</h2>
 
-		<p class="mt-1 text-sm text-gray-400">
+		<p class="mt-1 text-sm">
 			{{ __('Ensure your account is using a long, random password to stay secure.') }}
 		</p>
 	</header>
@@ -14,19 +14,19 @@
 		@method('put')
 
 		<div>
-			<x-input-label for="update_password_current_password" class="block text-sm font-medium text-seance-200" :value="__('Current Password')"/>
+			<x-input-label for="update_password_current_password" class="block text-sm font-medium" :value="__('Current Password')"/>
 			<x-text-input id="update_password_current_password" name="current_password" type="password" class="mt-1 block w-full" autocomplete="current-password"/>
 			<x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2"/>
 		</div>
 
 		<div>
-			<x-input-label for="update_password_password" class="block text-sm font-medium text-seance-200" :value="__('New Password')"/>
+			<x-input-label for="update_password_password" class="block text-sm font-medium" :value="__('New Password')"/>
 			<x-text-input id="update_password_password" name="password" type="password" class="mt-1 block w-full" autocomplete="new-password"/>
 			<x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2"/>
 		</div>
 
 		<div>
-			<x-input-label for="update_password_password_confirmation" class="block text-sm font-medium text-seance-200" :value="__('Confirm Password')"/>
+			<x-input-label for="update_password_password_confirmation" class="block text-sm font-medium" :value="__('Confirm Password')"/>
 			<x-text-input id="update_password_password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" autocomplete="new-password"/>
 			<x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2"/>
 		</div>

@@ -1,11 +1,11 @@
 @php use Illuminate\Contracts\Auth\MustVerifyEmail; @endphp
 <section>
 	<header>
-		<h2 class="text-lg font-medium text-gray-100">
+		<h2 class="text-lg font-medium">
 			{{ __('Profile Information') }}
 		</h2>
 
-		<p class="mt-1 text-sm text-seance-200">
+		<p class="mt-1 text-sm">
 			{{ __("Update your account's profile information and email address.") }}
 		</p>
 	</header>
@@ -19,13 +19,13 @@
 		@method('patch')
 
 		<div>
-			<x-input-label for="name" class="block text-sm font-medium text-seance-200" :value="__('Hero Name')"/>
+			<x-input-label for="name" class="block text-sm font-medium" :value="__('Hero Name')"/>
 			<x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name"/>
 			<x-input-error class="mt-2" :messages="$errors->get('name')"/>
 		</div>
 
 		<div>
-			<x-input-label for="email" class="block text-sm font-medium text-seance-200" :value="__('Email')"/>
+			<x-input-label for="email" class="block text-sm font-medium" :value="__('Email')"/>
 			<x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username"/>
 			<x-input-error class="mt-2" :messages="$errors->get('email')"/>
 

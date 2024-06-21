@@ -1,4 +1,4 @@
-<div class="bg-gradient-to-br from-seance-200 to-seance-300 p-6 rounded-lg shadow-lg flex items-center">
+<div class="bg-gradient-to-br from-seance-200 to-seance-300 p-6 rounded-lg flex items-center mb-5">
 	<div class="flex flex-col items-center mr-4">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-16 h-16 rounded-full bg-seance-700">
 			<text x="50%" y="55%" dominant-baseline="central" text-anchor="middle" font-size="12" fill="white">{{ substr($user->name, 0, 1) }}</text>
