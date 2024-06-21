@@ -1,9 +1,9 @@
 @php use Illuminate\Contracts\Auth\MustVerifyEmail; @endphp
 <section>
 	<header>
-		<h2 class="text-lg font-medium">
+		<h3>
 			{{ __('Profile Information') }}
-		</h2>
+		</h3>
 
 		<p class="mt-1 text-sm">
 			{{ __("Update your account's profile information and email address.") }}
