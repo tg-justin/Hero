@@ -1,8 +1,8 @@
 <x-app-layout>
 	<x-slot name="header">
-		<h2 class="font-extrabold text-3xl text-seance-200">
+		<h3>
 			{{ __('Hero Registration') }}
-		</h2>
+		</h3>
 	</x-slot>
 
 	<div class="py-12">

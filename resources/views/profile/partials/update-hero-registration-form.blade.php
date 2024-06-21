@@ -1,9 +1,9 @@
 <section>
 	<header>
 		@if(request()->routeIs('profile.hero-registration'))
-			<h2 class="text-lg font-medium text-seance-200">
+			<h3>
 				{{ __('Hero Information') }}
-			</h2>
+			</h3>
 			<p class="mt-2 text-mm">
 				After you complete this registration, you will be promoted to a <strong>Level 1 Hero</strong> and
 				will be able to view and accept other quests. If you ever need to change this information, you can
@@ -16,7 +16,7 @@
 		@csrf
 		@method('post')
 
-		<h3 class="text-lg font-medium">Public Information</h3>
+		<h3>Public Information</h3>
 		<p class="mt-2 text-mm">
 			This information is <strong>visible to other Heroes and may be included in promotional material</strong>.
 			We reserve the right to modify your information for appropriateness. Do not share your exact location, you
@@ -40,7 +40,7 @@
 			<x-input-error class="mt-2" :messages="$errors->get('location')"/>
 		</div>
 
-		<h3 class="text-lg font-medium">Personal Information</h3>
+		<h3>Personal Information</h3>
 		<p class="mt-2 text-mm">
 			The rest of this information is only available to system admins and quest managers who are vetted by Tabletop Gaymers.
 			This information will only be used to contact you about your quests and other hero-related information. If you really
@@ -72,7 +72,7 @@
 				<x-input-error class="mt-2" :messages="$errors->get('phone_number')"/>
 			</div>
 
-			<h3 class="text-lg font-medium">Location Details</h3>
+			<h3>Location Details</h3>
 			<p class="mt-2 text-mm">
 				We ask for your address only for specific opportunities in your area or the off chance we're able to send you rewards
 				or materials related to some quests. You may provide as much or as little specificity as you wish. For example,
@@ -114,7 +114,7 @@
 			</div>
 
 			{{-- Textarea for Past Volunteer Experience --}}
-			<h3 class="text-lg font-medium">Past Volunteer Experience </h3>
+			<h3>Past Volunteer Experience </h3>
 			<p class="mt-2 text-mm">
 				If you've volunteered for Tabletop Gaymers in the past, tell us about it! We'll review your info, and it might
 				give you bonus XP! Please leave the field blank if you haven't volunteered for TG before.</p>
