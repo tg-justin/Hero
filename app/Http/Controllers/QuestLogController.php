@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\QuestLog;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
@@ -24,29 +25,9 @@ class QuestLogController extends Controller
 
 		// Eager load quest log entries with associated quest data
 		$acceptedQuests = auth()->user()->questLogs()->where('status', 'Accepted')->with('quest')->get();
-		$pendingReview = auth()->user()->questLogs()->where('status', 'Pending Review')->with('quest')->get();
 		$completedQuests = auth()->user()->questLogs()->where('status', 'Completed')->with('quest')->get();
 
-		// Add statusColor to each questLog
-		$acceptedQuests = $acceptedQuests->map(function($questLog)
-		{
-			$questLog->statusColor = 'bg-seance-600';
-			return $questLog;
-		});
-
-		$exceptionRequests = $pendingReview->map(function($questLog)
-		{
-			$questLog->statusColor = 'bg-blue-600';
-			return $questLog;
-		});
-
-		$completedQuests = $completedQuests->map(function($questLog)
-		{ // Changed $quest to $questLog
-			$questLog->statusColor = 'bg-green-600';
-			return $questLog;
-		});
-
-		return view('quest-logs.quest-log', compact('acceptedQuests', 'pendingReview', 'completedQuests', 'user'));
+		return view('quest-logs.quest-log', compact('acceptedQuests', 'completedQuests', 'user'));
 	}
 
 	public function indexForUser(User $user, Request $request): View
@@ -56,38 +37,21 @@ class QuestLogController extends Controller
 		// Sorting logic (same as before)
 		$sortBy = $request->get('sort', 'status');
 		$direction = $request->get('direction', 'asc');
-		$questLogsQuery->orderByRaw("FIELD(status, 'requested_exception', 'Pending Review', 'Accepted', 'Completed', 'failed') $direction");
+		$questLogsQuery->orderByRaw("FIELD(status, 'Accepted', 'Completed', 'Dropped', 'Expired') $direction");
 
 		// Pagination
 		$questLogs = $questLogsQuery->paginate(15); // 15 items per page
 
-		// Status Color Mapping (use collection method on paginated results)
-		$questLogs->getCollection()->transform(function($questLog)
-		{
-			$questLog->statusColor = $this->getStatusColor($questLog->status);
-			return $questLog;
-		});
 
 		return view('quest-logs.index', ['questLogs' => $questLogs, 'user' => $user]);
 	}
 
-	protected function getStatusColor($status): string
-	{
-		return match ($status)
-		{
-			'Pending Review' => 'bg-blue-600', // Added bg-
-			'Completed' => 'bg-green-600',  // Added bg-
-			'FAiled' => 'bg-red-600',      // Added bg-
-			'Requested Exception' => 'bg-yellow-600',  // Added bg- (if applicable)
-			'Accepted' => 'bg-seance-600',  // Assuming 'seance' is defined in your config
-			default => 'bg-gray-600',      // Added bg-
-		};
-	}
 
 	public function edit(QuestLog $questLog) :View
 	{
+		$valid_statuses = QuestLog::getStatuses();
 		// Authorize the user (e.g., using a middleware or policy)
-		return view('quest-logs.edit', compact('questLog'));
+		return view('quest-logs.edit', compact('questLog', $valid_statuses));
 	}
 
 	public function showCompleteForm(QuestLog $questLog): View
@@ -110,13 +74,14 @@ class QuestLogController extends Controller
 		}
 
 		$validatedData = $request->validate([
-			'completion_details' => 'nullable|string', // Validate the completion details (can be empty)
+			'feedback' => 'nullable|string',
 		]);
 
 		$questLog->update([
 			'status' => 'Completed',
 			'completed_at' => now(),
-			'completion_details' => $validatedData['completion_details'],
+			'feedback' => $validatedData['feedback'],
+			'feedback_type' => $questLog->quest->feedback_type,
 		]);
 
 		// Log this happened
@@ -132,10 +97,13 @@ class QuestLogController extends Controller
 
 	public function update(Request $request, QuestLog $questLog): RedirectResponse
 	{
-		// Authorize the user (e.g., using a middleware or policy)
+		$valid_statuses = QuestLog::getStatuses();
 
 		$request->validate([
-			'status' => 'required|in:Accepted,Requested Exception,In Progress,Completed,Pending Review,Failed', // Add other validation rules as needed
+			'status' => [
+				'required',
+				Rule::in($valid_statuses),
+			],
 		]);
 
 		$questLog->update($request->all());
@@ -184,6 +152,7 @@ class QuestLogController extends Controller
 
 	public function review(QuestLog $questLog): View
 	{
-		return view('quest-logs.review', compact('questLog'));
+		$valid_statuses = QuestLog::getStatuses();
+		return view('quest-logs.review', compact('questLog' , 'valid_statuses'));
 	}
 }

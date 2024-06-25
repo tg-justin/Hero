@@ -115,11 +115,13 @@ class QuestController extends Controller
 	 */
 	public function create(): View
 	{
+		$feedback_types = Quest::getFeedbackTypes(); // Get the enum values FIRST
 		$categories = Category::all();
-		$campaigns = Campaign::all(); // Fetch all campaigns
+		$campaigns = Campaign::all();
 
-		return view('quests.create', compact('categories', 'campaigns'));
+		return view('quests.create', compact('categories', 'campaigns', 'feedback_types'));
 	}
+
 
 	/**
 	 * Display the specified resource.
@@ -142,10 +144,12 @@ class QuestController extends Controller
 	 */
 	public function edit(Quest $quest): View
 	{
+
 		$categories = Category::all();
 		$campaigns = Campaign::all(); // Fetch all campaigns
+		$feedback_types = Quest::getFeedbackTypes(); // Get the enum values FIRST
 
-		return view('quests.edit', compact('quest', 'categories', 'campaigns'));
+		return view('quests.edit', compact('quest', 'categories', 'campaigns','feedback_types'));
 	}
 
 	/**

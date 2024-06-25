@@ -48,6 +48,29 @@
 				@enderror
 			</div>
 
+			<div>
+				<label for="feedback_type" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">Feedback Type</strong></label>
+				<select name="feedback_type" id="feedback_type" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+					<option value="">-- Select --</option>
+					@foreach ($feedback_types as $type)
+						<option value="{{ $type }}" {{ old('feedback_type') == $type ? 'selected' : '' }}>
+							{{ $type }}
+						</option>
+					@endforeach
+					@error('feedback_type')
+					<p class="mt-1 text-sm text-red">{{ $message }}</p>
+					@enderror
+				</select>
+			</div>
+
+			<div>
+				<label for="feedback_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong>Feedback Text</strong></label>
+				<textarea id="feedback_text" name="feedback_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('complete_text', $quest->complete_text ?? '') !!}</textarea>
+				@error('feedback_text')
+				<p class="mt-1 text-sm text-red">{{ $message }}</p>
+				@enderror
+			</div>
+
 		</div>
 
 		<div class="md:col-span-2 space-y-4">
