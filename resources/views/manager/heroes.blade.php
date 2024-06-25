@@ -1,7 +1,12 @@
+@php
+	use Carbon\Carbon;
+@endphp
 <x-app-layout>
 	<x-slot name="header">
 		{{ __('Hero Management') }}
 	</x-slot>
+
+
 
 	<div class="max-w-7xl mx-auto px-2 lg:px-8">
 		<div class="py-6 bg-cover bg-center">
@@ -33,9 +38,10 @@
 					<table class="table-seance">
 						<thead>
 						<tr>
+							<th class="tracking-wider">ID</th>
 							<th class="tracking-wider">Name</th>
 							<th class="tracking-wider">Email</th>
-							<th class="tracking-wider">Role</th>
+							<th class="tracking-wider">Role(s)</th>
 							<th class="tracking-wider">Last Login</th>
 							<th class="tracking-wider">Actions</th>
 						</tr>
@@ -43,27 +49,28 @@
 						<tbody>
 						@foreach ($heroes as $hero)
 							<tr>
+								<td>{{ $hero->id }}</td>
 								<td>
-									@if($hero->hasRole('hero'))
-										<a href="{{ route('manager.quest-logs', ['user' => $hero->id]) }}">
-											{{ $hero->name }}
-										</a>
-									@else
-										{{ $hero->name }}
-									@endif
+									<a href="{{ route('profile.show-profile', ['heroId' => $hero->id]) }}">{{ $hero->name }}</a>
 								</td>
 								<td>{{ $hero->email }}</td>
 								<td>{{ ucwords(trim($hero->roles->pluck('name')->implode(', '))) }}
 								</td>
 								<td>
-									{{--TODO idk how this variable works--}}
-									{{-- @if (!$hero->is_active)
-										 Active
-									 @else
-										 Inactive
-									 @endif--}}
-									{{ $hero->last_login_at }}
+									@if ($hero->last_login_at)
+										{{ Carbon::parse($hero->last_login_at)->setTimezone($myTimeZone)->format('d M Y (h:i A)') }}
+									@else
+										Never
+									@endif
 								</td>
+								{{--TODO idk how this variable works--}}
+{{--								<td>--}}
+{{--									 @if (!$hero->is_active)--}}
+{{--										 Active--}}
+{{--									 @else--}}
+{{--										 Inactive--}}
+{{--									 @endif--}}
+{{--								</td>--}}
 								<td>
 									@if($hero->hasRole('hero') && !$hero->hasRole('manager'))
 										<form action="{{ route('heroes.promote', $hero->id) }}" method="POST" class="inline">

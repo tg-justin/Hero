@@ -1,4 +1,8 @@
-.tg-button-purple, .tg-button-orange, .tg-button-green, .tg-button-gray, .tg-button-purple:hover, .tg-button-orange:hover, .tg-button-green:hover, .tg-button-gray:hover {
+.tg-button, .tg-button a, .tg-button:hover,
+.tg-button-purple, .tg-button-purple:hover,
+.tg-button-orange, .tg-button-orange:hover,
+.tg-button-green, .tg-button-green:hover,
+.tg-button-gray,  .tg-button-gray:hover {
 	margin: 0.5rem auto;
 	padding: 0.5rem 1.0rem;
 	text-decoration-line: none;
@@ -8,12 +12,14 @@
 	display: block;
 }
 
-.tg-button-purple {
+.tg-button, .tg-button-purple,
+.tg-button a, .tg-button-purple a
+{
 	background-color: #9547d6; /*bg-seance-600*/
 	color: #dddddd; /*light-gray*/
 }
 
-.tg-button-purple:hover {
+.tg-button:hover .tg-button-purple:hover {
 	background-color: #8035bb; /*bg-seance-700*/
 	color: #ffffff; /*white*/
 }

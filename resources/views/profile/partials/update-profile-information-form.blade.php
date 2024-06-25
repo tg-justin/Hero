@@ -2,7 +2,7 @@
 <section>
 	<header>
 		<h3>
-			{{ __('Profile Information') }}
+			{{ __('Profile Information YO YO') }}
 		</h3>
 
 		<p class="mt-1 text-sm">
