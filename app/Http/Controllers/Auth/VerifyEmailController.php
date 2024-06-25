@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
+use Carbon\Carbon;
 
 class VerifyEmailController extends Controller
 {
@@ -14,15 +15,21 @@ class VerifyEmailController extends Controller
 	 */
 	public function __invoke(EmailVerificationRequest $request): RedirectResponse
 	{
-		if ($request->user()->hasVerifiedEmail())
+		$user = $request->user();
+
+		if ($user->hasVerifiedEmail())
 		{
-			return redirect()->intended(route('dashboard', absolute: FALSE) . '?verified=1');
+			return redirect()->intended(route('quests.index', absolute: FALSE) . '?verified=1');
 		}
 
-		if ($request->user()->markEmailAsVerified())
+		if ($user->markEmailAsVerified())
 		{
-			event(new Verified($request->user()));
+			event(new Verified($user));
 		}
+
+		// Update the last_login_at field
+		$user->last_login_at = Carbon::now();
+		$user->save();
 
 		return redirect()->intended(route('quests.index', absolute: FALSE) . '?verified=1');
 	}

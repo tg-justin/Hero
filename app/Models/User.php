@@ -11,8 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-	use HasFactory, Notifiable;
-	use HasRoles;
+	use HasFactory, Notifiable, HasRoles;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -22,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
 	protected $fillable = [
 		'name',
 		'email',
+		'timezone',
 		'password',
 		'first_name',
 		'last_name',

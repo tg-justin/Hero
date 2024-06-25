@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Carbon\CarbonTimeZone;
 
 class RegisteredUserController extends Controller
 {
@@ -26,6 +27,7 @@ class RegisteredUserController extends Controller
 			'name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
 			'password' => ['required', 'confirmed', Rules\Password::defaults()],
+			'timezone' => ['required', 'string', 'max:255'], // Validate the timezone field
 		]);
 
 		$user = User::create([
@@ -34,6 +36,7 @@ class RegisteredUserController extends Controller
 			'pronouns' => $request->pronouns,
 			'password' => Hash::make($request->password),
 			'email_verified_at' => NOW(),
+			'timezone' => $request->timezone ?? 'UTC', // Save the selected timezone
 		]);
 
 		event(new Registered($user));
@@ -53,6 +56,9 @@ class RegisteredUserController extends Controller
 	 */
 	public function create(): View
 	{
-		return view('auth.register');
+		// return view('auth.register');
+		// Share the list of timezones with the view
+		$timezones = CarbonTimeZone::listIdentifiers();
+		return view('auth.register', compact('timezones'));
 	}
 }

@@ -24,6 +24,20 @@
 						<x-input-error :messages="$errors->get('email')" class="mt-2"/>
 					</div>
 
+					{{-- Timezone Input --}}
+					<div class="mt-4">
+						<x-input-label for="timezone" :value="__('Timezone')" class="block text-sm font-medium text-seance-700 dark:text-seance-700"/>
+						<select id="timezone" name="timezone" class="block mt-1 w-full rounded-md border-seance-300 shadow-sm focus:ring-seance-500 focus:border-seance-500">
+							@foreach ($timezones as $timezone)
+								<option value="{{ $timezone }}"
+										@if (old('timezone', 'America/Chicago') == $timezone) selected @endif>
+									{{ $timezone }}
+								</option>
+							@endforeach
+						</select>
+						<x-input-error :messages="$errors->get('timezone')" class="mt-2"/>
+					</div>
+
 					{{-- Password Input --}}
 					<div>
 						<x-input-label for="password" :value="__('Password')" class="block text-sm font-medium text-seance-700 dark:text-seance-700"/>

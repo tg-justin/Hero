@@ -11,20 +11,24 @@ class HeroController extends Controller
 {
 	public function index(Request $request): View
 	{
-		$query = User::whereHas('roles', function($query)
-		{
-			$query->where('name', 'hero');
-		});
+		$myTimeZone = $request->user()->timezone ?? 'UTC';
 
+		$query = User::query();
 		if ($request->has('search'))
 		{
 			$search = $request->input('search');
-			$query->where('name', 'like', "%$search%");
+			$query->where(function($q) use ($search)
+			{
+				$q->where('name', 'like', "%$search%")
+					->orWhere('email', 'like', "%$search%");
+			});
 		}
+
+		$query->orderBy('id');
 
 		$heroes = $query->get();
 
-		return view('manager.heroes', compact('heroes'));
+		return view('manager.heroes', compact('heroes', 'myTimeZone'));
 	}
 
 	public function promote(User $hero): RedirectResponse

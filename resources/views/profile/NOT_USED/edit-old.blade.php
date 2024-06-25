@@ -17,15 +17,21 @@
 				</div>
 			</div>
 
-			{{--			<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">--}}
-			{{--				<div class="max-w-3xl">--}}
-			{{--					@include('profile.partials.update-hero-registration-form')--}}
-			{{--				</div>--}}
-			{{--			</div>--}}
+			<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
+				<div class="max-w-3xl">
+					@include('profile.partials.update-hero-registration-form')
+				</div>
+			</div>
 
 			<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
 				<div class="max-w-3xl">
 					@include('profile.partials.form-change-password')
+				</div>
+			</div>
+
+			<div class="p-4 sm:p-8 bg-white/75 shadow sm:rounded-lg mb-2">
+				<div class="max-w-3xl">
+					{{--					@include('profile.NOT_USED.old-delete-user-form')--}}
 				</div>
 			</div>
 
