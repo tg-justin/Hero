@@ -18,7 +18,7 @@
 						</div>
 					@endif
 
-					<x-quest-form :quest="$quest"/>
+					<x-quest-form :quest="$quest" :feedback_types="$feedback_types"/>
 				</div>
 			</div>
 		</div>
