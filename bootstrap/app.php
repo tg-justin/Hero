@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
 	)
 	->withMiddleware(function(Middleware $middleware)
 	{
-		$middleware->appendToGroup('web', [
+		$middleware->appendToGroup('auth', [
 			LevelUpNotificationMiddleware::class,
 		]);
 	})

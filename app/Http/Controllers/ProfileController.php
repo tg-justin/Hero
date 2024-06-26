@@ -91,7 +91,7 @@ class ProfileController extends Controller
 		$reviewQuest = (strlen($strippedPastVolunteerExperience) > 10) ? 1 : 0;
 
 		$questLog = $hero->questLogs()->where('quest_id', 1)->first();
-		$questLog->completion_details = $pastVolunteerExperience;
+		$questLog->feedback = $pastVolunteerExperience;
 		$questLog->status = 'Completed';
 		$questLog->review = $reviewQuest;
 		$questLog->completed_at = now();

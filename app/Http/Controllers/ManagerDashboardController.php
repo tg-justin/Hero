@@ -28,7 +28,7 @@ class ManagerDashboardController extends Controller
 
 		$unacceptedQuests = Quest::doesntHave('questLogs')->count();
 
-		$unreviewedQuestLogs = QuestLog::where('status', 'Pending Review')->count();
+		$unreviewedQuestLogs = QuestLog::where('review', '1')->where('reviewed_at', NULL)->count();
 
 		$questsCompletedToday = QuestLog::where('status', 'Completed')
 			->whereDate('completed_at', $today)
@@ -64,7 +64,8 @@ class ManagerDashboardController extends Controller
 		$sortBy = $request->query('sort_by', 'completed_at'); // Default sorting by completed_at
 		$sortDirection = $request->query('sort_direction', 'asc'); // Default ascending order
 
-		$questLogs = QuestLog::where('status', 'Pending Review')
+		$questLogs = QuestLog::where('review', '1')
+			->where('reviewed_at', NULL)
 			->orderBy($sortBy, $sortDirection)
 			->paginate(10);
 

@@ -33,7 +33,7 @@
 										<a href="{{ route('quests.show', $questLog->quest->id) }}">{{ $questLog->quest->title }}</a>
 									</td>
 									<td>
-										<span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-slate-200 rounded {{ $questLog->statusColor }}">{{$questLog->status }}</span>
+										<span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-slate-800 rounded {{ $questLog->statusColor }}">{{$questLog->status }}</span>
 									</td>
 									<td class="hidden md:table-cell">{{ $questLog->xp_awarded }}</td>
 									<td class="hidden md:table-cell">{{ $questLog->xp_bonus }}</td>

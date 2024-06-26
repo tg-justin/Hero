@@ -110,8 +110,13 @@ Route::middleware('auth')->group(function()
 		Route::post('/quests/{quest}/accept', [QuestController::class, 'accept'])->name('quests.accept');
 
 		Route::get('/quest-log', [QuestLogController::class, 'index'])->name('quest-log.index');
+
 		Route::get('/quest-log/{questLog}/complete', [QuestLogController::class, 'showCompleteForm'])->name('quest-log.complete-form');
 		Route::post('/quest-log/{questLog}/complete', [QuestLogController::class, 'complete'])->name('quest-log.complete');
+
+		Route::get('/quest-log/{questLog}/drop-confirm', [QuestLogController::class, 'confirmDrop'])->name('quest-log.drop-confirm');
+		Route::post('/quest-log/{questLog}/drop', [QuestLogController::class, 'drop'])->name('quest-log.drop');
+
 
 		/*******************************************************************************************
 		 * Manager Routes

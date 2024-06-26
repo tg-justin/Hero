@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\QuestLog;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -51,7 +52,7 @@ class QuestLogController extends Controller
 	{
 		$valid_statuses = QuestLog::getStatuses();
 		// Authorize the user (e.g., using a middleware or policy)
-		return view('quest-logs.edit', compact('questLog', $valid_statuses));
+		return view('quest-logs.edit', compact('questLog', 'valid_statuses'));
 	}
 
 	public function showCompleteForm(QuestLog $questLog): View
@@ -73,16 +74,44 @@ class QuestLogController extends Controller
 			abort(403, 'Unauthorized');
 		}
 
-		$validatedData = $request->validate([
-			'feedback' => 'nullable|string',
-		]);
+		if(str_contains($questLog->quest->feedback_type, 'Required')){
+			$request->validate([
+				'feedback' => 'required|string',
+				'minutes => required|integer',
+			]);
+		}else{
+			$request->validate([
+				'feedback' => 'nullable|string',
+				'minutes => required|integer',
+			]);
+		}
 
 		$questLog->update([
 			'status' => 'Completed',
 			'completed_at' => now(),
-			'feedback' => $validatedData['feedback'],
+			'review' => $questLog->review == 1 ? 1 : $request->review ?? 0,
+			'feedback' => $request->feedback,
 			'feedback_type' => $questLog->quest->feedback_type,
+			'minutes' => $request->minutes,
 		]);
+
+		// If the status changed and is now complete
+		// Send an email to the quest creator if they have email notifications enabled
+		if ($questLog->wasChanged('status') && $questLog->status === 'Completed' && $questLog->quest->notify_email) {
+			$questCreator = $questLog->quest->user;
+
+			$message = "{$questLog->user->name} has completed the quest '{$questLog->quest->title}'.";
+			$reviewUrl = route('quest-logs.review', $questLog);
+
+			$message .= "You can review the quest log here: $reviewUrl";
+
+			// Send the email
+			Mail::raw($message, function ($message) use ($questCreator) {
+				$message
+					->to($questCreator->email)
+					->subject('Quest Completion');
+			});
+		}
 
 		// Log this happened
 		activity()
@@ -114,9 +143,10 @@ class QuestLogController extends Controller
 		if ($request->input('status') === 'Completed')
 		{
 			// Check if completed_at has already been set. If so, skip the update
-			if (!$questLog->completed_at)
+			if (empty($questLog->reviewed_at))
 			{
-				$questLog->completed_at = now();
+				$questLog->reviewed_at = now();
+				$questLog->reviewer_id = auth()->user()->id;
 				$questLog->save();
 
 				// Log this happened
@@ -126,16 +156,18 @@ class QuestLogController extends Controller
 					->log('Quest completed');
 			}
 
-			if ($request->has('xp_bonus'))
+			if ($questLog->wasChanged('xp_bonus'))
 			{
 				activity()
 					->causedBy(auth()->user())
 					->performedOn($questLog)
 					->log('Quest log bonus XP updated!');
+
+				$user = $questLog->user;
+				$user->levelUp();
 			}
 
-			$user = $questLog->user;
-			$user->levelUp();
+
 		}
 
 		// Log Quest Log Update
@@ -144,7 +176,7 @@ class QuestLogController extends Controller
 			->performedOn($questLog)
 			->log('Quest log updated');
 
-		return redirect()->route('users.quest-logs', $questLog->user_id)
+		return redirect()->route('quest-logs.review', $questLog->id)
 			->with('success', 'Quest log updated!');
 	}
 
@@ -154,5 +186,44 @@ class QuestLogController extends Controller
 	{
 		$valid_statuses = QuestLog::getStatuses();
 		return view('quest-logs.review', compact('questLog' , 'valid_statuses'));
+	}
+
+	public function confirmDrop(QuestLog $questLog): View
+	{
+		// Authorize the user (make sure only the hero who owns the quest log can complete it)
+		if (auth()->user()->id !== $questLog->user_id)
+		{
+			abort(403, 'Unauthorized');
+		}
+
+		return view('quest-logs.drop-confirm', compact('questLog'));
+	}
+
+
+	public function drop(QuestLog $questLog, Request $request): RedirectResponse
+	{
+		// Authorize the user (make sure only the hero who owns the quest log can complete it)
+		if (auth()->user()->id !== $questLog->user_id)
+		{
+			abort(403, 'Unauthorized');
+		}
+
+		/*$validatedData = $request->validate([
+			'feedback' => 'nullable|string',
+		]);*/
+
+		$questLog->update([
+			'status' => 'Dropped',
+
+		]);
+
+		// Log this happened
+		activity()
+			->causedBy(auth()->user())
+			->performedOn($questLog)
+			->log('Quest Dropped');
+
+		return redirect()->route('quests.index')->with('success', 'Quest dropped successfully.');
+
 	}
 }

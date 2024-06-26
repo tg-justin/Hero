@@ -53,10 +53,12 @@
 				<select name="feedback_type" id="feedback_type" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
 					<option value="">-- Select --</option>
 					@foreach ($feedback_types as $type)
-						<option value="{{ $type }}" {{ old('feedback_type') == $type ? 'selected' : '' }}>
+						<option value="{{ $type }}" {{ old('feedback_type',$quest->feedback_type) == $type ? "selected" : "" }}>
 							{{ $type }}
 						</option>
+
 					@endforeach
+
 					@error('feedback_type')
 					<p class="mt-1 text-sm text-red">{{ $message }}</p>
 					@enderror
@@ -132,6 +134,22 @@
 				<p class="mt-1 text-sm text-red">{{ $message }}</p>
 				@enderror
 			</div>
+
+			<div>
+				<div class="flex items-center">
+					<input id="notify_email" type="checkbox" value="1" name="notify_email"
+						   @checked(old('notify_email', $quest->notify_email ?? ''))
+						   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+					/>
+
+					<x-input-label for="notify_email" class="text-red ml-2 " :value="__('Email Notification')" /><br/>
+					<small class="ml-2">Receive an email when a hero completes this quest.</small>
+				</div>
+
+				<x-input-error :messages="$errors->get('notify_email')" class="mt-2 text-red" />
+
+			</div>
+
 
 			{{--
 			<div>
