@@ -9,6 +9,7 @@
 					<h2>Congratulations on completing your quest!</h2>
 					<p>Thank you for embarking on this quest, brave hero! Before you complete your journey, we'd love to know how long it took you to accomplish this task. This information helps us to plan future quests and rewards. </p>
 				</div>
+
 				<form action="{{ route('quest-log.complete', $questLog) }}" method="POST">
 					@csrf
 					@if($questLog->quest->feedback_type != 'Hide')
@@ -61,7 +62,6 @@
 						</x-primary-button>
 					</div>
 				</form>
-
 			</div>
 		</div>
 	</div>
