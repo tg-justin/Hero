@@ -8,6 +8,8 @@
 		$userLevel = $user->level;
 		$questLevel = $quest->min_level;
 		$isEditor = ($user->hasRole('manager') || $user->hasRole('admin'));
+		$questAccepted = ($questLog && $questLog->status == 'Accepted');
+		$questCompleted = ($questLog && $questLog->status == 'Completed');
 	@endphp
 
 	<div class="py-6 bg-cover bg-center"> {{-- BODY_A: BEGIN --}}
@@ -25,25 +27,57 @@
 				<div class="grid grid-cols-1 md:grid-cols-6 gap-4"> {{-- COLUMNS: BEGIN --}}
 					<div class="md:col-span-4 space-y-4 dynamic"> {{-- LEFT_COLUMN: BEGIN --}}
 						<div class="bg-white p-4 rounded-md shadow-inner"> {{-- QUEST BODY: BEGIN --}}
-							{!! $quest->intro_text !!}
-							@if (!$questLog || $isEditor)
-								{!! $quest->accept_text !!}
-							@endif
-							@if ($questLog && $questLog->status == 'Accepted' || $isEditor)
-								{!! $quest->directions_text !!}
-							@endif
-							@if ($questLog && $questLog->status == 'Completed' || $isEditor)
+							@if ($questCompleted)
 								{!! $quest->complete_text !!}
+								<br>
+								<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Quest Review</p>
+								{!! $quest->intro_text !!}
+								<hr class="my-4">
+								{!! $quest->accept_text !!}
+								<hr class="my-4">
+								{!! $quest->directions_text !!}
+								@if($questLog->completion_details)
+									<br>
+									<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Your Feedback</p>
+									<x-default-value :escape="FALSE" :value="$questLog->completion_details"/>
+								@endif
+							@else
+								{!! $quest->intro_text !!}
+								@if (!$questLog || $isEditor)
+									{!! $quest->accept_text !!}
+								@endif
+								@if ($questAccepted || $isEditor)
+									{!! $quest->directions_text !!}
+								@endif
+								@if ($questCompleted || $isEditor)
+									{!! $quest->complete_text !!}
+								@endif
 							@endif
 						</div> {{-- QUEST BODY: END --}}
 					</div> {{-- LEFT_COLUMN: END --}}
 
 					<div class="md:col-span-2 space-y-4"> {{-- RIGHT_COLUMN: BEGIN --}}
 						<div class="bg-white p-4 rounded-md shadow-inner text-lg text-seance-800"> {{-- STATS: BEGIN --}}
-							<p><span class="font-semibold">Level:</span> {{ $quest->min_level }}</p>
-							<p><span class="font-semibold">XP Award:</span> {{ $quest->xp }}</p>
-							@if ($quest->bonus_xp_text)
-								<p><span class="text-lg font-semibold text-seance-800">Bonus XP:</span> {{ strip_tags($quest->bonus_xp_text) }}</p>
+							<p><span class="font-semibold">Quest Level:</span> {{ $quest->min_level }}</p>
+							@if ($questCompleted || $questAccepted)
+								<p><span class="font-semibold">Accepted:</span>
+									<x-date-user-time-zone :value="$questLog->accepted_at"/>
+								</p>
+							@endif
+							@if($questCompleted)
+								<p><span class="font-semibold">Completed:</span>
+									<x-date-user-time-zone :value="$questLog->completed_at"/>
+								</p>
+								<p><span class="font-semibold">XP Award:</span> {{ $questLog->xp_awarded }}</p>
+								@if($questLog->xp_bonus > 0)
+									<p><span class="font-semibold">XP Bonus:</span> {{ $questLog->xp_bonus }}</p>
+									<p><span class="font-semibold">XP Total:</span> {{ $questLog->xp_awarded + $questLog->xp_bonus }}</p>
+								@endif
+							@else
+								<p><span class="font-semibold">XP Award:</span> {{ $quest->xp }}</p>
+								@if ($quest->bonus_xp_text)
+									<p><span class="text-lg font-semibold text-seance-800">Bonus XP:</span> {{ strip_tags($quest->bonus_xp_text) }}</p>
+								@endif
 							@endif
 							@if(FALSE)
 								<p><span class="font-semibold">Category:</span> {{ $quest->category->name }}</p>
@@ -72,19 +106,19 @@
 								</div>
 							@endif
 
-							@if($questLog && $questLog->status == 'Accepted' && $quest->id != 1)
+							@if($questAccepted && $quest->id != 1)
 								<div class="mx-auto">
 									<a href="{{ route('quest-log.complete-form', $questLog) }}" class="tg-button-green">Complete Quest</a>
 								</div>
 							@endif
 
-							@if($questLog && $questLog->status == 'Accepted' && $quest->id == 1)
+							@if($questAccepted && $quest->id == 1)
 								<div class="mx-auto">
 									<a href="{{ route('profile.hero-registration') }}" class="tg-button-green">Complete Hero Registration</a>
 								</div>
 							@endif
 
-							@if($questLog && $questLog->status == 'Completed')
+							@if($questCompleted)
 								<div class="mx-auto">
 									<p class="tg-button-gray">Quest Already Completed!</p>
 								</div>
