@@ -67,7 +67,7 @@
 
 			<div>
 				<label for="feedback_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong>Feedback Text</strong></label>
-				<textarea id="feedback_text" name="feedback_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('complete_text', $quest->complete_text ?? '') !!}</textarea>
+				<textarea id="feedback_text" name="feedback_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('feedback_text', $quest->feedback_text ?? '') !!}</textarea>
 				@error('feedback_text')
 				<p class="mt-1 text-sm text-red">{{ $message }}</p>
 				@enderror
