@@ -10,16 +10,14 @@
 					<p>Thank you for embarking on this quest, brave hero! Before you complete your journey, we'd love to know how long it took you to accomplish this task. This information helps us to plan future quests and rewards. </p>
 				</div>
 
-				<div class="mb-4">{!! $questLog->quest->feedback_text !!}</div>
-
 				<form action="{{ route('quest-log.complete', $questLog) }}" method="POST">
 					@csrf
 					@if($questLog->quest->feedback_type != 'Hide')
 						@php
 							if(str_contains($questLog->quest->feedback_type, 'HTML')) {
-							   $tiny_mce_class = 'tinymce-basic';
+							   $tiny_mce_class = 'tinymce-full';
 							} else if ($questLog->quest->feedback_type !== 'Hide') {
-							   $tiny_mce_class = '';
+							   $tiny_mce_class = 'tinymce-basic';
 							}
 
 							if(str_contains($questLog->quest->feedback_type, 'Required')) {

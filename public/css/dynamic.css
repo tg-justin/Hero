@@ -1,17 +1,7 @@
-/* TEMP: Fix to get TinyMCE to autosize correctly. */
-.mce-edit-area {
-	overflow: hidden !important;
-}
-
-/* TEMP: Fix to get TinyMCE to autosize correctly. */
-.mce-content-body {
-	height: auto !important;
-}
-
-/* TEMP: For testing and working out div problems. */
 .show-border {
 	border: 3px solid red;
 }
+
 
 .dynamic * {
 }
