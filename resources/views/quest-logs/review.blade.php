@@ -14,10 +14,10 @@
 			<x-hero-profile :user="$questLog->user"/>
 			<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
 				<h3 class="text-lg font-semibold mb-2">Quest Log Details</h3>
-				<p><strong>Quest:</strong> {{ $questLog->quest->title }}</p>
-				<p><strong>Accept Text:</strong> {{ $questLog->quest->accept_text }}</p>
+				<p><strong>Quest:</strong> {!! $questLog->quest->title !!}</p>
+				<p><strong>Accept Text:</strong> {!! $questLog->quest->accept_text !!}</p>
 				<p><strong>Completed At:</strong> {{ Carbon::parse($questLog->completed_at)->format('d M Y') }}</p>
-				<p><strong>Feedback:</strong> {{ $questLog->feedback }}</p>
+				<p><strong>Feedback:</strong> {!! $questLog->feedback !!}</p>
 				<h3 class="text-lg font-semibold mt-4 mb-2">Edit Quest Log</h3>
 
 				@include('quest-logs.partials.edit-form')
