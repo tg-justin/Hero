@@ -16,21 +16,34 @@ return new class extends Migration {
 		{
 			$table->id();
 			$table->unsignedBigInteger('user_id');
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+
 			$table->unsignedBigInteger('quest_id');
 			$table->foreign('quest_id')->references('id')->on('quests')->onDelete('cascade');
-			$table->enum('status', ['Accepted', 'Requested Exception', 'Completed', 'Pending Review', 'Failed']);
-			$table->text('completion_details')->nullable();
+
+			$table->enum('status', ['Accepted', 'Requested Exception', 'Completed', 'Dropped', 'Expired']);
+
+			$table->text('feedback')->nullable();
+			$table->enum('feedback_type', ['Hide', 'Text', 'Text Required', 'HTML', 'HTML Required'])->nullable();
+			$table->integer('minutes')->nullable();
+
 			$table->timestamp('accepted_at')->nullable();
 			$table->timestamp('completed_at')->nullable();
+
 			$table->integer('xp_awarded')->nullable();
 			$table->integer('xp_bonus')->nullable();
+
 			$table->boolean('review')->default(FALSE);
 			$table->timestamp('reviewed_at')->nullable();
 			$table->unsignedBigInteger('reviewer_id')->nullable();
-			$table->foreign('reviewer_id')->references('id')->on('users')->onDelete('set null');
+			$table->text('reviewer_message')->nullable();
+
 			$table->boolean('rewards_claimed')->default(FALSE);
+
 			$table->timestamps();
+
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+			$table->foreign('reviewer_id')->references('id')->on('users')->onDelete('set null');
 		});
 	}
 

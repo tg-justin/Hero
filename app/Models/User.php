@@ -129,11 +129,6 @@ class User extends Authenticatable implements MustVerifyEmail
 		return $levelNames[$this->level] ?? 'Unknown';
 	}
 
-	public function needsLevelUpNotification()
-	{
-		return $this->level > $this->last_notified_level;
-	}
-
 	public function levelUp()
 	{
 		$newLevel = $this->calculateLevel();

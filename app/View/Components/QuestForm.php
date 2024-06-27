@@ -3,6 +3,7 @@ namespace App\View\Components;
 
 use App\Models\Campaign;
 use App\Models\Category;
+use App\Models\Quest;
 use Illuminate\View\Component;
 
 class QuestForm extends Component
@@ -13,6 +14,7 @@ class QuestForm extends Component
 
 	public $campaigns; // Add this property
 
+	public $feedback_types; // Add this property
 	public $submitButtonText;
 
 	public function __construct($quest = NULL)
@@ -20,6 +22,7 @@ class QuestForm extends Component
 		$this->quest = $quest;
 		$this->categories = Category::all();
 		$this->campaigns = Campaign::all();
+		$this->feedback_types = Quest::getFeedbackTypes();
 
 		$this->submitButtonText = $quest ? 'Update Quest' : 'Create Quest';
 	}

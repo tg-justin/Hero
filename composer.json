@@ -9,7 +9,6 @@
 	"license": "MIT",
 	"require": {
 		"php": "^8.2",
-		"google/apiclient": "*",
 		"laravel/framework": "^11.0",
 		"laravel/tinker": "^2.9",
 		"league/oauth2-client": "^2.7",

@@ -36,10 +36,10 @@
 								{!! $quest->accept_text !!}
 								<hr class="my-4">
 								{!! $quest->directions_text !!}
-								@if($questLog->completion_details)
+								@if($questLog->feedback)
 									<br>
 									<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Your Feedback</p>
-									<x-default-value :escape="FALSE" :value="$questLog->completion_details"/>
+									<x-default-value :escape="FALSE" :value="$questLog->feedback"/>
 								@endif
 							@else
 								{!! $quest->intro_text !!}
@@ -88,6 +88,9 @@
 							@if ($quest->repeatable)
 								<p><span class="font-semibold">Repeatable:</span> {{ $quest->repeatable }}</p>
 							@endif
+							@if($isEditor)
+								<p><span class="font-semibold">Email Notification:</span> {{ $quest->notify_email = 1 ? 'Yes' : 'No' }}</p>
+							@endif
 						</div> {{-- STATS: END --}}
 
 						<div class="bg-white p-4 rounded-md shadow-inner"> {{-- BUTTONS: BEGIN --}}
@@ -104,11 +107,15 @@
 								<div class="mx-auto">
 									<a href="{{ route('quests.edit', $quest->id) }}" class="tg-button-orange">Edit Quest</a>
 								</div>
+
 							@endif
 
 							@if($questAccepted && $quest->id != 1)
 								<div class="mx-auto">
 									<a href="{{ route('quest-log.complete-form', $questLog) }}" class="tg-button-green">Complete Quest</a>
+								</div>
+								<div class="mx-auto">
+									<a href="{{ route('quest-log.drop-confirm', $questLog) }}" class="tg-button-orange">Drop Quest</a>
 								</div>
 							@endif
 

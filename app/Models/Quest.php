@@ -10,21 +10,25 @@ class Quest extends Model
 	use HasFactory;
 
 	protected $fillable = [
+		'user_id',
 		'title',
-		'directions_text',
 		'intro_text',
-		'xp',
-		'status',
-		'category_id',
-		'campaign_id',
-		'repeatable',
 		'accept_text',
-		'bonus_xp_text',
+		'directions_text',
 		'complete_text',
 		'min_level',
+		'xp',
+		'bonus_xp_text',
+		'category_id',
+		'campaign_id',
 		'start_date',
 		'expires_date',
-		'user_id',
+		'notify_email',
+		'status',
+		'repeatable',
+		'repeatability_text',
+		'feedback_text',
+		'feedback_type',
 
 	];
 
@@ -38,9 +42,24 @@ class Quest extends Model
 		return $this->belongsTo(Campaign::class);
 	}
 
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
+
 	public function questLogs()
 	{
 		return $this->hasMany(QuestLog::class);
 	}
-	// Add any additional methods specific to quests here (e.g., marking a quest as completed)
+
+	public static function getFeedbackTypes()
+	{
+		return [
+			'Hide',
+			'Text',
+			'Text Required',
+			'HTML',
+			'HTML Required'
+		];
+	}
 }

@@ -13,8 +13,10 @@ class QuestLog extends Model
 	protected $fillable = [
 		'user_id',
 		'quest_id',
-		'status', // accepted, requested_exception, completed
-		'completion_details',
+		'status',
+		'feedback',
+		'feedback_type',
+		'minutes',
 		'accepted_at',
 		'completed_at',
 		'xp_awarded',
@@ -34,5 +36,16 @@ class QuestLog extends Model
 	public function quest(): BelongsTo
 	{
 		return $this->belongsTo(Quest::class);
+	}
+
+	public static function getStatuses()
+	{
+		return [
+			'Accepted',
+			'Requested Exception',
+			'Completed',
+			'Dropped',
+			'Expired'
+		];
 	}
 }

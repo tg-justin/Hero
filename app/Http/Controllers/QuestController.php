@@ -90,6 +90,7 @@ class QuestController extends Controller
 
 		// Get all request data
 		$data = $request->all();
+		$data['notify_email'] = $request->notify_email ?? 0;
 
 		// Add the user_id to the data
 		$data['user_id'] = auth()->user()->id;
@@ -115,11 +116,13 @@ class QuestController extends Controller
 	 */
 	public function create(): View
 	{
+		$feedback_types = Quest::getFeedbackTypes(); // Get the enum values FIRST
 		$categories = Category::all();
-		$campaigns = Campaign::all(); // Fetch all campaigns
+		$campaigns = Campaign::all();
 
-		return view('quests.create', compact('categories', 'campaigns'));
+		return view('quests.create', compact('categories', 'campaigns', 'feedback_types'));
 	}
+
 
 	/**
 	 * Display the specified resource.
@@ -142,10 +145,12 @@ class QuestController extends Controller
 	 */
 	public function edit(Quest $quest): View
 	{
+
 		$categories = Category::all();
 		$campaigns = Campaign::all(); // Fetch all campaigns
+		$feedback_types = Quest::getFeedbackTypes(); // Get the enum values FIRST
 
-		return view('quests.edit', compact('quest', 'categories', 'campaigns'));
+		return view('quests.edit', compact('quest', 'categories', 'campaigns','feedback_types'));
 	}
 
 	/**
@@ -165,7 +170,7 @@ class QuestController extends Controller
 			'category_id' => 'required|integer',
 			// Add validation for other fields as needed
 		]);
-
+		$quest->notify_email = $request->notify_email ?? 0;
 		$quest->update($request->all());
 
 		// Log the update
@@ -203,9 +208,16 @@ class QuestController extends Controller
 		// Check if the quest is repeatable and the user hasn't reached the limit
 		if ($quest->repeatable === 0 || $user->questLogs()->where('quest_id', $quest->id)->count() < $quest->repeatable)
 		{
+			if(str_contains($quest->feedback_type, 'Required')){
+				$review = 1;
+			}else{
+				$review = 0;
+			}
+
 			$user->questLogs()->create([
 				'quest_id' => $quest->id,
 				'xp_awarded' => $quest->xp,
+				'review' => $review,
 				'accepted_at' => NOW(),
 				'status' => 'Accepted', // Set the initial status to 'Accepted'
 			]);
