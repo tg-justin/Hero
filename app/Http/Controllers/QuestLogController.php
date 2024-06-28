@@ -77,14 +77,19 @@ class QuestLogController extends Controller
 		if(str_contains($questLog->quest->feedback_type, 'Required')){
 			$request->validate([
 				'feedback' => 'required|string',
-				'minutes => required|integer',
+				'hours' => 'integer|min:0',
+				'minutes' => 'integer|min:0|max:59',
 			]);
 		}else{
 			$request->validate([
 				'feedback' => 'nullable|string',
-				'minutes => required|integer',
+				'hours' => 'integer|min:0',
+				'minutes' => 'integer|min:0|max:59',
 			]);
 		}
+
+		// Calculate total minutes
+		$totalMinutes = ($request->hours * 60) + $request->minutes;
 
 		$questLog->update([
 			'status' => 'Completed',
@@ -92,7 +97,7 @@ class QuestLogController extends Controller
 			'review' => $questLog->review == 1 ? 1 : $request->review ?? 0,
 			'feedback' => $request->feedback,
 			'feedback_type' => $questLog->quest->feedback_type,
-			'minutes' => $request->minutes,
+			'minutes' => $totalMinutes,
 		]);
 
 		// If the status changed and is now complete

@@ -14,10 +14,15 @@
 
 	<div class="py-6 bg-cover bg-center"> {{-- BODY_A: BEGIN --}}
 		<div class="max-w-7xl mx-auto px-2 lg:px-8"> {{-- BODY_B: BEGIN --}}
-
+			@if(session('error'))
+				<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded-md" role="alert">
+					<p class="mt-0">{{ session('error') }}</p>
+				</div>
+			@endif
 			{{-- Display success message --}}
 			@if (session('success'))
-				<div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-md" role="alert"><p class="m-0">{{ session('success') }}</p>
+				<div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-md" role="alert">
+					<p class="m-0">{{ session('success') }}</p>
 				</div>
 			@endif
 
@@ -106,6 +111,9 @@
 							@if($isEditor)
 								<div class="mx-auto">
 									<a href="{{ route('quests.edit', $quest->id) }}" class="tg-button-orange">Edit Quest</a>
+								</div>
+								<div class="mx-auto">
+									<a href="{{ route('quests.confirm-delete', $quest->id) }}" class="tg-button-orange">Delete Quest</a>
 								</div>
 
 							@endif

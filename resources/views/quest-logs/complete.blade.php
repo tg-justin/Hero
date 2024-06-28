@@ -15,9 +15,9 @@
 					@if($questLog->quest->feedback_type != 'Hide')
 						@php
 							if(str_contains($questLog->quest->feedback_type, 'HTML')) {
-							   $tiny_mce_class = 'tinymce-full';
-							} else if ($questLog->quest->feedback_type !== 'Hide') {
 							   $tiny_mce_class = 'tinymce-basic';
+							} else if ($questLog->quest->feedback_type !== 'Hide') {
+							   $tiny_mce_class = '';
 							}
 
 							if(str_contains($questLog->quest->feedback_type, 'Required')) {
@@ -34,10 +34,20 @@
 					@endif
 
 					<div class="mt-4">
-						<x-input-label for="minutes" class="text-red" :value="__('Minutes')" />
-						<x-text-input id="minutes" type="number" class="block mt-1 w-full" name="minutes" :value="old('minutes', $questLog->minutes)" required autofocus autocomplete="minutes" />
-						<x-input-error :messages="$errors->get('minutes')" class="mt-2 text-red" />
+						<div class="flex space-x-4">
+							<div>
+								<x-input-label for="hours" :value="__('Hours')" />
+								<x-text-input id="hours" type="number" class="block mt-1 w-full" name="hours" :value="old('hours', floor($questLog->minutes / 60))" autofocus autocomplete="hours" />
+								<x-input-error :messages="$errors->get('hours')" class="mt-2 text-red" />
+							</div>
+							<div>
+								<x-input-label for="minutes" :value="__('Minutes')" />
+								<x-text-input id="minutes" type="number" class="block mt-1 w-full" name="minutes" :value="old('minutes', $questLog->minutes % 60)" autofocus autocomplete="minutes" />
+								<x-input-error :messages="$errors->get('minutes')" class="mt-2 text-red" />
+							</div>
+						</div>
 					</div>
+
 
 					<div class="mt-4">
 						<div class="flex items-center">
@@ -47,7 +57,7 @@
 								class="disabled:opacity-25 rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
 							/>
 
-							<x-input-label for="review" class="text-red ml-2 " :value="__('Review')" /><br/>
+							<x-input-label for="review" class="ml-2 " :value="__('Review')" />
 							<small class="ml-2">@if($questLog->review) This quest will be reviewed. @else Please review feedback and consider for bonus xp. @endif</small>
 						</div>
 

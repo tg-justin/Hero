@@ -192,12 +192,19 @@ class QuestController extends Controller
 	 *
 	 * @return void
 	 */
-	public function destroy(Quest $quest): RedirectResponse
+	public function destroy(Request $request, Quest $quest): RedirectResponse|View
 	{
-		$quest->delete();
 
-		return redirect()->route('quests.index')
-			->with('success', 'Quest deleted successfully!');
+		if ($request->isMethod('DELETE')) {
+			if ($quest->questLogs()->exists()) {
+
+				return redirect()->route('quests.show', $quest)->with('error', 'Cannot delete quest with associated quest logs.');
+			}
+
+			$quest->delete();
+			return redirect()->route('quests.index')->with('success', 'Quest deleted successfully.');
+		}
+		return view('quests.confirm-delete', compact('quest'));
 	}
 
 	// QuestController.php
