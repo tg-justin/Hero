@@ -96,6 +96,21 @@
 							@if($isEditor)
 								<p><span class="font-semibold">Email Notification:</span> {{ $quest->notify_email = 1 ? 'Yes' : 'No' }}</p>
 							@endif
+							<div class="mt-4">
+								<h2>Files</h2>
+								@if($quest->files->count() > 0)
+									<ul>
+										@foreach($quest->files as $file)
+											<li>
+												<a href="{{ Storage::url($file->path) }}" target="_blank">{{ $file->title }}</a>
+											</li>
+										@endforeach
+									</ul>
+								@else
+									<p>No files uploaded.</p>
+								@endif
+							</div>
+
 						</div> {{-- STATS: END --}}
 
 						<div class="bg-white p-4 rounded-md shadow-inner"> {{-- BUTTONS: BEGIN --}}

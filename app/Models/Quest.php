@@ -24,12 +24,17 @@ class Quest extends Model
 		'start_date',
 		'expires_date',
 		'notify_email',
+		'file_paths',
 		'status',
 		'repeatable',
 		'repeatability_text',
 		'feedback_text',
 		'feedback_type',
 
+	];
+
+	protected $casts = [
+		'file_paths' => 'array', // Cast file_paths as an array
 	];
 
 	public function category()
@@ -59,7 +64,12 @@ class Quest extends Model
 			'Text',
 			'Text Required',
 			'HTML',
-			'HTML Required'
+			'HTML Required',
 		];
+	}
+
+	public function files()
+	{
+		return $this->hasMany(File::class);
 	}
 }
