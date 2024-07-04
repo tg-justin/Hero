@@ -69,12 +69,12 @@ window.addEventListener('DOMContentLoaded', () =>
 				editor.getBody().style.fontFamily = 'Figtree, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji';  // Adjust the default font family
 			});
 		},
-		paste_preprocess: function(plugin, args) {
+		paste_preprocess: function(plugin, args)
+		{
 			// Strip out images from the pasted content
 			args.content = args.content.replace(/<img[^>]*>/g, '');
 		}
 	});
-
 
 	tinymce.init({
 		license_key: 'gpl',
@@ -84,12 +84,14 @@ window.addEventListener('DOMContentLoaded', () =>
 		autoresize_bottom_margin: 0,
 		plugins: [
 			'advlist', 'autolink', 'autoresize', 'lists', 'link',
-			'insertdatetime', 'media', 'table', 'wordcount', 'pagebreak', 'paste'
+			'insertdatetime', 'media', 'table', 'wordcount', 'pagebreak', 'paste',
+			'charmap', 'emoticons'
 		],
 		menubar: false,
 		statusbar: false,
 		toolbar_mode: 'floating',
-		toolbar: 'bold italic removeformat link unlink ',
+		toolbar: 'bold italic removeformat link unlink ' +
+			'bullist numlist outdent indent charmap emoticons ',
 		toolbar_sticky: true,
 		link_context_toolbar: true,
 		skin: false,
@@ -106,17 +108,12 @@ window.addEventListener('DOMContentLoaded', () =>
 				editor.getBody().style.fontFamily = 'Figtree, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji';  // Adjust the default font family
 			});
 		},
-		paste_preprocess: function(plugin, args) {
+		paste_preprocess: function(plugin, args)
+		{
 			// Strip out images from the pasted content
 			args.content = args.content.replace(/<img[^>]*>/g, '');
 		}
 	});
-
-
-
-
-
-
 
 });
 
