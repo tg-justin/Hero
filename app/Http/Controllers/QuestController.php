@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Quest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 // Replace with your Quest model path
@@ -78,33 +80,32 @@ class QuestController extends Controller
 	 */
 	public function store(Request $request): RedirectResponse
 	{
-		$request->validate([
+		$rules = [
 			'title' => 'required|string',
-			'intro_text' => 'required|string',
 			'directions_text' => 'required|string',
 			'xp' => 'required|integer|min:1',
-			'min_level' => 'required|integer|min:0',
 			'category_id' => 'required|integer',
-			// Add validation for other fields as needed
-		]);
+			'files.*' => ['required_with:titles.*', 'file', 'mimes:jpg,jpeg,png,gif,pdf,doc,docx,txt,csv,xls,xlsx', 'max:2048'],
+			'titles.*' => ['required_with:files.*', 'string', 'max:255'],
+		];
+
+		$request->validate($rules);
 
 		// Get all request data
-		$data = $request->all();
-		$data['notify_email'] = $request->notify_email ?? 0;
+		$request['notify_email'] = $request->notify_email ?? 0;
 
 		// Add the user_id to the data
-		$data['user_id'] = auth()->user()->id;
+		$request['user_id'] = auth()->user()->id;
 
-		$quest = Quest::create($data);
+		$quest = Quest::create($request->except('files', 'titles'));
+
+		$this->handleFileUploads($request, $quest);
 
 		// log the activity
 		activity()
 			->causedBy(auth()->user())
 			->performedOn($quest)
 			->log('Quest created');
-
-//        return redirect()->route('quests.index')
-//            ->with('success', 'Quest created successfully!');
 
 		return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST CREATED!');
 	}
@@ -123,7 +124,6 @@ class QuestController extends Controller
 		return view('quests.create', compact('categories', 'campaigns', 'feedback_types'));
 	}
 
-
 	/**
 	 * Display the specified resource.
 	 *
@@ -131,7 +131,7 @@ class QuestController extends Controller
 	 *
 	 * @return View
 	 */
-	public function show(Quest $quest):View
+	public function show(Quest $quest): View
 	{
 		return view('quests.show', compact('quest'));
 	}
@@ -145,12 +145,12 @@ class QuestController extends Controller
 	 */
 	public function edit(Quest $quest): View
 	{
-
 		$categories = Category::all();
 		$campaigns = Campaign::all(); // Fetch all campaigns
 		$feedback_types = Quest::getFeedbackTypes(); // Get the enum values FIRST
+		$quest->load('files');
 
-		return view('quests.edit', compact('quest', 'categories', 'campaigns','feedback_types'));
+		return view('quests.edit', compact('quest', 'categories', 'campaigns', 'feedback_types'));
 	}
 
 	/**
@@ -163,24 +163,53 @@ class QuestController extends Controller
 	 */
 	public function update(Request $request, Quest $quest): RedirectResponse
 	{
-		$request->validate([
+		$rules = [
 			'title' => 'required|string',
 			'directions_text' => 'required|string',
 			'xp' => 'required|integer|min:1',
 			'category_id' => 'required|integer',
-			// Add validation for other fields as needed
-		]);
-		$quest->notify_email = $request->notify_email ?? 0;
-		$quest->update($request->all());
+			'files.*' => ['nullable', 'required_with:titles.*', 'file', 'mimes:jpg,jpeg,png,gif,pdf,doc,docx,txt,csv,xls,xlsx', 'max:2048'],
+			'titles.*' => ['nullable', 'required_with:files.*', 'string', 'max:150'],
+		];
+
+		$request->validate($rules);
+
+		// Update quest log
+		$quest->update($request->except('files', 'titles', 'existing_files'));
+
+		// Handle file removals
+		if ($request->has('remove_files'))
+		{
+			foreach ($request->input('remove_files') as $fileId)
+			{
+				$file = $quest->files()->find($fileId);
+				if ($file)
+				{
+					Storage::delete($file->path); // Delete from storage
+					$file->delete();              // Delete from database
+				}
+			}
+		}
+
+		$this->handleFileUploads($request, $quest);
+
+		if ($request->has('existing_files'))
+		{
+			foreach ($request->input('existing_files') as $fileId => $data)
+			{
+				$file = $quest->files()->find($fileId);
+				if ($file)
+				{
+					$file->update(['title' => $data['title']]);
+				}
+			}
+		}
 
 		// Log the update
 		activity()
 			->causedBy(auth()->user())
 			->performedOn($quest)
 			->log('Quest updated');
-
-//        return redirect()->route('quests.index')
-//            ->with('success', 'Quest updated successfully!');
 
 		return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST UPDATED!');
 	}
@@ -192,12 +221,19 @@ class QuestController extends Controller
 	 *
 	 * @return void
 	 */
-	public function destroy(Quest $quest): RedirectResponse
+	public function destroy(Request $request, Quest $quest): RedirectResponse|View
 	{
-		$quest->delete();
+		if ($request->isMethod('DELETE'))
+		{
+			if ($quest->questLogs()->exists())
+			{
+				return redirect()->route('quests.show', $quest)->with('error', 'Cannot delete quest with associated quest logs.');
+			}
 
-		return redirect()->route('quests.index')
-			->with('success', 'Quest deleted successfully!');
+			$quest->delete();
+			return redirect()->route('quests.index')->with('success', 'Quest deleted successfully.');
+		}
+		return view('quests.confirm-delete', compact('quest'));
 	}
 
 	// QuestController.php
@@ -208,9 +244,12 @@ class QuestController extends Controller
 		// Check if the quest is repeatable and the user hasn't reached the limit
 		if ($quest->repeatable === 0 || $user->questLogs()->where('quest_id', $quest->id)->count() < $quest->repeatable)
 		{
-			if(str_contains($quest->feedback_type, 'Required')){
+			if (str_contains($quest->feedback_type, 'Required'))
+			{
 				$review = 1;
-			}else{
+			}
+			else
+			{
 				$review = 0;
 			}
 
@@ -226,8 +265,33 @@ class QuestController extends Controller
 		{
 			//TODO: Handle the case where the user has reached the repeat limit (optional)
 		}
-
-//        return redirect()->route('quest-log.index')->with('success', 'Quest accepted!');
 		return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST ACCEPTED!');
+	}
+
+	private function handleFileUploads($request, $quest)
+	{
+		if ($request->hasFile('files'))
+		{
+			$titles = $request->input('titles');
+
+			foreach ($request->file('files') as $index => $file)
+			{
+				$title = $titles[$index];
+
+				// Sanitize the title for the filename
+				$filename = Str::slug($title, '-');
+
+				// Add the extension back
+				$filename .= '.' . $file->getClientOriginalExtension();
+
+				$path = $file->storeAs("quests/{$quest->id}", $filename, 'public');
+
+				$quest->files()->create([
+					'title' => $title, // Save the original title
+					'filename' => $filename,
+					'path' => $path,
+				]);
+			}
+		}
 	}
 }

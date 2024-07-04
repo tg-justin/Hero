@@ -108,6 +108,8 @@ Route::middleware('auth')->group(function()
 
 		Route::resource('quests', QuestController::class);
 		Route::post('/quests/{quest}/accept', [QuestController::class, 'accept'])->name('quests.accept');
+		Route::get('/quests/{quest}/confirm-delete', [QuestController::class, 'destroy'])->name('quests.confirm-delete');
+
 
 		Route::get('/quest-log', [QuestLogController::class, 'index'])->name('quest-log.index');
 

@@ -1,4 +1,4 @@
-<form method="POST" action="{{ $quest ? route('quests.update', $quest->id) : route('quests.store') }}">
+<form method="POST" enctype="multipart/form-data" action="{{ $quest ? route('quests.update', $quest->id) : route('quests.store') }}">
 	@csrf
 	@if($quest)
 		@method('PUT')
@@ -53,7 +53,7 @@
 				<select name="feedback_type" id="feedback_type" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
 					<option value="">-- Select --</option>
 					@foreach ($feedback_types as $type)
-						<option value="{{ $type }}" {{ old('feedback_type',$quest->feedback_type) == $type ? "selected" : "" }}>
+						<option value="{{ $type }}" {{ old('feedback_type', $quest->feedback_type ?? NULL) == $type ? "selected" : "" }}>
 							{{ $type }}
 						</option>
 
@@ -67,7 +67,7 @@
 
 			<div>
 				<label for="feedback_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong>Feedback Text</strong></label>
-				<textarea id="feedback_text" name="feedback_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('complete_text', $quest->complete_text ?? '') !!}</textarea>
+				<textarea id="feedback_text" name="feedback_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('feedback_text', $quest->feedback_text ?? '') !!}</textarea>
 				@error('feedback_text')
 				<p class="mt-1 text-sm text-red">{{ $message }}</p>
 				@enderror
@@ -142,39 +142,36 @@
 						   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
 					/>
 
-					<x-input-label for="notify_email" class="text-red ml-2 " :value="__('Email Notification')" /><br/>
+					<x-input-label for="notify_email" class="text-red ml-2 " :value="__('Email Notification')"/>
+					<br/>
 					<small class="ml-2">Receive an email when a hero completes this quest.</small>
 				</div>
 
-				<x-input-error :messages="$errors->get('notify_email')" class="mt-2 text-red" />
+				<x-input-error :messages="$errors->get('notify_email')" class="mt-2 text-red"/>
 
 			</div>
 
+			<div id="file-uploads">
+				@if(isset($quest))
+					@foreach($quest->files as $file)
+						<div class="file-input">
+							<label for="existing_files_{{ $file->id }}" class="block text-sm font-medium text-gray-700">File</label>
+							<input type="text" name="existing_files[{{ $file->id }}][title]" value="{{ $file->title }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+							<a href="{{ asset('storage/quests/'.$quest->id.'/'.$file->filename) }}" target="_blank">{{ $file->filename }}</a>
+							<input type="checkbox" name="remove_files[]" value="{{ $file->id }}"> Remove
 
-			{{--
-			<div>
-				<label for="campaign_id" class="block text-lg pt-5 font-medium text-gray-700">Campaign</label>
-				<select name="campaign_id" id="campaign_id" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-					<option value="">Select Campaign (if applicable)</option>
-					@foreach ($campaigns as $campaign)
-						<option value="{{ $campaign->id }}" @if ($campaign->id == old('campaign_id', $quest->campaign_id ?? '')) selected @endif>{{ $campaign->title }}</option>
+						</div>
 					@endforeach
-				</select>
-			</div>
-			--}}
+				@endif
 
-			{{--
-			<div>
-				<label for="repeatable" class="block text-lg pt-5 font-medium text-gray-700">Repeatable</label>
-				<input type="number" name="repeatable" id="repeatable" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-					   min="0"
-					   value="{{ old('repeatable', $quest->repeatable ?? 0) }}">
-				@error('repeatable')
-				<p class="mt-1 text-sm text-red">{{ $message }}</p>
-				@enderror
-				<small class="text-gray-500">How many times can this quest be repeated? (0 for non-repeatable)</small>
+				<div class="file-input-new">
+					<label for="files[]" class="block text-sm font-medium text-gray-700">File</label>
+					<input type="file" name="files[]" multiple class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+					<input type="text" name="titles[]" placeholder="Title" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+				</div>
 			</div>
-			 --}}
+			<button type="button" id="add-file" class="mt-2 text-seance-600 hover:text-seance-700">Add Another File</button>
+
 
 			<div class="mx-auto">
 				<button type="submit" class="tg-button-green" style="width: 100%">{{ $submitButtonText }}</button>
@@ -183,3 +180,15 @@
 		</div>
 	</div>
 </form>
+
+<script>
+	const addFileButton = document.getElementById('add-file');
+	const fileUploads = document.getElementById('file-uploads');
+
+	addFileButton.addEventListener('click', () => {
+		const newFileInput = document.querySelector('.file-input-new').cloneNode(true);
+		newFileInput.querySelector('input[type="file"]').value = ''; // Clear the file input
+		newFileInput.querySelector('input[type="text"]').value = ''; // Clear the title input
+		fileUploads.appendChild(newFileInput);
+	});
+</script>
