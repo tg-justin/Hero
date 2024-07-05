@@ -85,8 +85,8 @@ class QuestController extends Controller
 			'directions_text' => 'required|string',
 			'xp' => 'required|integer|min:1',
 			'category_id' => 'required|integer',
-			'files.*' => ['required_with:titles.*', 'file', 'mimes:jpg,jpeg,png,gif,pdf,doc,docx,txt,csv,xls,xlsx', 'max:2048'],
-			'titles.*' => ['required_with:files.*', 'string', 'max:255'],
+			'files.*' => ['nullable', 'required_with:titles.*', 'file', 'mimes:jpg,jpeg,png,gif,pdf,doc,docx,txt,csv,xls,xlsx', 'max:2048'],
+			'titles.*' => ['nullable', 'required_with:files.*', 'string', 'max:255'],
 		];
 
 		$request->validate($rules);

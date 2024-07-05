@@ -4,8 +4,17 @@
 	</x-slot>
 	<div class="py-12">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+			@if ($errors->any())
+				<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+			@endif
 			<div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6">
-				<form action="{{ route('quest-log.complete', $questLog) }}" method="POST">
+				<form action="{{ route('quest-log.complete', $questLog) }}" enctype="multipart/form-data" method="POST">
 					@csrf
 
 					<div class="mb-5">
@@ -57,11 +66,33 @@
 							<x-input-error :messages="$errors->get('feedback')" class="mt-2 text-red"/>
 						</div>
 
+						<div id="file-uploads" class="mt-4">
+							@if(isset($questLog))
+								@foreach($questLog->files as $file)
+									<div class="file-input">
+										<label for="existing_files_{{ $file->id }}" class="block text-sm font-medium text-gray-700">File</label>
+										<input type="text" name="existing_files[{{ $file->id }}][title]" value="{{ $file->title }}"
+											   class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+										<a href="{{ asset('storage/feedback/' . $questLog->quest->id.'/'.$questLog->id.'/'.$file->filename) }}" target="_blank">{{ $file->filename }}</a>
+										<input type="checkbox" name="remove_files[]" value="{{ $file->id }}"> Remove
+									</div>
+								@endforeach
+							@endif
+
+							<div class="file-input-new">
+								<label for="files[]" class="block text-sm font-medium text-gray-700">File</label>
+								<input type="file" name="files[]" multiple class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+								<input type="text" name="titles[]" placeholder="Title" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+							</div>
+						</div>
+						<button type="button" id="add-file" class="mt-2 text-seance-600 hover:text-seance-700">Add Another File</button>
+
+
 						<div class="mt-4">
 							<div class="flex items-center">
 								<input id="review" type="checkbox" value="1" name="review"
-{{--									   @checked(old('review', $questLog->review))--}}
-{{--									   @disabled(old('review', $questLog->review))--}}
+									   {{--									   @checked(old('review', $questLog->review))--}}
+									   {{--									   @disabled(old('review', $questLog->review))--}}
 									   @checked($reviewRequired)
 									   @disabled($reviewRequired)
 									   class="disabled:opacity-25 rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
