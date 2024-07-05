@@ -81,7 +81,7 @@
 
 							<div class="file-input-new">
 								<label for="files[]" class="block text-sm font-medium text-gray-700">File</label>
-								<input type="file" name="files[]" multiple class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+								<input type="file" name="files[]" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
 								<input type="text" name="titles[]" placeholder="Title" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
 							</div>
 						</div>
@@ -110,7 +110,19 @@
 						</x-primary-button>
 					</div>
 				</form>
+				<script>
+					const addFileButton = document.getElementById('add-file');
+					const fileUploads = document.getElementById('file-uploads');
+
+					addFileButton.addEventListener('click', () => {
+						const newFileInput = document.querySelector('.file-input-new').cloneNode(true);
+						newFileInput.querySelector('input[type="file"]').value = ''; // Clear the file input
+						newFileInput.querySelector('input[type="text"]').value = ''; // Clear the title input
+						fileUploads.appendChild(newFileInput);
+					});
+				</script>
 			</div>
 		</div>
 	</div>
+
 </x-app-layout>
