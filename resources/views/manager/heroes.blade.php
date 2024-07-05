@@ -7,7 +7,6 @@
 	</x-slot>
 
 
-
 	<div class="max-w-7xl mx-auto px-2 lg:px-8">
 		<div class="py-6 bg-cover bg-center">
 			{{-- Search Form --}}
@@ -64,13 +63,13 @@
 									@endif
 								</td>
 								{{--TODO idk how this variable works--}}
-{{--								<td>--}}
-{{--									 @if (!$hero->is_active)--}}
-{{--										 Active--}}
-{{--									 @else--}}
-{{--										 Inactive--}}
-{{--									 @endif--}}
-{{--								</td>--}}
+								{{--								<td>--}}
+								{{--									 @if (!$hero->is_active)--}}
+								{{--										 Active--}}
+								{{--									 @else--}}
+								{{--										 Inactive--}}
+								{{--									 @endif--}}
+								{{--								</td>--}}
 								<td>
 									@if($hero->hasRole('hero') && !$hero->hasRole('manager'))
 										<form action="{{ route('heroes.promote', $hero->id) }}" method="POST" class="inline">

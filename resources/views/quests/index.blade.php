@@ -34,7 +34,7 @@
 							 </div>--}}
 
 							<div class="flex-grow">
-{{--								<label for="search" class="block text-sm font-medium text-gray-700">Search:</label>--}}
+								{{--								<label for="search" class="block text-sm font-medium text-gray-700">Search:</label>--}}
 								<input type="text" name="search" id="search" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
 									   placeholder="Search by title" value="{{ request('search') }}">
 							</div>
@@ -154,7 +154,7 @@
 										<div class="flex space-x-2">
 											<a href="{{ route('quests.edit', $quest->id) }}"
 											   class="text-white  focus:ring-4  font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Edit</a>
-											<form action="{{ route('quests.destroy', $quest->id) }}" method="POST" class="inline-block"  onsubmit="return confirm('Are you sure you want to delete this quest?');">
+											<form action="{{ route('quests.destroy', $quest->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this quest?');">
 												@csrf
 												@method('DELETE')
 												<button type="submit" class="text-white focus:ring-4  font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Delete</button>

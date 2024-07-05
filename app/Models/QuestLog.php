@@ -28,6 +28,17 @@ class QuestLog extends Model
 		'rewards_claimed',
 	];
 
+	public static function getStatuses()
+	{
+		return [
+			'Accepted',
+			'Requested Exception',
+			'Completed',
+			'Dropped',
+			'Expired',
+		];
+	}
+
 	public function user(): BelongsTo
 	{
 		return $this->belongsTo(User::class);
@@ -41,16 +52,5 @@ class QuestLog extends Model
 	public function files()
 	{
 		return $this->hasMany(File::class);
-	}
-
-	public static function getStatuses()
-	{
-		return [
-			'Accepted',
-			'Requested Exception',
-			'Completed',
-			'Dropped',
-			'Expired'
-		];
 	}
 }

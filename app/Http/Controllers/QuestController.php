@@ -124,6 +124,33 @@ class QuestController extends Controller
 		return view('quests.create', compact('categories', 'campaigns', 'feedback_types'));
 	}
 
+	private function handleFileUploads($request, $quest)
+	{
+		if ($request->hasFile('files'))
+		{
+			$titles = $request->input('titles');
+
+			foreach ($request->file('files') as $index => $file)
+			{
+				$title = $titles[$index];
+
+				// Sanitize the title for the filename
+				$filename = Str::slug($title, '-');
+
+				// Add the extension back
+				$filename .= '.' . $file->getClientOriginalExtension();
+
+				$path = $file->storeAs("quests/{$quest->id}", $filename, 'public');
+
+				$quest->files()->create([
+					'title' => $title, // Save the original title
+					'filename' => $filename,
+					'path' => $path,
+				]);
+			}
+		}
+	}
+
 	/**
 	 * Display the specified resource.
 	 *
@@ -214,6 +241,8 @@ class QuestController extends Controller
 		return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST UPDATED!');
 	}
 
+	// QuestController.php
+
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -236,7 +265,6 @@ class QuestController extends Controller
 		return view('quests.confirm-delete', compact('quest'));
 	}
 
-	// QuestController.php
 	public function accept(Quest $quest): RedirectResponse
 	{
 		$user = auth()->user();
@@ -266,32 +294,5 @@ class QuestController extends Controller
 			//TODO: Handle the case where the user has reached the repeat limit (optional)
 		}
 		return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST ACCEPTED!');
-	}
-
-	private function handleFileUploads($request, $quest)
-	{
-		if ($request->hasFile('files'))
-		{
-			$titles = $request->input('titles');
-
-			foreach ($request->file('files') as $index => $file)
-			{
-				$title = $titles[$index];
-
-				// Sanitize the title for the filename
-				$filename = Str::slug($title, '-');
-
-				// Add the extension back
-				$filename .= '.' . $file->getClientOriginalExtension();
-
-				$path = $file->storeAs("quests/{$quest->id}", $filename, 'public');
-
-				$quest->files()->create([
-					'title' => $title, // Save the original title
-					'filename' => $filename,
-					'path' => $path,
-				]);
-			}
-		}
 	}
 }

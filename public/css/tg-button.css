@@ -3,7 +3,7 @@
 .tg-button-orange, .tg-button-orange:hover,
 .tg-button-red, .tg-button-red:hover,
 .tg-button-green, .tg-button-green:hover,
-.tg-button-gray,  .tg-button-gray:hover {
+.tg-button-gray, .tg-button-gray:hover {
 	margin: 0.5rem auto;
 	padding: 0.5rem 1.0rem;
 	text-decoration-line: none;
@@ -14,8 +14,7 @@
 }
 
 .tg-button, .tg-button-purple,
-.tg-button a, .tg-button-purple a
-{
+.tg-button a, .tg-button-purple a {
 	background-color: #9547d6; /*bg-seance-600*/
 	color: #dddddd; /*light-gray*/
 }

@@ -1,6 +1,6 @@
 <x-app-layout>
 	<x-slot name="header">
-			{{ __('Drop Quest Confirmation') }}
+		{{ __('Drop Quest Confirmation') }}
 	</x-slot>
 
 	<div class="py-12">

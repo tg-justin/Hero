@@ -37,6 +37,17 @@ class Quest extends Model
 		'file_paths' => 'array', // Cast file_paths as an array
 	];
 
+	public static function getFeedbackTypes()
+	{
+		return [
+			'Hide',
+			'Text',
+			'Text Required',
+			'HTML',
+			'HTML Required',
+		];
+	}
+
 	public function category()
 	{
 		return $this->belongsTo(Category::class);
@@ -55,17 +66,6 @@ class Quest extends Model
 	public function questLogs()
 	{
 		return $this->hasMany(QuestLog::class);
-	}
-
-	public static function getFeedbackTypes()
-	{
-		return [
-			'Hide',
-			'Text',
-			'Text Required',
-			'HTML',
-			'HTML Required',
-		];
 	}
 
 	public function files()

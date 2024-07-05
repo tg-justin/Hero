@@ -8,13 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use App\Models\User;
-use Carbon\CarbonTimeZone;
-use Mews\Purifier\Purifier;
 
 class ProfileControllerOLD extends Controller
 {
-
 	/**
 	 * Show the form for editing the user's public information.
 	 */
@@ -53,6 +49,19 @@ class ProfileControllerOLD extends Controller
 		]);
 	}
 
+	public function updateHeroRegistration(Request $request): RedirectResponse
+	{
+		if (!$request->user())
+		{
+			return abort(404);
+		}
+
+		$request->user()->update($request->all());
+
+		return redirect()->route('profile.edit')
+			->with('success', 'Profile information updated successfully!');
+	}
+
 	/**
 	 * Update the user's profile information.
 	 */
@@ -68,18 +77,5 @@ class ProfileControllerOLD extends Controller
 		$request->user()->save();
 
 		return Redirect::route('profile.edit')->with('status', 'profile-updated');
-	}
-
-	public function updateHeroRegistration(Request $request): RedirectResponse
-	{
-		if (!$request->user())
-		{
-			return abort(404);
-		}
-
-		$request->user()->update($request->all());
-
-		return redirect()->route('profile.edit')
-			->with('success', 'Profile information updated successfully!');
 	}
 }

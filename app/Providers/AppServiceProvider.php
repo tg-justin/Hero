@@ -4,9 +4,9 @@ namespace App\Providers;
 
 use App\Models\QuestLog;
 use App\Observers\QuestLogObserver;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Blade;
 use App\View\Components\DateUserTimeZone;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

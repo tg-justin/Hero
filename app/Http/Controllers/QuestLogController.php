@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\QuestLog;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
-
 
 class QuestLogController extends Controller
 {
@@ -44,12 +43,10 @@ class QuestLogController extends Controller
 		// Pagination
 		$questLogs = $questLogsQuery->paginate(15); // 15 items per page
 
-
 		return view('quest-logs.index', ['questLogs' => $questLogs, 'user' => $user]);
 	}
 
-
-	public function edit(QuestLog $questLog) :View
+	public function edit(QuestLog $questLog): View
 	{
 		$valid_statuses = QuestLog::getStatuses();
 		// Authorize the user (e.g., using a middleware or policy)
@@ -75,7 +72,8 @@ class QuestLogController extends Controller
 			abort(403, 'Unauthorized');
 		}
 
-		if(str_contains($questLog->quest->feedback_type, 'Required')){
+		if (str_contains($questLog->quest->feedback_type, 'Required'))
+		{
 			$request->validate([
 				'feedback' => 'required|string',
 				'hours' => 'integer|min:0',
@@ -83,7 +81,9 @@ class QuestLogController extends Controller
 				'files.*' => ['nullable', 'required_with:titles.*', 'file', 'mimes:jpg,jpeg,png,gif,pdf,doc,docx,txt,csv,xls,xlsx', 'max:2048'],
 				'titles.*' => ['nullable', 'required_with:files.*', 'string', 'max:255'],
 			]);
-		}else{
+		}
+		else
+		{
 			$request->validate([
 				'feedback' => 'nullable|string',
 				'hours' => 'integer|min:0',
@@ -109,7 +109,8 @@ class QuestLogController extends Controller
 
 		// If the status changed and is now complete
 		// Send an email to the quest creator if they have email notifications enabled
-		if ($questLog->wasChanged('status') && $questLog->status === 'Completed' && $questLog->quest->notify_email) {
+		if ($questLog->wasChanged('status') && $questLog->status === 'Completed' && $questLog->quest->notify_email)
+		{
 			$questCreator = $questLog->quest->user;
 
 			$message = "{$questLog->user->name} has completed the quest '{$questLog->quest->title}'.";
@@ -118,7 +119,8 @@ class QuestLogController extends Controller
 			$message .= "You can review the quest log here: $reviewUrl";
 
 			// Send the email
-			Mail::raw($message, function ($message) use ($questCreator) {
+			Mail::raw($message, function($message) use ($questCreator)
+			{
 				$message
 					->to($questCreator->email)
 					->subject('Quest Completion');
@@ -178,8 +180,6 @@ class QuestLogController extends Controller
 				$user = $questLog->user;
 				$user->levelUp();
 			}
-
-
 		}
 
 		// Log Quest Log Update
@@ -194,10 +194,40 @@ class QuestLogController extends Controller
 
 	// Helper method to determine the status color
 
+	private function handleFileUploads($request, $questLog)
+	{
+		if ($request->hasFile('files'))
+		{
+			$titles = $request->input('titles');
+
+			foreach ($request->file('files') as $index => $file)
+			{
+				$title = $titles[$index];
+
+				// Get current datetime in the desired format
+				$now = now()->format('Ymd-His');
+
+				// Sanitize the title for the filename
+				$filename = Str::slug($title, '-');
+
+				// Combine datetime, sanitized title, and extension
+				$filename = $filename . '-' . $now . '.' . $file->getClientOriginalExtension();
+
+				$path = $file->storeAs("feedback/{$questLog->quest->id}/{$questLog->id}", $filename, 'public');
+
+				$questLog->files()->create([
+					'title' => $title, // Save the original title
+					'filename' => $filename,
+					'path' => $path,
+				]);
+			}
+		}
+	}
+
 	public function review(QuestLog $questLog): View
 	{
 		$valid_statuses = QuestLog::getStatuses();
-		return view('quest-logs.review', compact('questLog' , 'valid_statuses'));
+		return view('quest-logs.review', compact('questLog', 'valid_statuses'));
 	}
 
 	public function confirmDrop(QuestLog $questLog): View
@@ -210,7 +240,6 @@ class QuestLogController extends Controller
 
 		return view('quest-logs.drop-confirm', compact('questLog'));
 	}
-
 
 	public function drop(QuestLog $questLog, Request $request): RedirectResponse
 	{
@@ -236,36 +265,5 @@ class QuestLogController extends Controller
 			->log('Quest Dropped');
 
 		return redirect()->route('quests.index')->with('success', 'Quest dropped successfully.');
-
-	}
-
-	private function handleFileUploads($request, $questLog)
-	{
-		if ($request->hasFile('files'))
-		{
-			$titles = $request->input('titles');
-
-			foreach ($request->file('files') as $index => $file)
-			{
-				$title = $titles[$index];
-
-				// Get current datetime in the desired format
-				$now = now()->format('Ymd-His');
-
-				// Sanitize the title for the filename
-				$filename = Str::slug($title, '-');
-
-				// Combine datetime, sanitized title, and extension
-				$filename = $filename . '-' . $now  . '.' . $file->getClientOriginalExtension();
-
-				$path = $file->storeAs("feedback/{$questLog->quest->id}/{$questLog->id}", $filename, 'public');
-
-				$questLog->files()->create([
-					'title' => $title, // Save the original title
-					'filename' => $filename,
-					'path' => $path,
-				]);
-			}
-		}
 	}
 }

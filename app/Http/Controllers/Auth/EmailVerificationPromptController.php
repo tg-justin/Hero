@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +15,8 @@ class EmailVerificationPromptController extends Controller
 	 */
 	public function __invoke(Request $request): RedirectResponse|View
 	{
-		if (!Auth::check()) { //check if the user is authenticated
+		if (!Auth::check())
+		{ //check if the user is authenticated
 			return redirect()->route('login'); // If not authenticated, redirect to the login page
 		}
 

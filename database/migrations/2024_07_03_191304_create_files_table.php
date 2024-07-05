@@ -22,7 +22,6 @@ return new class extends Migration {
 
 			$table->foreign('quest_id')->references('id')->on('quests')->onDelete('cascade');
 			$table->foreign('quest_log_id')->references('id')->on('quest_logs')->onDelete('cascade');
-
 		});
 	}
 

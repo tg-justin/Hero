@@ -15,6 +15,7 @@ class QuestForm extends Component
 	public $campaigns; // Add this property
 
 	public $feedback_types; // Add this property
+
 	public $submitButtonText;
 
 	public function __construct($quest = NULL)

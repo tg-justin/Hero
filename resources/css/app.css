@@ -16,6 +16,7 @@
 		@apply focus:outline-none;
 		@apply focus:ring-seance-800;
 	}
+
 	.header-title {
 		@apply font-extrabold;
 		@apply text-3xl;

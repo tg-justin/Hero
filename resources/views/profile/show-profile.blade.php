@@ -131,8 +131,8 @@
 					<div class="md:col-span-2 space-y-4"> {{-- RIGHT_COLUMN: BEGIN --}}
 						<div class="bg-white p-4 rounded-md shadow-inner text-lg text-seance-800"> {{-- STATS: BEGIN --}}
 							<p><strong>Level:</strong> {{ $hero->level }}</p>
-							<p><strong>Total XP:</strong>  {{ $hero->totalxp() }} </p>
-							<p><strong>Quests Completed:</strong>  {{ $hero->completedQuests()->count() }}</p>
+							<p><strong>Total XP:</strong> {{ $hero->totalxp() }} </p>
+							<p><strong>Quests Completed:</strong> {{ $hero->completedQuests()->count() }}</p>
 							<p><strong>Joined:</strong>
 								{{ Carbon::parse($hero->created_at)->setTimezone($myTimeZone)->format('d M Y (h:i A)') }}
 							</p>

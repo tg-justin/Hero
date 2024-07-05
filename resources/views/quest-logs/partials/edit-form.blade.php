@@ -6,7 +6,7 @@
 				@method('PUT')
 
 				<div class="mb-4">
-					<x-input-label for="status" class="text-gray-700" :value="__('Status')" />
+					<x-input-label for="status" class="text-gray-700" :value="__('Status')"/>
 
 					<select name="status" id="status" class="form-select w-full">
 						@foreach($valid_statuses as $status)
@@ -16,13 +16,13 @@
 						@endforeach
 					</select>
 
-					<x-input-error :messages="$errors->get('status')" class="mt-2" />
+					<x-input-error :messages="$errors->get('status')" class="mt-2"/>
 				</div>
 
 				<div class="mb-4">
-					<x-input-label for="xp_awarded" class="text-gray-700" :value="__('XP Awarded')" />
-					<x-text-input id="xp_awarded" type="number" class="block mt-1 w-full" name="xp_awarded" :value="old('xp_awarded', $questLog->xp_awarded)" required />
-					<x-input-error :messages="$errors->get('xp_awarded')" class="mt-2" />
+					<x-input-label for="xp_awarded" class="text-gray-700" :value="__('XP Awarded')"/>
+					<x-text-input id="xp_awarded" type="number" class="block mt-1 w-full" name="xp_awarded" :value="old('xp_awarded', $questLog->xp_awarded)" required/>
+					<x-input-error :messages="$errors->get('xp_awarded')" class="mt-2"/>
 				</div>
 
 				<div class="mb-4">
@@ -34,9 +34,9 @@
 				</div>
 
 				<div class="mb-4">
-					<x-input-label for="reviewer_message" class="text-gray-700" :value="__('Reviewer Message')" />
-					<textarea name="reviewer_message" id="reviewer_message" placeholder="Describe how you completed the quest" class="tinymce-full form-textarea w-full" rows="5" >{!! $questLog->reviewer_message !!}</textarea>
-					<x-input-error :messages="$errors->get('reviewer_message')" class="mt-2 text-red" />
+					<x-input-label for="reviewer_message" class="text-gray-700" :value="__('Reviewer Message')"/>
+					<textarea name="reviewer_message" id="reviewer_message" placeholder="Describe how you completed the quest" class="tinymce-full form-textarea w-full" rows="5">{!! $questLog->reviewer_message !!}</textarea>
+					<x-input-error :messages="$errors->get('reviewer_message')" class="mt-2 text-red"/>
 				</div>
 
 
