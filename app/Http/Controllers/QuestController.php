@@ -16,11 +16,20 @@ use Illuminate\View\View;
 class QuestController extends Controller
 {
 	/**
-	 * Display a listing of the resource.
+	 * Display a paginated list of quests, with filtering, searching, and sorting capabilities.
 	 *
-	 * @param \Illuminate\Http\Request $request
+	 * This method handles the main quest listing page, allowing users to:
+	 *   - Filter quests by category.
+	 *   - Search quests by title.
+	 *   - Sort quests by minimum level, title, or experience points (XP).
+	 *   - Paginate through results.
 	 *
-	 * @return \Illuminate\View\View
+	 * It also enforces access restrictions based on user roles and levels:
+	 *   - Level 0 heroes can only view level 0 quests (unless they are managers).
+	 *   - Managers have unrestricted access to all quests.
+	 *
+	 * @param \Illuminate\Http\Request $request The incoming HTTP request, containing filtering, searching, and sorting parameters.
+	 * @return \Illuminate\View\View The view for the quest listing page.
 	 */
 	public function index(Request $request): View
 	{
@@ -72,11 +81,17 @@ class QuestController extends Controller
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a newly created quest in the database.
 	 *
-	 * @param Request $request
+	 * This method handles the creation of new quests, including:
+	 * - Validation of the request data.
+	 * - Creation of the quest record in the database.
+	 * - Handling of file uploads (if any).
+	 * - Logging of the quest creation activity.
+	 * - Redirection to the newly created quest's show page.
 	 *
-	 * @return \Illuminate\Http\RedirectResponse
+	 * @param  \Illuminate\Http\Request  $request  The incoming HTTP request containing quest data.
+	 * @return \Illuminate\Http\RedirectResponse  A redirect to the quest's show page.
 	 */
 	public function store(Request $request): RedirectResponse
 	{
@@ -111,9 +126,11 @@ class QuestController extends Controller
 	}
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Display the form for creating a new quest.
 	 *
-	 * @return View
+	 * This method retrieves necessary data (categories, campaigns, feedback types) and passes it to the view to render the quest creation form.
+	 *
+	 * @return \Illuminate\View\View The view for creating a new quest.
 	 */
 	public function create(): View
 	{
@@ -124,6 +141,20 @@ class QuestController extends Controller
 		return view('quests.create', compact('categories', 'campaigns', 'feedback_types'));
 	}
 
+	/**
+	 * Handles the upload and storage of files associated with a quest.
+	 *
+	 * This method processes file uploads from the given request, associating them with the specified quest. It performs the following tasks:
+	 * - Validates the existence of uploaded files.
+	 * - Iterates through the uploaded files and their corresponding titles.
+	 * - Sanitizes the titles for safe filename usage.
+	 * - Stores the files in the public 'quests/<quest_id>' directory with sanitized filenames.
+	 * - Creates file records in the database, linking them to the quest and storing their titles, filenames, and paths.
+	 *
+	 * @param  \Illuminate\Http\Request  $request  The HTTP request containing the uploaded files.
+	 * @param  \App\Models\Quest  $quest  The quest to associate the files with.
+	 * @return void
+	 */
 	private function handleFileUploads($request, $quest)
 	{
 		if ($request->hasFile('files'))
@@ -152,11 +183,13 @@ class QuestController extends Controller
 	}
 
 	/**
-	 * Display the specified resource.
+	 * Display the details of a specific quest.
 	 *
-	 * @param \App\Models\Quest $quest
+	 * This method retrieves the specified quest from the database and passes it to the view for rendering.
+	 * It allows users to view the details of a particular quest, including its title, description, objectives, rewards, etc.
 	 *
-	 * @return View
+	 * @param  \App\Models\Quest  $quest  The quest to be displayed.
+	 * @return \Illuminate\View\View  The view containing the quest details.
 	 */
 	public function show(Quest $quest): View
 	{
@@ -164,11 +197,12 @@ class QuestController extends Controller
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Display the form for editing the specified quest.
 	 *
-	 * @param int $id
+	 * This method retrieves the quest along with associated data (categories, campaigns, feedback types) and passes it to the view to render the quest editing form.
 	 *
-	 * @return View
+	 * @param  \App\Models\Quest  $quest  The quest to be edited.
+	 * @return \Illuminate\View\View  The view for editing the quest.
 	 */
 	public function edit(Quest $quest): View
 	{
@@ -181,12 +215,19 @@ class QuestController extends Controller
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update the specified quest in storage.
 	 *
-	 * @param Request $request
-	 * @param \App\Models\Quest $quest
+	 * This method handles updating existing quests, including:
+	 * - Validation of the request data.
+	 * - Updating the quest record in the database.
+	 * - Handling file uploads and removals.
+	 * - Updating file titles for existing files.
+	 * - Logging the quest update activity.
+	 * - Redirecting to the quest's show page with a success message.
 	 *
-	 * @return \Illuminate\Http\RedirectResponse
+	 * @param  \Illuminate\Http\Request  $request  The incoming HTTP request containing the updated quest data.
+	 * @param  \App\Models\Quest  $quest  The quest to be updated.
+	 * @return \Illuminate\Http\RedirectResponse  A redirect to the updated quest's show page.
 	 */
 	public function update(Request $request, Quest $quest): RedirectResponse
 	{
@@ -241,14 +282,15 @@ class QuestController extends Controller
 		return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST UPDATED!');
 	}
 
-	// QuestController.php
-
 	/**
-	 * Remove the specified resource from storage.
+	 * Handles the deletion process for a quest.
 	 *
-	 * @param \App\Models\Quest $quest
+	 * This method can be accessed via DELETE request to remove the quest and associated data.
+	 * If accessed via GET request, it displays a confirmation view before deletion.
 	 *
-	 * @return void
+	 * @param \Illuminate\Http\Request $request The incoming HTTP request.
+	 * @param \App\Models\Quest $quest The quest to be deleted.
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View A redirect response on successful deletion, or a confirmation view.
 	 */
 	public function destroy(Request $request, Quest $quest): RedirectResponse|View
 	{
@@ -265,6 +307,19 @@ class QuestController extends Controller
 		return view('quests.confirm-delete', compact('quest'));
 	}
 
+	/**
+	 * Allows the authenticated user to accept a quest.
+	 *
+	 * This method handles the acceptance of a quest by a user, performing the following actions:
+	 * - Checks if the quest is repeatable and if the user hasn't reached the repeat limit.
+	 * - Creates a new quest log entry for the user, marking the quest as accepted.
+	 * - Sets the initial status of the quest log to 'Accepted'.
+	 * - Optionally handles the case where the user has reached the repeat limit.
+	 * - Redirects the user back to the quest details page with a success message.
+	 *
+	 * @param  \App\Models\Quest  $quest  The quest to be accepted.
+	 * @return \Illuminate\Http\RedirectResponse  A redirect to the quest details page.
+	 */
 	public function accept(Quest $quest): RedirectResponse
 	{
 		$user = auth()->user();
