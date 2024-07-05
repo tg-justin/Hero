@@ -18,6 +18,22 @@
 				<p><strong>Accept Text:</strong> {!! $questLog->quest->accept_text !!}</p>
 				<p><strong>Completed At:</strong> {{ Carbon::parse($questLog->completed_at)->format('d M Y') }}</p>
 				<p><strong>Time Spent:</strong> {{ floor($questLog->minutes / 60)}} Hours {{$questLog->minutes % 60}} Minutes</p>
+				<p>
+					<div class="mt-4">
+						<h2>Files</h2>
+						@if($questLog->files->count() > 0)
+							<ul>
+								@foreach($questLog->files as $file)
+									<li>
+										<a href="{{ Storage::url($file->path) }}" target="_blank">{{ $file->title }}</a>
+									</li>
+								@endforeach
+							</ul>
+						@else
+							<p>No files uploaded.</p>
+						@endif
+					</div>
+				</p>
 				<p><strong>Feedback:</strong> {!! $questLog->feedback !!}</p>
 				<h3 class="text-lg font-semibold mt-4 mb-2">Edit Quest Log</h3>
 

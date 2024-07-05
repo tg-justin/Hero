@@ -38,6 +38,11 @@ class QuestLog extends Model
 		return $this->belongsTo(Quest::class);
 	}
 
+	public function files()
+	{
+		return $this->hasMany(File::class);
+	}
+
 	public static function getStatuses()
 	{
 		return [

@@ -6,6 +6,7 @@ use App\Models\QuestLog;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -79,12 +80,16 @@ class QuestLogController extends Controller
 				'feedback' => 'required|string',
 				'hours' => 'integer|min:0',
 				'minutes' => 'integer|min:0|max:59',
+				'files.*' => ['nullable', 'required_with:titles.*', 'file', 'mimes:jpg,jpeg,png,gif,pdf,doc,docx,txt,csv,xls,xlsx', 'max:2048'],
+				'titles.*' => ['nullable', 'required_with:files.*', 'string', 'max:255'],
 			]);
 		}else{
 			$request->validate([
 				'feedback' => 'nullable|string',
 				'hours' => 'integer|min:0',
 				'minutes' => 'integer|min:0|max:59',
+				'files.*' => ['nullable', 'required_with:titles.*', 'file', 'mimes:jpg,jpeg,png,gif,pdf,doc,docx,txt,csv,xls,xlsx', 'max:2048'],
+				'titles.*' => ['nullable', 'required_with:files.*', 'string', 'max:255'],
 			]);
 		}
 
@@ -99,6 +104,8 @@ class QuestLogController extends Controller
 			'feedback_type' => $questLog->quest->feedback_type,
 			'minutes' => $totalMinutes,
 		]);
+
+		$this->handleFileUploads($request, $questLog);
 
 		// If the status changed and is now complete
 		// Send an email to the quest creator if they have email notifications enabled
@@ -230,5 +237,35 @@ class QuestLogController extends Controller
 
 		return redirect()->route('quests.index')->with('success', 'Quest dropped successfully.');
 
+	}
+
+	private function handleFileUploads($request, $questLog)
+	{
+		if ($request->hasFile('files'))
+		{
+			$titles = $request->input('titles');
+
+			foreach ($request->file('files') as $index => $file)
+			{
+				$title = $titles[$index];
+
+				// Get current datetime in the desired format
+				$now = now()->format('Ymd-His');
+
+				// Sanitize the title for the filename
+				$filename = Str::slug($title, '-');
+
+				// Combine datetime, sanitized title, and extension
+				$filename = $filename . '-' . $now  . '.' . $file->getClientOriginalExtension();
+
+				$path = $file->storeAs("feedback/{$questLog->quest->id}/{$questLog->id}", $filename, 'public');
+
+				$questLog->files()->create([
+					'title' => $title, // Save the original title
+					'filename' => $filename,
+					'path' => $path,
+				]);
+			}
+		}
 	}
 }
