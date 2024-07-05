@@ -18,9 +18,9 @@ class QuestController extends Controller
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @param \Illuminate\Http\Request $request
+	 * @param Request $request
 	 *
-	 * @return \Illuminate\View\View
+	 * @return View
 	 */
 	public function index(Request $request): View
 	{
@@ -63,12 +63,30 @@ class QuestController extends Controller
 			$query->orderBy($sortBy, $direction);
 		}
 
-		// Pagination (After Sorting!)
-		$quests = $query->paginate(25);
+		// Determine if completed quests should be shown
+		$showCompleted = $request->has('show_completed');
+
+		// Fetch quests with additional relationship for completed quest check
+		$quests = $query->with([
+			'questLogs' => function($query)
+			{
+				$query->where('user_id', auth()->id())
+					->whereIn('status', ['Completed']);
+			},
+		])
+			->when(!$showCompleted, function($query)
+			{ // Exclude completed quests if not showing
+				$query->whereDoesntHave('questLogs', function($query)
+				{
+					$query->where('user_id', auth()->id())
+						->whereIn('status', ['Completed']);
+				});
+			})
+			->paginate(25);
 
 		$categories = Category::all();
 
-		return view('quests.index', compact('quests', 'categories'));
+		return view('quests.index', compact('quests', 'categories', 'showCompleted'));
 	}
 
 	/**
@@ -76,7 +94,7 @@ class QuestController extends Controller
 	 *
 	 * @param Request $request
 	 *
-	 * @return \Illuminate\Http\RedirectResponse
+	 * @return RedirectResponse
 	 */
 	public function store(Request $request): RedirectResponse
 	{
@@ -127,7 +145,7 @@ class QuestController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param \App\Models\Quest $quest
+	 * @param Quest $quest
 	 *
 	 * @return View
 	 */
@@ -157,9 +175,9 @@ class QuestController extends Controller
 	 * Update the specified resource in storage.
 	 *
 	 * @param Request $request
-	 * @param \App\Models\Quest $quest
+	 * @param Quest $quest
 	 *
-	 * @return \Illuminate\Http\RedirectResponse
+	 * @return RedirectResponse
 	 */
 	public function update(Request $request, Quest $quest): RedirectResponse
 	{
@@ -217,7 +235,7 @@ class QuestController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param \App\Models\Quest $quest
+	 * @param Quest $quest
 	 *
 	 * @return void
 	 */
