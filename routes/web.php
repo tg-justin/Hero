@@ -12,6 +12,7 @@ use App\Http\Middleware\Admin;
 use App\Http\Middleware\Manager;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
+use App\Http\Controllers\ServeFileController;
 
 Route::get('/', function()
 {
@@ -40,6 +41,12 @@ Route::middleware('auth')->group(function()
 	{
 		return view('default-styles');
 	})->name('default.styles');
+
+	// Serve quest files that have been uploaded by Managers
+	// http://hero.test/storage/quests/2/sample.pdf
+	Route::get('/storage/quests/{questId}/{filename}', [ServeFileController::class, 'getQuestFile'])
+		->where('questId', '[0-9]+')  // Ensure questId is a number
+		->where('filename', '.*');  // Allow any filename
 
 	// All other routes with 'verified' middleware
 	Route::middleware('verified')->group(function()
@@ -110,7 +117,6 @@ Route::middleware('auth')->group(function()
 		Route::post('/quests/{quest}/accept', [QuestController::class, 'accept'])->name('quests.accept');
 		Route::get('/quests/{quest}/confirm-delete', [QuestController::class, 'destroy'])->name('quests.confirm-delete');
 
-
 		Route::get('/quest-log', [QuestLogController::class, 'index'])->name('quest-log.index');
 
 		Route::get('/quest-log/{questLog}/complete', [QuestLogController::class, 'showCompleteForm'])->name('quest-log.complete-form');
@@ -118,7 +124,6 @@ Route::middleware('auth')->group(function()
 
 		Route::get('/quest-log/{questLog}/drop-confirm', [QuestLogController::class, 'confirmDrop'])->name('quest-log.drop-confirm');
 		Route::post('/quest-log/{questLog}/drop', [QuestLogController::class, 'drop'])->name('quest-log.drop');
-
 
 		/*******************************************************************************************
 		 * Manager Routes
