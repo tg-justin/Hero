@@ -141,7 +141,7 @@ class QuestLogController extends Controller
 		$valid_statuses = QuestLog::getStatuses();
 
 		$request->validate([
-			'xp' => 'required|integer|min:0',
+			'xp_awarded' => 'required|integer|min:0',
 			'bonus_xp' => 'nullable|integer|min:0',
 			'status' => [
 				'required',
