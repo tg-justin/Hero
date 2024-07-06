@@ -138,22 +138,12 @@ class User extends Authenticatable implements MustVerifyEmail
 			// Level Up!
 			$this->level = $newLevel;
 
-			// Check if this is the first login after leveling up (Optional)
-			if ($this->last_login_at && $this->last_login_at < $this->updated_at)
-			{
-				$this->last_notified_level = $newLevel;
-			}
-
-			$this->save(); // Save the updated level and last_notified_level
+			$this->save(); // Save the updated level
 
 			// log that this happened
 			activity()
 				->causedBy($this)
 				->log('Leveled up to ' . $this->level);
-
-			// Perform any additional actions on level up (optional)
-			//$this->awardLevelUpBonus(); // Example method to give rewards
-			//$this->sendLevelUpNotification(); // Example method to send a notification
 		}
 	}
 
