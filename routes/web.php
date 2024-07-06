@@ -44,8 +44,15 @@ Route::middleware('auth')->group(function()
 
 	// Serve quest files that have been uploaded by Managers
 	// http://hero.test/storage/quests/2/sample.pdf
-	Route::get('/storage/quests/{questId}/{filename}', [ServeFileController::class, 'getQuestFile'])
+	Route::get('/storage/quests/{questId}/{filename}', [ServeFileController::class, 'serveQuestFile'])
 		->where('questId', '[0-9]+')  // Ensure questId is a number
+		->where('filename', '.*');  // Allow any filename
+
+	// Serve quest files that have been uploaded by Heroes
+	// http://hero.test/storage/feedback/2/14/another-file-20240705-190436.pdf
+	Route::get('/storage/feedback/{questId}/{questLogId}/{filename}', [ServeFileController::class, 'serveQuestLogFile'])
+		->where('questId', '[0-9]+')  // Ensure questId is a number
+		->where('questLogId', '[0-9]+')  // Ensure questLogId is a number
 		->where('filename', '.*');  // Allow any filename
 
 	// All other routes with 'verified' middleware
