@@ -190,8 +190,9 @@ class QuestLogController extends Controller
 			->performedOn($questLog)
 			->log('Quest log updated');
 
-		return redirect()->route('quest-logs.review', $questLog->id)
-			->with('success', 'Quest log updated!');
+		return redirect()->route('manager.review')
+			->with('success', 'Quest log #' . $questLog->id . ' updated! <a href="' . route('quest-logs.review', $questLog->id) . '">Make changes</a>');
+
 	}
 
 	// Helper method to determine the status color
