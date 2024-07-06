@@ -33,6 +33,11 @@ class QuestLog extends Model
 		return $this->belongsTo(User::class);
 	}
 
+	public function reviewer(): BelongsTo
+	{
+		return $this->belongsTo(User::class, 'reviewer_id');
+	}
+
 	public function quest(): BelongsTo
 	{
 		return $this->belongsTo(Quest::class);

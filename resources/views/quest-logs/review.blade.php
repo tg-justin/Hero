@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="flex pb-2">
                                     <span class="font-bold w-24">Reviewer:</span>
-                                    <span class="flex-1">{{ $questLog->reviewer_id }}</span>
+									<span class="flex-1"><a href="{{ route('profile.show-profile', $questLog->reviewer->id) }}">{{ $questLog->reviewer->name }}</a></span>
                                 </div>
                             @endif
 
