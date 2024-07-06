@@ -39,7 +39,7 @@
 									   placeholder="Search by title" value="{{ request('search') }}">
 							</div>
 							<label for="show_completed">
-								<input type="checkbox" name="show_completed" id="show_completed" {{ $showCompleted ? 'checked' : '' }}>
+								<input type="checkbox" name="show_completed" id="show_completed" {{ $showCompleted ? 'checked' : '' }} onchange="this.form.submit()">
 								Show Completed
 							</label>
 							<button type="submit" class="px-4 py-2 bg-seance-700 hover:bg-seance-800 text-white rounded-md"> Search</button>
