@@ -72,21 +72,21 @@
 	h1 {
 		@apply text-4xl;
 		@apply font-extrabold;
-		@apply mb-4;
+		@apply mb-3.5;
 		@apply text-seance-800;
 	}
 
 	h2 {
 		@apply text-3xl;
 		@apply font-extrabold;
-		@apply mb-4;
+		@apply mb-3;
 		@apply text-seance-800;
 	}
 
 	h3 {
 		@apply text-xl;
 		@apply font-bold;
-		@apply mb-4;
+		@apply mb-2;
 		@apply text-seance-800;
 	}
 
@@ -118,6 +118,25 @@
 		@apply ml-0
 
 	}
+
+	h2.stat-header{
+		@apply text-2xl;
+		@apply text-seance-800;
+		@apply leading-tight;
+		@apply mb-1.5;
+	}
+
+	/* TEMP: Fix to get TinyMCE to autosize correctly. */
+	.mce-edit-area {
+		overflow: hidden !important;
+	}
+
+	/* TEMP: Fix to get TinyMCE to autosize correctly. */
+	.mce-content-body {
+		height: auto !important;
+	}
+
+
 }
 
 @tailwind utilities;

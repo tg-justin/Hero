@@ -3,7 +3,7 @@
 		{{ __('Quest Details') }}: {{$quest->title}}
 	</x-slot>
 	@php
-		$user = Auth::user();
+		$user = auth()->user();
 		$questLog = $user->questLogs()->where('quest_id', $quest->id)->first() ?? NULL;
 		$userLevel = $user->level;
 		$questLevel = $quest->min_level;
@@ -26,7 +26,7 @@
 				</div>
 			@endif
 
-			<div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6"> {{-- PAGE: BEGIN --}}
+			<div class="bg-white/75 overflow-hidden shadow-sm sm:rounded-lg p-6"> {{-- PAGE: BEGIN --}}
 				<h1 class="text-4xl font-extrabold mb-4 text-seance-800">{{ $quest->title }}</h1>
 
 				<div class="grid grid-cols-1 md:grid-cols-6 gap-4"> {{-- COLUMNS: BEGIN --}}
