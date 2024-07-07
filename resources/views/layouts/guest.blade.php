@@ -21,7 +21,7 @@
 		</a>
 	</div>
 
-	@if (config('url') == 'https://stage.hero.tabletopgaymers.org')
+	@if (strpos(config('app.url'), 'stage'))
 		<div class="pt-5">
 			<div class="w-full md:max-w-screen-md mx-auto">
 				<div class="bg-amber-100 overflow-hidden border border-amber-400 sm:rounded-lg px-6 py-4">
