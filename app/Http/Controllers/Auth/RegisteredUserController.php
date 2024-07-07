@@ -24,20 +24,28 @@ class RegisteredUserController extends Controller
 	public function store(Request $request): RedirectResponse
 	{
 		$request->validate([
-			'name' => ['required', 'string', 'max:255'],
+			// 'name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
 			'password' => ['required', 'confirmed', Rules\Password::defaults()],
-			'timezone' => ['required', 'string', 'max:255'], // Validate the timezone field
+			// 'timezone' => ['required', 'string', 'max:255'], // Validate the timezone field
 		]);
 
 		$user = User::create([
-			'name' => $request->name,
+			'name' => 'Commoner ' . mt_rand(100000, 999999),
 			'email' => $request->email,
-			'pronouns' => $request->pronouns,
 			'password' => Hash::make($request->password),
 			'email_verified_at' => NOW(),
-			'timezone' => $request->timezone ?? 'UTC', // Save the selected timezone
+			'timezone' => 'UTC', // Save the selected timezone
 		]);
+
+		// $user = User::create([
+		// 	'name' => $request->name,
+		// 	'email' => $request->email,
+		// 	'pronouns' => $request->pronouns,
+		// 	'password' => Hash::make($request->password),
+		// 	'email_verified_at' => NOW(),
+		// 	'timezone' => $request->timezone ?? 'UTC', // Save the selected timezone
+		// ]);
 
 		event(new Registered($user));
 
@@ -58,7 +66,8 @@ class RegisteredUserController extends Controller
 	{
 		// return view('auth.register');
 		// Share the list of timezones with the view
-		$timezones = CarbonTimeZone::listIdentifiers();
-		return view('auth.register', compact('timezones'));
+		// $timezones = CarbonTimeZone::listIdentifiers();
+		// return view('auth.register', compact('timezones'));
+		return view('auth.register');
 	}
 }

@@ -9,12 +9,12 @@
 					@csrf
 
 					{{-- Name Input --}}
-					<div>
-						<x-input-label for="name" :value="__('Hero Name')" class="block text-sm font-medium text-seance-700 dark:text-seance-700"/>
-						<x-text-input id="name" class="block mt-1 w-full rounded-md border-seance-300 shadow-sm focus:ring-seance-500 focus:border-seance-500" type="text" name="name" :value="old('name')" required autofocus
-									  autocomplete="name"/>
-						<x-input-error :messages="$errors->get('name')" class="mt-2"/>
-					</div>
+{{--					<div>--}}
+{{--						<x-input-label for="name" :value="__('Hero Name')" class="block text-sm font-medium text-seance-700 dark:text-seance-700"/>--}}
+{{--						<x-text-input id="name" class="block mt-1 w-full rounded-md border-seance-300 shadow-sm focus:ring-seance-500 focus:border-seance-500" type="text" name="name" :value="old('name')" required autofocus--}}
+{{--									  autocomplete="name"/>--}}
+{{--						<x-input-error :messages="$errors->get('name')" class="mt-2"/>--}}
+{{--					</div>--}}
 
 					{{-- Email Input --}}
 					<div>
@@ -25,18 +25,18 @@
 					</div>
 
 					{{-- Timezone Input --}}
-					<div class="mt-4">
-						<x-input-label for="timezone" :value="__('Timezone')" class="block text-sm font-medium text-seance-700 dark:text-seance-700"/>
-						<select id="timezone" name="timezone" class="block mt-1 w-full rounded-md border-seance-300 shadow-sm focus:ring-seance-500 focus:border-seance-500">
-							@foreach ($timezones as $timezone)
-								<option value="{{ $timezone }}"
-										@if (old('timezone', 'America/Chicago') == $timezone) selected @endif>
-									{{ $timezone }}
-								</option>
-							@endforeach
-						</select>
-						<x-input-error :messages="$errors->get('timezone')" class="mt-2"/>
-					</div>
+{{--					<div class="mt-4">--}}
+{{--						<x-input-label for="timezone" :value="__('Timezone')" class="block text-sm font-medium text-seance-700 dark:text-seance-700"/>--}}
+{{--						<select id="timezone" name="timezone" class="block mt-1 w-full rounded-md border-seance-300 shadow-sm focus:ring-seance-500 focus:border-seance-500">--}}
+{{--							@foreach ($timezones as $timezone)--}}
+{{--								<option value="{{ $timezone }}"--}}
+{{--										@if (old('timezone', 'America/Chicago') == $timezone) selected @endif>--}}
+{{--									{{ $timezone }}--}}
+{{--								</option>--}}
+{{--							@endforeach--}}
+{{--						</select>--}}
+{{--						<x-input-error :messages="$errors->get('timezone')" class="mt-2"/>--}}
+{{--					</div>--}}
 
 					{{-- Password Input --}}
 					<div>
