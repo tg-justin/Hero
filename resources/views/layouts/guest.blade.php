@@ -21,6 +21,19 @@
 		</a>
 	</div>
 
+	@if (config('url') == 'https://stage.hero.tabletopgaymers.org')
+		<div class="pt-5">
+			<div class="w-full md:max-w-screen-md mx-auto">
+				<div class="bg-amber-100 overflow-hidden border border-amber-400 sm:rounded-lg px-6 py-4">
+						<span class="text-rose-700 font-medium text-md"><strong>WARNING:</strong>
+							This site is for testing/staging and can change without notice.
+							No material or history will be saved or transferred to production.
+						</span>
+				</div>
+			</div>
+		</div>
+	@endif
+
 	<div class="w-full md:max-w-screen-md mt-6 px-6 py-4 bg-white/75 shadow-xl border border-seance-300 rounded-lg">
 		{{ $slot }}
 	</div>

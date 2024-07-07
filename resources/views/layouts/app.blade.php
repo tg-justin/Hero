@@ -5,7 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>{{ config('app.name', 'Laravel') }}</title>
+	<title>
+		{{ config('app.name', 'Laravel') }}
+		@if (isset($header))
+			| {{ $header }}
+		@endif
+	</title>
 
 	<!-- Fonts -->
 	<link rel="preconnect" href="https://fonts.bunny.net">
@@ -38,20 +43,24 @@
 		</div>
 	</header>
 
-	{{--	@if (isset($header))--}}
-	{{--		<header class="bg-seance-800 shadow">--}}
-	{{--			<div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 page-title">--}}
-	{{--				{{ $header }}--}}
-	{{--			</div>--}}
-	{{--		</header>--}}
-	{{--	@endif--}}
-
 	@if (session('level_up_message'))
 		<x-level-up-notification :message="session('level_up_message')"/>
 	@endif
 
-	<!-- Page Content -->
 	<main class="bg-seance-100 mx-auto md:w-4/5 lg:w-80%">
+		@if (config('url') == 'https://stage.hero.tabletopgaymers.org')
+			<div class="pt-1">
+				<div class="max-w-7xl mx-auto px-6 lg:px-8 ">
+					<div class="bg-amber-100 overflow-hidden border border-amber-400 sm:rounded-lg px-4 py-2">
+						<span class="text-rose-700 font-medium text-sm"><strong>WARNING:</strong>
+							This site is for testing/staging and can change without notice.
+							No material or history will be saved or transferred to production.
+						</span>
+					</div>
+				</div>
+			</div>
+		@endif
+
 		@yield('content')
 		@if(isset($slot))
 			{{ $slot }}
