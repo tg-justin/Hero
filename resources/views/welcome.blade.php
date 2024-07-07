@@ -3,7 +3,7 @@
 		<div class="max-w-7xl mx-auto px-2 lg:px-8">
 			<div class="text-center mb-8"> {{-- Welcome Message Section --}}
 				<h1 class="text-4xl md:text-5xl font-extrabold text-seance-800 dark:text-seance-800 mb-4">Welcome Hero!</h1>
-				<p class="text-md md:text-lg text-seance-800 text-left leading-3">
+				<p class="text-md md:text-lg text-seance-800 text-left">
 					Join the Hero program to support Tabletop Gaymers!
 					As a volunteer (hero), you complete tasks (quests) from sharing social media posts to organizing events.
 					Earn experience points (XP), level up, unlock badges, gain titles, and cool swag.</p>
