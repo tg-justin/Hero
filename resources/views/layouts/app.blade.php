@@ -52,10 +52,16 @@
             <div class="pt-1">
                 <div class="max-w-7xl mx-auto px-6 lg:px-8 ">
                     <div class="bg-amber-100 overflow-hidden border border-amber-400 sm:rounded-lg px-4 py-2">
-						<span class="text-rose-700 font-medium text-sm"><strong>WARNING:</strong>
+						<div class="text-rose-700 font-medium text-sm"><strong>WARNING:</strong>
 							This site is for testing/staging and can change without notice.
 							No material or history will be saved or transferred to production.
-						</span>
+						</div>
+						<div class="text-rose-700 font-medium text-sm"><strong>FEEDBACK:</strong>
+							Post your feedback, bugs, and suggestions in the HERO &gt;
+							<strong><a target="_blank" href="https://discord.com/channels/676797998650359829/1259572186923012206">#hero-feedback</a></strong>
+							channel on
+							<strong><a target="_blank" href="https://tabletopgaymers.org/group/discord/">TG Discord</a></strong>.
+						</div>
                     </div>
                 </div>
             </div>
