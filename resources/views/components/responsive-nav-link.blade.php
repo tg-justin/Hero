@@ -1,11 +1,19 @@
-@props(['active'])
+{{--@props(['active'])--}}
 
-@php
-	$classes = ($active ?? false)
-				? 'block w-full ps-3 pe-4 py-2 border-l-4 border-orange-600 text-start text-base font-medium text-orange-300 bg-orange-900/50 focus:outline-none focus:text-orange-200 focus:bg-orange-900 focus:border-orange-300 transition duration-150 ease-in-out'
-				: 'block w-full ps-3 pe-4 py-2 border-l-4 border-transparent text-start text-base font-medium text-orange-400 hover:text-orange-200 hover:bg-orange-700 hover:border-orange-600 focus:outline-none focus:text-orange-200 focus:bg-orange-700 focus:border-orange-600 transition duration-150 ease-in-out';
-@endphp
+{{-- THIS HAS BEEN INCORPORATED INTO COMPONENT nav-link.blade.php --}}
 
-<a {{ $attributes->merge(['class' => $classes]) }}>
-	{{ $slot }}
-</a>
+{{--@php--}}
+{{--	$classes = 'block w-full ps-3 pe-4 py-2 border-l-4  '--}}
+{{--		. 'text-base font-bold  '--}}
+{{--		. 'transition duration-150 ease-in-out '--}}
+{{--		. 'hover:text-orange-500 hover:border-orange-700 hover:underline-offset-4 '--}}
+{{--		. 'focus:text-blue-300   focus:border-blue-700 ';--}}
+
+{{--	$classes .= ($active ?? false)--}}
+{{--				? 'border-orange-600  text-orange-50 bg-orange-900/50 '--}}
+{{--				: 'border-transparent text-orange-300 bg-transparent   ';--}}
+{{--@endphp--}}
+
+{{--<a {{ $attributes->merge(['class' => $classes]) }}>--}}
+{{--	{{ $slot }}--}}
+{{--</a>--}}

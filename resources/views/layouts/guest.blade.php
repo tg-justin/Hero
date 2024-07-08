@@ -14,17 +14,17 @@
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans text-gray-900 antialiased bg-seance-900 font-['IM Fell Double Pica SC']">
-<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+<div class="min-h-screen flex flex-col justify-center items-center pt-4">
 	<div>
 		<a href="/">
-			<x-application-logo class="w-20 h-20 fill-current text-gray-500"/>
+			<x-application-logo class="w-20 h-20 fill-current text-gray-400"/>
 		</a>
 	</div>
 
 	@if (strpos(config('app.url'), 'stage'))
 		<div class="pt-5">
 			<div class="w-full md:max-w-screen-md mx-auto">
-				<div class="bg-amber-100 overflow-hidden border border-amber-400 sm:rounded-lg px-6 py-4">
+				<div class="bg-amber-100 overflow-hidden border border-red sm:rounded-lg px-6 py-4">
 						<span class="text-rose-700 font-medium text-md"><strong>WARNING:</strong>
 							This site is for testing/staging and can change without notice.
 							No material or history will be saved or transferred to production.
@@ -34,7 +34,7 @@
 		</div>
 	@endif
 
-	<div class="w-full md:max-w-screen-md mt-6 px-6 py-4 bg-white/75 shadow-xl border border-seance-300 rounded-lg">
+	<div class="w-full md:max-w-screen-md my-6 px-1 md:px-4 py-1 md:py-6 bg-white/75 shadow-none md:shadow-lg border border-seance-300 rounded-none md:rounded-lg">
 		{{ $slot }}
 	</div>
 </div>

@@ -1,54 +1,44 @@
 <x-guest-layout>
-	<!-- Session Status -->
-	<x-auth-session-status class="mb-4" :status="session('status')"/>
+	<div class="py-6 bg-cover bg-center">
+		<div class="max-w-7xl mx-auto px-2 lg:px-6">
+			<div class="bg-white/75 overflow-hidden shadow-xl rounded-lg p-4 md:p-6">
 
-	<form method="POST" action="{{ route('login') }}">
-		@csrf
+				<x-auth-session-status class="mb-4 text-xl text-center" :status="session('status')"/>
 
-		<!-- Email Address -->
-		<div>
-			<x-input-label for="email" :value="__('Email')" class="block text-sm font-medium text-seance-700 dark:text-seance-700"/>
-			<x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username"/>
-			<x-input-error :messages="$errors->get('email')" class="mt-2"/>
+				<h2 class="text-2xl font-bold text-seance-800 mb-4">Sign In</h2>
+
+				<form method="POST" action="{{ route('login') }}" class="space-y-4">
+					@csrf
+
+					{{-- Email Input --}}
+					<div>
+						<x-input-label for="email" :value="__('Email')" class="block text-sm font-medium text-seance-700"/>
+						<x-text-input id="email" type="email" name="email" class="block mt-1 w-full"
+									  :value="old('email')" required autofocus autocomplete="username"/>
+						<x-input-error :messages="$errors->get('email')" class="mt-2"/>
+					</div>
+
+					{{-- Password Input --}}
+					<div class="mt-4">
+						<x-input-label for="password" :value="__('Password')" class="block text-sm font-medium text-seance-700"/>
+						<x-text-input id="password" type="password" name="password" required autocomplete="current-password"
+									  class="block mt-1 w-full"/>
+						<x-input-error :messages="$errors->get('password')" class="mt-2"/>
+					</div>
+
+					<div class="block mt-4 justify-items-center">
+						<x-primary-button class="float-right ml-4 bg-seance-700 hover:bg-seance-800 text-white rounded-md">
+							{{ __('Log in') }}
+						</x-primary-button>
+						<div class="float-left">
+							<a class="no-underline text-base text-gray-600"
+							   href="{{ route('register') }}">Need to Register?</a><br/>
+							<a class="no-underline text-base text-gray-600"
+							   href="{{ route('password.request') }}">Forgot your password?</a>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
-
-		<!-- Password -->
-		<div class="mt-4">
-			<x-input-label for="password" :value="__('Password')" class="block text-sm font-medium text-seance-700 dark:text-seance-700"/>
-
-			<x-text-input id="password" class="block mt-1 w-full"
-						  type="password"
-						  name="password"
-						  required autocomplete="current-password"/>
-
-			<x-input-error :messages="$errors->get('password')" class="mt-2"/>
-		</div>
-
-
-		<!-- Remember Me -->
-		<div class="block mt-4">
-			<label for="remember_me" class="inline-flex items-center">
-				<input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
-					   name="remember">
-				<span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-			</label>
-			<x-primary-button class="float-right ms-3">
-				{{ __('Log in') }}
-			</x-primary-button>
-		</div>
-
-		<div class="mt-4">
-			<a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-				dark:focus:ring-offset-gray-800"
-			   href="{{ route('register') }}" class="text-indigo-600 hover:text-indigo-900">Don't have an account?</a>
-			@if (Route::has('password.request'))
-				<a class="float-right underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-				dark:focus:ring-offset-gray-800"
-				   href="{{ route('password.request') }}">
-					{{ __('Forgot your password?') }}
-				</a>
-			@endif
-
-		</div>
-	</form>
+	</div>
 </x-guest-layout>
