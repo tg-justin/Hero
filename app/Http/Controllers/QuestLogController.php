@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\QuestLog;
 use App\Models\User;
+use App\Rules\ExcludeMimes;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -80,16 +81,16 @@ class QuestLogController extends Controller
 				'feedback' => 'required|string',
 				'hours' => 'integer|min:0',
 				'minutes' => 'integer|min:0|max:59',
-				'files.*' => ['nullable', 'required_with:titles.*', 'file', 'mimes:jpg,jpeg,png,gif,pdf,doc,docx,txt,csv,xls,xlsx', 'max:2048'],
-				'titles.*' => ['nullable', 'required_with:files.*', 'string', 'max:255'],
+				'files.*' => ['nullable', 'required_with:titles.*', 'file', new ExcludeMimes(['php', 'exe', 'msi']), 'max:2048'],
+				'titles.*' => ['nullable',  'string', 'max:30'],
 			]);
 		}else{
 			$request->validate([
 				'feedback' => 'nullable|string',
 				'hours' => 'integer|min:0',
 				'minutes' => 'integer|min:0|max:59',
-				'files.*' => ['nullable', 'required_with:titles.*', 'file', 'mimes:jpg,jpeg,png,gif,pdf,doc,docx,txt,csv,xls,xlsx', 'max:2048'],
-				'titles.*' => ['nullable', 'required_with:files.*', 'string', 'max:255'],
+				'files.*' => ['nullable', 'required_with:titles.*', 'file', new ExcludeMimes(['php', 'exe', 'msi']), 'max:2048'],
+				'titles.*' => ['nullable','string', 'max:30'],
 			]);
 		}
 
@@ -242,33 +243,34 @@ class QuestLogController extends Controller
 
 	}
 
-	private function handleFileUploads($request, $questLog)
+	private function handleFileUploads(Request $request, $questLog)
 	{
-		if ($request->hasFile('files'))
-		{
-			$titles = $request->input('titles');
+		if ($request->hasFile('files')) {
+			$files = $request->file('files');
+			$titles = $request->input('titles', []);
 
-			foreach ($request->file('files') as $index => $file)
-			{
-				$title = $titles[$index];
+			foreach ($files as $index => $file) {
+				$originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+				$title = $titles[$index] ?? $originalName;
 
 				// Get current datetime in the desired format
 				$now = now()->format('Ymd-His');
 
-				// Sanitize the title for the filename
-				$filename = Str::slug($title, '-');
+				// Sanitize the title and filename for the database
+				$sanitizedTitle = Str::slug($title, '-');
 
-				// Combine datetime, sanitized title, and extension
-				$filename = $filename . '-' . $now  . '.' . $file->getClientOriginalExtension();
+				// Sanitize the filename for storage (including datetime)
+				$filename = Str::slug($originalName, '-') . '-' . $now  . '.' . $file->getClientOriginalExtension();
 
 				$path = $file->storeAs("feedback/{$questLog->quest->id}/{$questLog->id}", $filename, 'public');
 
 				$questLog->files()->create([
-					'title' => $title, // Save the original title
+					'title' => $sanitizedTitle,
 					'filename' => $filename,
 					'path' => $path,
 				]);
 			}
 		}
 	}
+
 }

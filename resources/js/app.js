@@ -56,6 +56,8 @@ window.addEventListener('DOMContentLoaded', () =>
 		toolbar_sticky: true,
 		link_context_toolbar: true,
 		skin: false,
+		browser_spellcheck: true,
+		contextmenu: false,
 		content_css: [
 			'https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap',
 			'/css/dynamic.css'
