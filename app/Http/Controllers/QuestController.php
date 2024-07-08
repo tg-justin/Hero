@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Quest;
+use App\Rules\ExcludeMimes;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -103,8 +104,8 @@ class QuestController extends Controller
 			'directions_text' => 'required|string',
 			'xp' => 'required|integer|min:1',
 			'category_id' => 'required|integer',
-			'files.*' => ['nullable', 'required_with:titles.*', 'file', 'mimes:jpg,jpeg,png,gif,pdf,doc,docx,txt,csv,xls,xlsx', 'max:2048'],
-			'titles.*' => ['nullable', 'required_with:files.*', 'string', 'max:255'],
+			'files.*' => ['nullable', 'required_with:titles.*', 'file', new ExcludeMimes(['php', 'exe', 'msi']), 'max:2048'],
+			'titles.*' => ['nullable', 'string', 'max:30'],
 		];
 
 		$request->validate($rules);
@@ -186,8 +187,8 @@ class QuestController extends Controller
 			'directions_text' => 'required|string',
 			'xp' => 'required|integer|min:1',
 			'category_id' => 'required|integer',
-			'files.*' => ['nullable', 'required_with:titles.*', 'file', 'mimes:jpg,jpeg,png,gif,pdf,doc,docx,txt,csv,xls,xlsx', 'max:2048'],
-			'titles.*' => ['nullable', 'required_with:files.*', 'string', 'max:150'],
+			'files.*' => ['nullable', 'required_with:titles.*', 'file', new ExcludeMimes(['php', 'exe', 'msi']), 'max:2048'],
+			'titles.*' => ['nullable', 'string', 'max:30'],
 		];
 
 		$request->validate($rules);
@@ -288,25 +289,25 @@ class QuestController extends Controller
 
 	private function handleFileUploads($request, $quest)
 	{
-		if ($request->hasFile('files'))
-		{
-			$titles = $request->input('titles');
+		if ($request->hasFile('files')) {
+			$files = $request->file('files');
+			$titles = $request->input('titles', []); // Default empty array if no titles are provided
 
-			foreach ($request->file('files') as $index => $file)
-			{
-				$title = $titles[$index];
+			foreach ($files as $index => $file) {
+				$originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME); // Get original name first
+				$title = $titles[$index] ?? $originalName;      // Use original name if no title
 
-				// Sanitize the title for the filename
-				$filename = Str::slug($title, '-');
+				// Sanitize title for the database (optional, if needed)
+				$sanitizedTitle = Str::slug($title, '-');
 
-				// Add the extension back
-				$filename .= '.' . $file->getClientOriginalExtension();
+				// Sanitize the filename for storage
+				$filename = Str::slug($originalName, '-') . '.' . $file->getClientOriginalExtension();
 
 				$path = $file->storeAs("quests/{$quest->id}", $filename, 'public');
 
 				$quest->files()->create([
-					'title' => $title, // Save the original title
-					'filename' => $filename,
+					'title' => $sanitizedTitle, // Use sanitized title in database
+					'filename' => $filename,   // Use sanitized filename for storage
 					'path' => $path,
 				]);
 			}
