@@ -24,7 +24,7 @@ class QuestForm extends Component
 		$this->campaigns = Campaign::all();
 		$this->feedback_types = Quest::getFeedbackTypes();
 
-		$this->submitButtonText = $quest ? 'Update Quest' : 'Create Quest';
+		$this->submitButtonText = $quest && (!is_null($quest->id)) ? 'Update Quest' : 'Create Quest';
 	}
 
 	public function render()

@@ -1,9 +1,8 @@
-<form method="POST" enctype="multipart/form-data" action="{{ $quest ? route('quests.update', $quest->id) : route('quests.store') }}">
+<form method="POST" enctype="multipart/form-data" action="{{ ($quest && !is_null($quest->id))  ? route('quests.update', $quest->id) : route('quests.store') }}">
 	@csrf
-	@if($quest)
+	@if($quest && !is_null($quest->id))
 		@method('PUT')
 	@endif
-
 	<div>
 		<label for="title" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">Title</strong></label>
 		<input type="text" name="title" id="title" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-4xl font-extrabold text-seance-800"

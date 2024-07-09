@@ -135,11 +135,12 @@ class QuestController extends Controller
 	 */
 	public function create(): View
 	{
-		$feedback_types = Quest::getFeedbackTypes(); // Get the enum values FIRST
+		$quest = NULL; // Initialize quest to NULL
+		$feedbackTypes = Quest::getFeedbackTypes(); // Get the enum values FIRST
 		$categories = Category::all();
 		$campaigns = Campaign::all();
 
-		return view('quests.create', compact('categories', 'campaigns', 'feedback_types'));
+		return view('quests.create', compact('quest', 'categories', 'campaigns', 'feedbackTypes'));
 	}
 
 	/**
@@ -290,6 +291,19 @@ class QuestController extends Controller
 		//TODO: Handle the case where the user has reached the repeat limit (optional)
 
 		return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST ACCEPTED!');
+	}
+
+	public function duplicate(Quest $quest)
+	{
+		$duplicateQuest = $quest->replicate(); // Create a copy of the Quest model
+		$duplicateQuest->title .= ' (COPY)';   // Add "(COPY)" to the title
+
+		return view('quests.create', [
+			'quest' => $duplicateQuest,  // Pass the duplicate to the create view
+			'feedbackTypes' => Quest::getFeedbackTypes(), // Get the enum values
+			'categories' => Category::all(),
+			'campaigns' => Campaign::all()
+		]);
 	}
 
 	private function handleFileUploads($request, $quest): void

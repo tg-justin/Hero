@@ -120,10 +120,12 @@
 									</div>
 								</form>
 							@endif
-
 							@if($isEditor)
 								<div class="mx-auto">
 									<a href="{{ route('quests.edit', $quest->id) }}" class="tg-button-orange">Edit Quest</a>
+								</div>
+								<div class="mx-auto">
+									<a href="{{ route('quests.duplicate', $quest) }}" class="tg-button-orange">Duplicate Quest</a>
 								</div>
 								<div class="mx-auto">
 									<a href="{{ route('quests.confirm-delete', $quest->id) }}" class="tg-button-orange">Delete Quest</a>

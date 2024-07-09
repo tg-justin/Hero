@@ -7,7 +7,7 @@
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 			<div class="bg-slate-50 overflow-hidden shadow-sm sm:rounded-lg">
 				<div class="p-6 text-slate-700">
-					<x-quest-form/>
+					<x-quest-form :quest="$quest" :feedback_types="$feedbackTypes"/>
 				</div>
 			</div>
 		</div>
