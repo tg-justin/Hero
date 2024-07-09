@@ -112,7 +112,12 @@ class QuestLogController extends Controller
 		// Email the quest creator if they have email notifications enabled
 		if ($questLog->wasChanged('status') && $questLog->status === 'Completed' && $questLog->quest->notify_email)
 		{
-			$questCreator = $questLog->quest->user;
+			$emails = explode(',', $questLog->quest->notify_email);
+
+			// Ensure the array contains valid email addresses
+			$validEmails = array_filter($emails, function ($email) {
+				return filter_var(trim($email), FILTER_VALIDATE_EMAIL);
+			});
 
 			$message = "{$questLog->user->name} has completed the quest '{$questLog->quest->title}'.";
 			$reviewUrl = route('quest-logs.review', $questLog);
@@ -120,10 +125,9 @@ class QuestLogController extends Controller
 			$message .= "You can review the quest log here: $reviewUrl";
 
 			// Send the email
-			Mail::raw($message, function($message) use ($questCreator)
-			{
+			Mail::raw($message, function ($message) use ($validEmails) {
 				$message
-					->to($questCreator->email)
+					->to($validEmails) // Send to multiple recipients
 					->subject('Quest Completion');
 			});
 		}

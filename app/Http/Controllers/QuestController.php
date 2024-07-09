@@ -6,6 +6,7 @@ use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Quest;
 use App\Rules\ExcludeMimes;
+use App\Rules\ExplodeTrim;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -103,14 +104,12 @@ class QuestController extends Controller
 			'directions_text' => 'required|string',
 			'xp' => 'required|integer|min:1',
 			'category_id' => 'required|integer',
+			'notify_email' => ['nullable', new ExplodeTrim('email')],
 			'files.*' => ['nullable', 'required_with:titles.*', 'file', new ExcludeMimes(['php', 'exe', 'msi']), 'max:2048'],
 			'titles.*' => ['nullable', 'string', 'max:30'],
 		];
 
 		$request->validate($rules);
-
-		// Get all request data
-		$request['notify_email'] = $request->notify_email ?? 0;
 
 		// Add the user_id to the data
 		$request['user_id'] = auth()->user()->id;
@@ -187,6 +186,7 @@ class QuestController extends Controller
 			'directions_text' => 'required|string',
 			'xp' => 'required|integer|min:1',
 			'category_id' => 'required|integer',
+			'notify_email' => ['nullable', new ExplodeTrim('email')],
 			'files.*' => ['nullable', 'required_with:titles.*', 'file', new ExcludeMimes(['php', 'exe', 'msi']), 'max:2048'],
 			'titles.*' => ['nullable', 'string', 'max:30'],
 		];

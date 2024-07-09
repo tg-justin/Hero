@@ -94,7 +94,7 @@
 								<p><span class="font-semibold">Repeatable:</span> {{ $quest->repeatable }}</p>
 							@endif
 							@if($isEditor)
-								<p><span class="font-semibold">Email Notification:</span> {{ $quest->notify_email = 1 ? 'Yes' : 'No' }}</p>
+								<p><span class="font-semibold">Email Notification:</span> {{ $quest->notify_email }}</p>
 							@endif
 							@if($quest->files->count() > 0)
 								<div class="mt-4">
