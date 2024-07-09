@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Quest extends Model
 {
@@ -37,27 +39,27 @@ class Quest extends Model
 		'file_paths' => 'array', // Cast file_paths as an array
 	];
 
-	public function category()
+	public function category(): BelongsTo
 	{
 		return $this->belongsTo(Category::class);
 	}
 
-	public function campaign()
+	public function campaign(): BelongsTo
 	{
 		return $this->belongsTo(Campaign::class);
 	}
 
-	public function user()
+	public function user(): BelongsTo
 	{
 		return $this->belongsTo(User::class);
 	}
 
-	public function questLogs()
+	public function questLogs(): HasMany
 	{
 		return $this->hasMany(QuestLog::class);
 	}
 
-	public static function getFeedbackTypes()
+	public static function getFeedbackTypes(): array
 	{
 		return [
 			'Hide',
@@ -68,7 +70,7 @@ class Quest extends Model
 		];
 	}
 
-	public function files()
+	public function files(): HasMany
 	{
 		return $this->hasMany(File::class);
 	}

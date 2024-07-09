@@ -7,11 +7,9 @@ use App\Models\User;
 use App\Rules\ExcludeMimes;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-
 
 class QuestLogController extends Controller
 {
@@ -20,7 +18,7 @@ class QuestLogController extends Controller
 	 *
 	 * @param Request $request
 	 *
-	 * @return \Illuminate\View\View
+	 * @return View
 	 */
 	public function index(Request $request): View
 	{
@@ -38,19 +36,18 @@ class QuestLogController extends Controller
 		$questLogsQuery = $user->questLogs()->with('quest.category'); // Initialize query
 
 		// Sorting logic (same as before)
+		// TODO: "$sortBy" is never used.
 		$sortBy = $request->get('sort', 'status');
 		$direction = $request->get('direction', 'asc');
 		$questLogsQuery->orderByRaw("FIELD(status, 'Accepted', 'Completed', 'Dropped', 'Expired') $direction");
 
 		// Pagination
-		$questLogs = $questLogsQuery->paginate(15); // 15 items per page
-
+		$questLogs = $questLogsQuery->paginate(); // default is 15 items per page
 
 		return view('quest-logs.index', ['questLogs' => $questLogs, 'user' => $user]);
 	}
 
-
-	public function edit(QuestLog $questLog) :View
+	public function edit(QuestLog $questLog): View
 	{
 		$valid_statuses = QuestLog::getStatuses();
 		// Authorize the user (e.g., using a middleware or policy)
@@ -76,21 +73,24 @@ class QuestLogController extends Controller
 			abort(403, 'Unauthorized');
 		}
 
-		if(str_contains($questLog->quest->feedback_type, 'Required')){
+		if (str_contains($questLog->quest->feedback_type, 'Required'))
+		{
 			$request->validate([
 				'feedback' => 'required|string',
 				'hours' => 'integer|min:0',
-				'minutes' => 'integer|min:0|max:59',
+				'minutes' => 'integer|min:0',
 				'files.*' => ['nullable', 'required_with:titles.*', 'file', new ExcludeMimes(['php', 'exe', 'msi']), 'max:2048'],
-				'titles.*' => ['nullable',  'string', 'max:30'],
+				'titles.*' => ['nullable', 'string', 'max:30'],
 			]);
-		}else{
+		}
+		else
+		{
 			$request->validate([
 				'feedback' => 'nullable|string',
 				'hours' => 'integer|min:0',
-				'minutes' => 'integer|min:0|max:59',
+				'minutes' => 'integer|min:0',
 				'files.*' => ['nullable', 'required_with:titles.*', 'file', new ExcludeMimes(['php', 'exe', 'msi']), 'max:2048'],
-				'titles.*' => ['nullable','string', 'max:30'],
+				'titles.*' => ['nullable', 'string', 'max:30'],
 			]);
 		}
 
@@ -109,8 +109,9 @@ class QuestLogController extends Controller
 		$this->handleFileUploads($request, $questLog);
 
 		// If the status changed and is now complete
-		// Send an email to the quest creator if they have email notifications enabled
-		if ($questLog->wasChanged('status') && $questLog->status === 'Completed' && $questLog->quest->notify_email) {
+		// Email the quest creator if they have email notifications enabled
+		if ($questLog->wasChanged('status') && $questLog->status === 'Completed' && $questLog->quest->notify_email)
+		{
 			$questCreator = $questLog->quest->user;
 
 			$message = "{$questLog->user->name} has completed the quest '{$questLog->quest->title}'.";
@@ -119,7 +120,8 @@ class QuestLogController extends Controller
 			$message .= "You can review the quest log here: $reviewUrl";
 
 			// Send the email
-			Mail::raw($message, function ($message) use ($questCreator) {
+			Mail::raw($message, function($message) use ($questCreator)
+			{
 				$message
 					->to($questCreator->email)
 					->subject('Quest Completion');
@@ -181,8 +183,6 @@ class QuestLogController extends Controller
 				$user = $questLog->user;
 				$user->levelUp();
 			}
-
-
 		}
 
 		// Log Quest Log Update
@@ -193,7 +193,6 @@ class QuestLogController extends Controller
 
 		return redirect()->route('manager.review')
 			->with('success', 'Quest log #' . $questLog->id . ' updated! <a href="' . route('quest-logs.review', $questLog->id) . '">Make changes</a>');
-
 	}
 
 	// Helper method to determine the status color
@@ -201,7 +200,7 @@ class QuestLogController extends Controller
 	public function review(QuestLog $questLog): View
 	{
 		$valid_statuses = QuestLog::getStatuses();
-		return view('quest-logs.review', compact('questLog' , 'valid_statuses'));
+		return view('quest-logs.review', compact('questLog', 'valid_statuses'));
 	}
 
 	public function confirmDrop(QuestLog $questLog): View
@@ -214,7 +213,6 @@ class QuestLogController extends Controller
 
 		return view('quest-logs.drop-confirm', compact('questLog'));
 	}
-
 
 	public function drop(QuestLog $questLog, Request $request): RedirectResponse
 	{
@@ -240,37 +238,44 @@ class QuestLogController extends Controller
 			->log('Quest Dropped');
 
 		return redirect()->route('quests.index')->with('success', 'Quest dropped successfully.');
-
 	}
 
-	private function handleFileUploads(Request $request, $questLog)
+	private function handleFileUploads(Request $request, $questLog): void
 	{
-		if ($request->hasFile('files')) {
+		if ($request->hasFile('files'))
+		{
 			$files = $request->file('files');
 			$titles = $request->input('titles', []);
 
-			foreach ($files as $index => $file) {
-				$originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-				$title = $titles[$index] ?? $originalName;
+			foreach ($files as $index => $file)
+			{
+				$originalTitle = $titles[$index] ?? '';
+				$cleanTitle = cleanFilename($originalTitle);
+				$cleanFilename = cleanFilename($file->getClientOriginalName());
 
-				// Get current datetime in the desired format
-				$now = now()->format('Ymd-His');
+				if (empty($cleanTitle))
+				{
+					$title = preg_replace('/[._-]+/', ' ', pathinfo($cleanFilename, PATHINFO_FILENAME));
+					$filename = $cleanFilename;
+				}
+				else
+				{
+					$title = $originalTitle;
+					$filename = $cleanTitle . '.' . pathinfo($cleanFilename, PATHINFO_EXTENSION);
+				}
 
-				// Sanitize the title and filename for the database
-				$sanitizedTitle = Str::slug($title, '-');
+				$filename = pathinfo($filename, PATHINFO_FILENAME) . '-' .
+					now()->format('Ymd-His') . '.' .
+					pathinfo($filename, PATHINFO_EXTENSION);
 
-				// Sanitize the filename for storage (including datetime)
-				$filename = Str::slug($originalName, '-') . '-' . $now  . '.' . $file->getClientOriginalExtension();
-
-				$path = $file->storeAs("feedback/{$questLog->quest->id}/{$questLog->id}", $filename, 'public');
+				$path = $file->storeAs("feedback/{$questLog->quest->id}/$questLog->id", $filename, 'public');
 
 				$questLog->files()->create([
-					'title' => $sanitizedTitle,
+					'title' => $title,
 					'filename' => $filename,
 					'path' => $path,
 				]);
 			}
 		}
 	}
-
 }

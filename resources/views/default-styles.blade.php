@@ -1,10 +1,36 @@
 <x-app-layout>
 	<x-slot name="header">
 		{{ __('Title') }}
-	</x-slot>
-	<div class="py-6 bg-cover bg-center">
-		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-			<div class="dynamic">
+    </x-slot>
+    <div class="py-6 bg-cover bg-center">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="dynamic">
+                @php
+					$originalTitle = "For the love of god, please read this **SAMPLE** file!!!";
+					// $originalTitle = "";
+					dump($originalTitle);
+                    $cleanTitle = cleanFilename($originalTitle);
+					dump($cleanTitle);
+
+
+					$originalFilename = '.-.-.-This_is a ["__REALLY__"]  -Stupid\'... example? Yes_it_is! #12 &$BLAH-☆*: .｡. o(≧▽≦)o .｡..:*☆ barf...kicad_pcb... --.?';
+					dump($originalFilename);
+					$cleanFilename = cleanFilename($originalFilename);
+					dump($cleanFilename);
+
+					if (empty($cleanTitle)) {
+						$title = preg_replace('/[._-]+/', ' ', pathinfo($cleanFilename, PATHINFO_FILENAME));
+						$filename = $cleanFilename;
+					} else {
+						$filename = $cleanTitle . '.' . pathinfo($cleanFilename, PATHINFO_EXTENSION);
+						$title = $originalTitle;
+					}
+					echo "Title:\n<br>";
+					dump($title);
+					dump($filename);
+
+                @endphp
+
 				<h1>Heading 1 - Sample Heading Text</h1>
 
 				<p>Here are a couple of paragraphs with no formatting so you can understand and view the line spacing.

@@ -25,7 +25,7 @@
 					</div>
 
 					<div class="mt-4">
-						<div class="flex space-x-4">
+						<div class="flex space-x-3">
 							<div>
 								<x-input-label for="hours" :value="__('Hours')"/>
 								<x-text-input id="hours" type="number" class="block mt-1 w-full" name="hours" :value="old('hours', floor($questLog->minutes / 60))" autofocus autocomplete="hours"/>
@@ -33,7 +33,7 @@
 							</div>
 							<div>
 								<x-input-label for="minutes" :value="__('Minutes')"/>
-								<x-text-input id="minutes" type="number" class="block mt-1 w-full" name="minutes" :value="old('minutes', $questLog->minutes % 60)" autofocus autocomplete="minutes"/>
+								<x-text-input id="minutes" type="number" class="block mt-1 w-full" name="minutes" :value="old('minutes', $questLog->minutes % 60)" autocomplete="minutes"/>
 								<x-input-error :messages="$errors->get('minutes')" class="mt-2 text-red"/>
 							</div>
 						</div>
@@ -66,20 +66,20 @@
 							<x-input-error :messages="$errors->get('feedback')" class="mt-2 text-red"/>
 						</div>
 
-						<div id="file-uploads" class="mt-4">
+						<div id="file-uploads">
 							@if(isset($questLog))
 								@foreach($questLog->files as $file)
-									<div class="file-input">
+									<div class="file-input my-4">
 										<label for="existing_files_{{ $file->id }}" class="block text-sm font-medium text-gray-700">File</label>
-										<input type="text" name="existing_files[{{ $file->id }}][title]" value="{{ $file->title }}"
-											   class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
 										<a href="{{ asset('storage/feedback/' . $questLog->quest->id.'/'.$questLog->id.'/'.$file->filename) }}" target="_blank">{{ $file->filename }}</a>
 										<input type="checkbox" name="remove_files[]" value="{{ $file->id }}"> Remove
+										<input type="text" name="existing_files[{{ $file->id }}][title]" value="{{ $file->title }}"
+											   class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
 									</div>
 								@endforeach
 							@endif
 
-							<div class="file-input-new">
+							<div class="file-input-new my-4">
 								<label for="files[]" class="block text-sm font-medium text-gray-700">File</label>
 								<input type="file" name="files[]" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
 								<input type="text" name="titles[]" placeholder="Title" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">

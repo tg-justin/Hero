@@ -96,9 +96,9 @@
 							@if($isEditor)
 								<p><span class="font-semibold">Email Notification:</span> {{ $quest->notify_email = 1 ? 'Yes' : 'No' }}</p>
 							@endif
-							<div class="mt-4">
-								<h2>Files</h2>
-								@if($quest->files->count() > 0)
+							@if($quest->files->count() > 0)
+								<div class="mt-4">
+									<h2 class="stat-header">Attachments</h2>
 									<ul>
 										@foreach($quest->files as $file)
 											<li>
@@ -106,10 +106,8 @@
 											</li>
 										@endforeach
 									</ul>
-								@else
-									<p>No files uploaded.</p>
-								@endif
-							</div>
+								</div>
+							@endif
 
 						</div> {{-- STATS: END --}}
 

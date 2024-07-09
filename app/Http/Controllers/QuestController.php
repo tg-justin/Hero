@@ -9,7 +9,6 @@ use App\Rules\ExcludeMimes;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 // Replace with your Quest model path
@@ -59,7 +58,7 @@ class QuestController extends Controller
 		$sortBy = $request->get('sort');
 		$direction = $request->get('direction', 'asc');
 
-		if ($sortBy && in_array($sortBy, ['min_level', 'title', 'xp']))
+		if (in_array($sortBy, ['min_level', 'title', 'xp']))
 		{ // Validate sorting column
 			$query->orderBy($sortBy, $direction);
 		}
@@ -158,7 +157,7 @@ class QuestController extends Controller
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param int $id
+	 * @param Quest $quest
 	 *
 	 * @return View
 	 */
@@ -236,9 +235,10 @@ class QuestController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
+	 * @param Request $request
 	 * @param Quest $quest
 	 *
-	 * @return void
+	 * @return RedirectResponse|View
 	 */
 	public function destroy(Request $request, Quest $quest): RedirectResponse|View
 	{
@@ -280,33 +280,39 @@ class QuestController extends Controller
 				'status' => 'Accepted', // Set the initial status to 'Accepted'
 			]);
 		}
-		else
-		{
-			//TODO: Handle the case where the user has reached the repeat limit (optional)
-		}
+		//TODO: Handle the case where the user has reached the repeat limit (optional)
+
 		return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST ACCEPTED!');
 	}
 
-	private function handleFileUploads($request, $quest)
+	private function handleFileUploads($request, $quest): void
 	{
-		if ($request->hasFile('files')) {
+		if ($request->hasFile('files'))
+		{
 			$files = $request->file('files');
 			$titles = $request->input('titles', []); // Default empty array if no titles are provided
 
-			foreach ($files as $index => $file) {
-				$originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME); // Get original name first
-				$title = $titles[$index] ?? $originalName;      // Use original name if no title
+			foreach ($files as $index => $file)
+			{
+				$originalTitle = $titles[$index] ?? '';
+				$cleanTitle = cleanFilename($originalTitle);
+				$cleanFilename = cleanFilename($file->getClientOriginalName());
 
-				// Sanitize title for the database (optional, if needed)
-				$sanitizedTitle = Str::slug($title, '-');
+				if (empty($cleanTitle))
+				{
+					$title = preg_replace('/[._-]+/', ' ', pathinfo($cleanFilename, PATHINFO_FILENAME));
+					$filename = $cleanFilename;
+				}
+				else
+				{
+					$title = $originalTitle;
+					$filename = $cleanTitle . '.' . pathinfo($cleanFilename, PATHINFO_EXTENSION);
+				}
 
-				// Sanitize the filename for storage
-				$filename = Str::slug($originalName, '-') . '.' . $file->getClientOriginalExtension();
-
-				$path = $file->storeAs("quests/{$quest->id}", $filename, 'public');
+				$path = $file->storeAs("quests/$quest->id", $filename, 'public');
 
 				$quest->files()->create([
-					'title' => $sanitizedTitle, // Use sanitized title in database
+					'title' => $title, // Use sanitized title in database
 					'filename' => $filename,   // Use sanitized filename for storage
 					'path' => $path,
 				]);

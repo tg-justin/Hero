@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', () =>
 		menubar: false,
 		statusbar: false,
 		min_height: 150,
-		autoresize_bottom_margin: 0,
+		autoresize_bottom_margin: 10,
 		plugins: [
 			'advlist', 'autolink', 'autoresize', 'lists', 'link', 'image', 'charmap', 'preview',
 			'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
@@ -83,7 +83,7 @@ window.addEventListener('DOMContentLoaded', () =>
 		promotion: false,
 		selector: 'textarea.tinymce',
 		min_height: 300,
-		autoresize_bottom_margin: 0,
+		autoresize_bottom_margin: 10,
 		plugins: [
 			'advlist', 'autolink', 'autoresize', 'lists', 'link',
 			'insertdatetime', 'media', 'table', 'wordcount', 'pagebreak', 'paste',
@@ -97,6 +97,8 @@ window.addEventListener('DOMContentLoaded', () =>
 		toolbar_sticky: true,
 		link_context_toolbar: true,
 		skin: false,
+		browser_spellcheck: true,
+		contextmenu: false,
 		content_css: [
 			'https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap',
 			'/css/dynamic.css'
