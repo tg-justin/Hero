@@ -172,9 +172,9 @@
 			</div>
 			<button type="button" id="add-file" class="mt-2 text-seance-600 hover:text-seance-700">Add Another File</button>
 
-
 			<div class="mx-auto">
 				<button type="submit" class="tg-button-green" style="width: 100%">{{ $submitButtonText }}</button>
+				<a href="{{ url()->previous() }}" class="tg-button-gray">Cancel</a>
 			</div>
 
 		</div>

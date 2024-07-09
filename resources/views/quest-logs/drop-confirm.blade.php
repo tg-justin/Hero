@@ -17,8 +17,8 @@
 						<button type="submit" class="tg-button-green">
 							Yes, Drop Quest
 						</button>
+						<a href="{{ url()->previous() }}" class="tg-button-gray">Cancel</a>
 					</form>
-					<a href="{{ route('quests.index') }}" class="tg-button-orange">Cancel</a>
 				</div>
 			</div>
 		</div>

@@ -108,6 +108,7 @@
 						<x-primary-button>
 							{{ __('Complete Quest') }}
 						</x-primary-button>
+						<a href="{{ url()->previous() }}" class="tg-button-gray">Cancel</a>
 					</div>
 				</form>
 				<script>

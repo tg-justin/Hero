@@ -37,6 +37,7 @@
 			</div>
 
 			<x-primary-button>Update Quest Log</x-primary-button>
+			<a href="{{ url()->previous() }}" class="tg-button-gray">Cancel</a>
 		</div>
 	</div>
 

@@ -12,6 +12,7 @@
 					@include('profile.partials.form-personal-info')
 					<input type="hidden" name="hero_id" value="{{ $hero->id }}">
 					<x-primary-button>{{ __('Save Personal Information') }}</x-primary-button>
+					<a href="{{ url()->previous() }}" class="tg-button-gray">Cancel</a>
 				</form>
 			</div>
 		</div>

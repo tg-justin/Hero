@@ -10,6 +10,7 @@
                     @method('put')
                     @include('profile.partials.form-change-password')
                     <x-primary-button>{{ __('Change Password') }}</x-primary-button>
+					<a href="{{ url()->previous() }}" class="tg-button-gray">Cancel</a>
 				</form>
 			</div>
 		</div>

@@ -21,7 +21,7 @@
 							</div>
 						</form>
 						<div class="mx-auto">
-							<a href="{{ route('quests.show', $quest) }}" class="tg-button-orange">Cancel</a>
+							<a href="{{ url()->previous() }}" class="tg-button-gray">Cancel</a>
 						</div>
 					</div>
 				</div>
