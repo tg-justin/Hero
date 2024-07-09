@@ -203,7 +203,7 @@ class QuestController extends Controller
 				$file = $quest->files()->find($fileId);
 				if ($file)
 				{
-					Storage::delete($file->path); // Delete from storage
+					Storage::disk('public')->delete($file->path);
 					$file->delete();              // Delete from database
 				}
 			}
@@ -249,7 +249,14 @@ class QuestController extends Controller
 				return redirect()->route('quests.show', $quest)->with('error', 'Cannot delete quest with associated quest logs.');
 			}
 
+			// Delete associated files
+			foreach ($quest->files as $file) {
+				Storage::disk('public')->delete($file->path);
+				$file->delete();
+			}
+
 			$quest->delete();
+
 			return redirect()->route('quests.index')->with('success', 'Quest deleted successfully.');
 		}
 		return view('quests.confirm-delete', compact('quest'));
