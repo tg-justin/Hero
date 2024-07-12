@@ -6,29 +6,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="dynamic">
                 @php
-					$originalTitle = "For the love of god, please read this **SAMPLE** file!!!";
-					// $originalTitle = "";
-					dump($originalTitle);
-                    $cleanTitle = cleanFilename($originalTitle);
-					dump($cleanTitle);
+                    // Execute the 'node -v' command
+					$nodeVersion = shell_exec('node -v');
 
-
-					$originalFilename = '.-.-.-This_is a ["__REALLY__"]  -Stupid\'... example? Yes_it_is! #12 &$BLAH-☆*: .｡. o(≧▽≦)o .｡..:*☆ barf...kicad_pcb... --.?';
-					dump($originalFilename);
-					$cleanFilename = cleanFilename($originalFilename);
-					dump($cleanFilename);
-
-					if (empty($cleanTitle)) {
-						$title = preg_replace('/[._-]+/', ' ', pathinfo($cleanFilename, PATHINFO_FILENAME));
-						$filename = $cleanFilename;
+					// Check if the command was executed successfully
+					if ($nodeVersion === NULL) {
+						echo "Error: Node.js is not installed or not in the system's PATH.";
 					} else {
-						$filename = $cleanTitle . '.' . pathinfo($cleanFilename, PATHINFO_EXTENSION);
-						$title = $originalTitle;
+						echo "Node.js Version: " . htmlspecialchars($nodeVersion);
 					}
-					echo "Title:\n<br>";
-					dump($title);
-					dump($filename);
-
                 @endphp
 
 				<h1>Heading 1 - Sample Heading Text</h1>
