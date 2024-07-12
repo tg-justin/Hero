@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
 		Schema::table('quests', function (Blueprint $table) {
-			$table->dropColumn('notify_email');
 			// $table->string('notify_email')->nullable()->change();
+			$table->string('notify_email')->nullable();
 		});
 
 	}
