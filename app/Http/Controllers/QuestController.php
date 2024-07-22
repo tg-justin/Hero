@@ -268,6 +268,18 @@ class QuestController extends Controller
 	{
 		$user = auth()->user();
 
+		// Check to see if the user dropped the quest previously
+		$droppedQuest = $user->questLogs()->where('quest_id', $quest->id)->where('status', 'Dropped')->first();
+		if ($droppedQuest)
+		{
+			$droppedQuest->update([
+				'status' => 'Accepted',
+				'accepted_at' => NOW(),
+			]);
+
+			return redirect()->route('quests.show', $quest->id)->with('success', 'QUEST ACCEPTED!');
+		}
+
 		// Check if the quest is repeatable and the user hasn't reached the limit
 		if ($quest->repeatable === 0 || $user->questLogs()->where('quest_id', $quest->id)->count() < $quest->repeatable)
 		{

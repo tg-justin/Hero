@@ -2,7 +2,7 @@
 
 <p>If you've volunteered for Tabletop Gaymers in the past, tell us about it! We'll review your info, and it might
 	give you bonus XP!<br>
-	<strong class="text-red">Please leave the Past Volunteer Experience field blank if you have not volunteered for TG before.</strong></p>
+	<strong class="text-red-600">Please leave the Past Volunteer Experience field blank if you have not volunteered for TG before.</strong></p>
 
 <div>
 	<x-input-label for="past_volunteer_experience" :value="__('Past Volunteer Experience')"/>

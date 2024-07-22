@@ -4,11 +4,11 @@
 		@method('PUT')
 	@endif
 	<div>
-		<label for="title" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">Title</strong></label>
+		<label for="title" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="required-field">Title</strong></label>
 		<input type="text" name="title" id="title" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-4xl font-extrabold text-seance-800"
 			   value="{{ old('title', $quest->title ?? '') }}">
 		@error('title')
-		<p class="mt-1 text-sm text-red">{{ $message }}</p>
+		<p class="error-message">{{ $message }}</p>
 		@enderror
 	</div>
 
@@ -16,10 +16,10 @@
 		<div class="md:col-span-4 space-y-4">
 
 			<div>
-				<label for="intro_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">Introduction</strong> (always shown)</label>
+				<label for="intro_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="required-field">Introduction</strong> (always shown)</label>
 				<textarea id="intro_text" name="intro_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('intro_text', $quest->intro_text ?? '') !!}</textarea>
 				@error('intro_text')
-				<p class="mt-1 text-sm text-red">{{ $message }}</p>
+				<p class="error-message">{{ $message }}</p>
 				@enderror
 			</div>
 
@@ -27,15 +27,15 @@
 				<label for="accept_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong>Accept</strong> (optional, shown <strong>before</strong> they accept)</label>
 				<textarea id="accept_text" name="accept_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('accept_text', $quest->accept_text ?? '') !!}</textarea>
 				@error('accept_text')
-				<p class="mt-1 text-sm text-red">{{ $message }}</p>
+				<p class="error-message">{{ $message }}</p>
 				@enderror
 			</div>
 
 			<div>
-				<label for="directions_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">Directions</strong> (shown <strong>after</strong> they accept)</label>
+				<label for="directions_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="required-field">Directions</strong> (shown <strong>after</strong> they accept)</label>
 				<textarea id="directions_text" name="directions_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('directions_text', $quest->directions_text ?? '') !!}</textarea>
 				@error('directions_text')
-				<p class="mt-1 text-sm text-red">{{ $message }}</p>
+				<p class="error-message">{{ $message }}</p>
 				@enderror
 			</div>
 
@@ -43,7 +43,7 @@
 				<label for="complete_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong>Complete Text</strong> (optional, shown after they complete)</label>
 				<textarea id="complete_text" name="complete_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('complete_text', $quest->complete_text ?? '') !!}</textarea>
 				@error('complete_text')
-				<p class="mt-1 text-sm text-red">{{ $message }}</p>
+				<p class="error-message">{{ $message }}</p>
 				@enderror
 			</div>
 
@@ -51,12 +51,12 @@
 				<label for="feedback_text" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong>Feedback Text</strong> (optional, shown on the complete quest screen)</label>
 				<textarea id="feedback_text" name="feedback_text" class="tinymce-full mt-1 rounded-md shadow-sm focus:ring-seance-500 focus:border-seance-500 h-64">{!! old('feedback_text', $quest->feedback_text ?? '') !!}</textarea>
 				@error('feedback_text')
-				<p class="mt-1 text-sm text-red">{{ $message }}</p>
+				<p class="error-message">{{ $message }}</p>
 				@enderror
 			</div>
 
 			<div>
-				<label for="feedback_type" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">Feedback Type</strong>
+				<label for="feedback_type" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="required-field">Feedback Type</strong>
 					(hide – don't allow any feedback,
 					required - require feedback to complete)
 				</label>
@@ -69,7 +69,7 @@
 					@endforeach
 
 					@error('feedback_type')
-					<p class="mt-1 text-sm text-red">{{ $message }}</p>
+					<p class="error-message">{{ $message }}</p>
 					@enderror
 				</select>
 			</div>
@@ -77,20 +77,20 @@
 
 		<div class="md:col-span-2 space-y-4"> {{-- Right side of the form --}}
 			<div>
-				<label for="min_level" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">Level</strong></label>
+				<label for="min_level" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="required-field">Level</strong></label>
 				<input type="number" name="min_level" id="min_level" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" min="0"
 					   value="{{ old('min_level', $quest->min_level ?? '') }}">
 				@error('min_level')
-				<p class="mt-1 text-sm text-red">{{ $message }}</p>
+				<p class="error-message">{{ $message }}</p>
 				@enderror
 			</div>
 
 			<div>
-				<label for="xp" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">XP</strong> (automatically awarded)</label>
+				<label for="xp" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="required-field">XP</strong> (automatically awarded)</label>
 				<input type="number" name="xp" id="xp" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" min="0"
 					   value="{{ old('xp', $quest->xp ?? '') }}">
 				@error('xp')
-				<p class="mt-1 text-sm text-red">{{ $message }}</p>
+				<p class="error-message">{{ $message }}</p>
 				@enderror
 			</div>
 
@@ -99,19 +99,19 @@
 				<textarea id="bonus_xp_text" name="bonus_xp_text" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-sm"
 						  rows="3">{{ old('bonus_xp_text', $quest->bonus_xp_text ?? '') }}</textarea>
 				@error('bonus_xp_text')
-				<p class="mt-1 text-sm text-red">{{ $message }}</p>
+				<p class="error-message">{{ $message }}</p>
 				@enderror
 			</div>
 
 			<div>
-				<label for="category_id" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="text-red">Category</strong></label>
+				<label for="category_id" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="required-field">Category</strong></label>
 				<select name="category_id" id="category_id" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
 					<option value="">-- Select --</option>
 					@foreach ($categories as $category)
 						<option value="{{ $category->id }}" @if ($category->id != old('category_id', $quest->category_id ?? '')) selected @endif>{{ $category->name }}</option>
 					@endforeach
 					@error('category_id')
-					<p class="mt-1 text-sm text-red">{{ $message }}</p>
+					<p class="error-message">{{ $message }}</p>
 					@enderror
 				</select>
 			</div>
@@ -121,7 +121,7 @@
 				<input type="date" name="start_date" id="start_date" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
 					   value="{{ old('start_date', $quest->start_date ?? '') }}">
 				@error('start_date')
-				<p class="mt-1 text-sm text-red">{{ $message }}</p>
+				<p class="error-message">{{ $message }}</p>
 				@enderror
 			</div>
 
@@ -130,7 +130,7 @@
 				<input type="date" name="expires_date" id="expires_date" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
 					   value="{{ old('expires_date', $quest->expires_date ?? '') }}">
 				@error('expires_date')
-				<p class="mt-1 text-sm text-red">{{ $message }}</p>
+				<p class="error-message">{{ $message }}</p>
 				@enderror
 			</div>
 
@@ -145,7 +145,7 @@
 					</div>
 				</div>
 
-				<x-input-error :messages="$errors->get('notify_email')" class="mt-2 text-red"/>
+				<x-input-error :messages="$errors->get('notify_email')" class="error-message"/>
 			</div>
 
 			<div id="file-uploads">

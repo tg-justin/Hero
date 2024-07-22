@@ -6,9 +6,7 @@
 		{{ __('Hero Management') }}
 	</x-slot>
 
-
-
-	<div class="max-w-7xl mx-auto px-2 lg:px-8">
+	<div class="main-inner">
 		<div class="py-6 bg-cover bg-center">
 			{{-- Search Form --}}
 			<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 p-6 text-gray-900">

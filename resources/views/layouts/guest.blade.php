@@ -24,7 +24,7 @@
 	@if (strpos(config('app.url'), 'stage'))
 		<div class="pt-5">
 			<div class="w-full md:max-w-screen-md mx-auto">
-				<div class="bg-amber-100 overflow-hidden border border-red sm:rounded-lg px-6 py-4">
+				<div class="bg-amber-100 overflow-hidden border border-red-600 sm:rounded-lg px-6 py-4">
 						<span class="text-rose-700 font-medium text-md"><strong>WARNING:</strong>
 							This site is for testing/staging and can change without notice.
 							No material or history will be saved or transferred to production.

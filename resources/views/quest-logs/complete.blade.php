@@ -29,12 +29,12 @@
 							<div>
 								<x-input-label for="hours" :value="__('Hours')"/>
 								<x-text-input id="hours" type="number" class="block mt-1 w-full" name="hours" :value="old('hours', floor($questLog->minutes / 60))" autofocus autocomplete="hours"/>
-								<x-input-error :messages="$errors->get('hours')" class="mt-2 text-red"/>
+								<x-input-error :messages="$errors->get('hours')" class="error-message"/>
 							</div>
 							<div>
 								<x-input-label for="minutes" :value="__('Minutes')"/>
 								<x-text-input id="minutes" type="number" class="block mt-1 w-full" name="minutes" :value="old('minutes', $questLog->minutes % 60)" autocomplete="minutes"/>
-								<x-input-error :messages="$errors->get('minutes')" class="mt-2 text-red"/>
+								<x-input-error :messages="$errors->get('minutes')" class="error-message"/>
 							</div>
 						</div>
 					</div>
@@ -52,7 +52,7 @@
 								   $tiny_mce_class = '';
 								}
 								if(str_contains($questLog->quest->feedback_type, 'Required')) {
-									$label_class = 'text-red';
+									$label_class = 'required-field';
 									$reviewRequired = TRUE;
 									$reviewLabel = 'This quest will be reviewed.';
 								}else{
@@ -63,7 +63,7 @@
 							@endphp
 							<x-input-label for="feedback" class="{{ $label_class }}" :value="__('Feedback')"/>
 							<textarea name="feedback" id="feedback" placeholder="" class="{{$tiny_mce_class}} form-textarea w-full" rows="5"></textarea>
-							<x-input-error :messages="$errors->get('feedback')" class="mt-2 text-red"/>
+							<x-input-error :messages="$errors->get('feedback')" class="error-message"/>
 						</div>
 
 						<div id="file-uploads">
@@ -99,7 +99,7 @@
 
 								<x-input-label for="review" class="ml-2 " :value="$reviewLabel"/>
 							</div>
-							<x-input-error :messages="$errors->get('review')" class="mt-2 text-red"/>
+							<x-input-error :messages="$errors->get('review')" class="error-message"/>
 						</div>
 
 					@endif

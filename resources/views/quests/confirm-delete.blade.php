@@ -9,7 +9,7 @@
 				<div class="p-6 text-gray-900">
 					<p>Are you sure you want to delete the quest "{{ $quest->title }}"?</p>
 
-					<h2 class="text-red mt-4">This action cannot be undone.</h2>
+					<h2 class="text-red-600 mt-4">This action cannot be undone.</h2>
 					<div class="max-w-64 m-auto">
 						<form action="{{ route('quests.destroy', $quest) }}" method="POST">
 							@csrf
@@ -29,4 +29,3 @@
 		</div>
 	</div>
 </x-app-layout>
-

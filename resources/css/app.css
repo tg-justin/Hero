@@ -2,7 +2,177 @@
 @tailwind components;
 
 @layer base {
+	body {
+		margin: 0 !important;
+	}
 
+	/* ******************************* Paragraphs ******************************* */
+	p {
+		@apply mt-0;
+		@apply mb-4;
+		@apply leading-relaxed;
+	}
+
+	/* ******************************* Headings ******************************* */
+	h1, h2, h3, h4 {
+		@apply font-extrabold;
+		@apply text-seance-800;
+		@apply mt-4;
+		@apply mb-2;
+	}
+
+	h1 {
+		@apply mt-0;
+		@apply text-4xl;
+	}
+
+	h2 {
+		@apply text-3xl;
+	}
+
+	h3 {
+		@apply text-2xl;
+	}
+
+	h4 {
+		@apply text-xl;
+	}
+
+	/* ******************************* Links ******************************* */
+	a {
+		@apply text-accent;
+		@apply font-bold;
+		@apply no-underline;
+	}
+
+	a:hover {
+		@apply text-red-600 underline;
+	}
+
+	/* ******************************* Lists ******************************* */
+	ul, ol { /* Apply larger margin to the first-level ul and ol */
+		@apply pl-8;
+		@apply md:pl-12;
+		@apply mt-4;
+		@apply mb-4;
+	}
+
+	ul ul, ol ol, ul ol, ol ul { /* Change to smaller margin for nested lists */
+		@apply pl-4;
+		@apply md:pl-8;
+		@apply mt-0;
+		@apply mb-0;
+	}
+
+	ul {
+		list-style: disc;
+	}
+
+	ul ul {
+		list-style: circle;
+	}
+
+	ul ul ul {
+		list-style: square;
+	}
+
+	ol {
+		list-style: decimal;
+	}
+
+	ol ol {
+		list-style: lower-alpha;
+	}
+
+	ol ol ol {
+		list-style: lower-roman;
+	}
+
+	/* ******************************* Blockquotes ******************************* */
+	blockquote {
+		@apply border-l-4 border-seance-500;
+		@apply bg-seance-100;
+		@apply my-6 mx-10;
+		@apply pt-4;
+		@apply pb-1;
+		@apply px-6;
+		@apply text-lg;
+		@apply text-gray-900;
+	}
+
+}
+
+@layer components {
+	/* ******************************* Layout ******************************* */
+
+	.main-outer, .main-inner, .main-content {
+		@apply border-2 md:border-4;
+	}
+
+	.main-outer {
+		@apply py-2 bg-cover bg-center;
+		@apply md:py-6;
+		@apply border-red-600;
+	}
+
+	.main-inner {
+		@apply max-w-7xl mx-auto px-2;
+		@apply md:px-8;
+		@apply border-green-800;
+	}
+
+	.main-content {
+		@apply bg-white/75 overflow-hidden shadow-sm p-2;
+		@apply md:p-6 md:rounded-lg;
+		@apply border-blue-800;
+		/*@apply bg-white/75 overflow-hidden shadow-xl rounded-lg p-4 md:p-6*/
+	}
+
+	.content-split {
+		@apply grid grid-cols-1 md:grid-cols-6 gap-4;
+		@apply border-yellow-300 border-4;
+	}
+
+	.content-primary {
+		@apply col-span-1 space-y-2;
+		@apply md:col-span-2 md:space-y-4;
+	}
+
+	.content-secondary {
+		@apply col-span-1 space-y-2;
+		@apply md:col-span-4 md:space-y-4;
+
+	}
+
+
+
+	/* ******************************* Alerts ******************************* */
+	.alert-error, .alert-success, .alert-warning {
+		@apply border-l-4 p-4 mb-4 rounded-md;
+	}
+	.alert-error {
+		@apply bg-red-100 border-red-500 text-red-800;
+	}
+
+	.alert-success {
+		@apply bg-green-100 border-green-500 text-green-800;
+	}
+
+	.alert-warning {
+		@apply bg-yellow-100 border-yellow-500 text-yellow-800;
+	}
+
+	.error-message {
+		@apply mt-1 text-sm text-red-600;
+	}
+
+	.required-field {
+		@apply text-red-600;
+	}
+
+
+
+	/* ******************************* Buttons ******************************* */
 	.header-button {
 		@apply text-white;
 		@apply focus:ring-4;
@@ -16,15 +186,12 @@
 		@apply focus:outline-none;
 		@apply focus:ring-seance-800;
 	}
+
 	.header-title {
 		@apply font-extrabold;
 		@apply text-3xl;
 		@apply text-seance-200;
 		@apply leading-tight;
-	}
-
-	body {
-		margin: 0 !important;
 	}
 
 	table:not([cellpadding]) th,
@@ -66,60 +233,9 @@
 	.table-seance td {
 		@apply text-slate-800;
 	}
-}
 
-@layer components {
-	h1 {
-		@apply text-4xl;
-		@apply font-extrabold;
-		@apply mb-3.5;
-		@apply text-seance-800;
-	}
-
-	h2 {
-		@apply text-3xl;
-		@apply font-extrabold;
-		@apply mb-3;
-		@apply text-seance-800;
-	}
-
-	h3 {
-		@apply text-xl;
-		@apply font-bold;
-		@apply mb-2;
-		@apply text-seance-800;
-	}
-
-	a {
-		@apply text-accent;
-	}
-
-	a:hover {
-		@apply text-red underline;
-	}
-
-	ul,
-	menu {
-		list-style: disc;
-		@apply pl-4;
-	}
-
-	ol {
-		list-style: decimal;
-		@apply pl-4;
-	}
-
-	p {
-		display: block;
-		@apply mb-0;
-		@apply mt-4;
-		@apply leading-relaxed;
-		@apply mr-0;
-		@apply ml-0
-
-	}
-
-	h2.stat-header{
+	/* ******************************* OTHER ******************************* */
+	h2.stat-header {
 		@apply text-2xl;
 		@apply text-seance-800;
 		@apply leading-tight;

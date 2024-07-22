@@ -1,29 +1,18 @@
 <x-app-layout>
 	<x-slot name="header">
 		{{ __('Title') }}
-    </x-slot>
-    <div class="py-6 bg-cover bg-center">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="dynamic">
-                @php
-                    // Execute the 'node -v' command
-					$nodeVersion = shell_exec('node -v');
-
-					// Check if the command was executed successfully
-					if ($nodeVersion === NULL) {
-						echo "Error: Node.js is not installed or not in the system's PATH.";
-					} else {
-						echo "Node.js Version: " . htmlspecialchars($nodeVersion);
-					}
-                @endphp
+	</x-slot>
+	<div class="main-outer">
+		<div class="main-inner">
+			<div class="main-content">
 
 				<h1>Heading 1 - Sample Heading Text</h1>
-
 				<p>Here are a couple of paragraphs with no formatting so you can understand and view the line spacing.
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis auctor nunc, quis
 					rutrum ligula scelerisque ut. Fusce eget lacinia orci. Ut pretium orci arcu, nec condimentum nibh
 					molestie ac. Donec placerat massa ultricies mauris blandit, at lobortis magna volutpat. Curabitur
 					lobortis elementum quam, et aliquam lectus rhoncus quis. Ut porttitor a ligula ornare auctor.</p>
+
 
 				<p>Here is the second paragraph so you can see the spacing between them. Lorem ipsum dolor sit amet,
 					consectetur adipiscing elit. Phasellus convallis auctor nunc, quis rutrum ligula scelerisque ut.
@@ -55,14 +44,44 @@
 				<p>Simple paragraph for spacing before our lists.</p>
 
 				<ul>
-					<li>List Item 1</li>
-					<li>List Item 2</li>
+					<li>List Item 1
+						<ul>
+							<li>List Item 1.1
+								<ul>
+									<li>List Item 1.1.1</li>
+									<li>List Item 1.1.2</li>
+								</ul>
+							</li>
+							<li>List Item 1.2</li>
+						</ul>
+					</li>
+					<li>List Item 2
+						<ul>
+							<li>List Item 2.1
+								<ul>
+									<li>List Item 2.1.1</li>
+									<li>List Item 2.1.2</li>
+								</ul>
+							</li>
+							<li>List Item 2.2</li>
+						</ul>
+					</li>
 				</ul>
 
 				<p>Between the lists.</p>
 
 				<ol>
-					<li>Ordered List Item 1</li>
+					<li>Ordered List Item 1
+						<ol>
+							<li>Ordered List Item 1
+								<ol>
+									<li>Ordered List Item 1</li>
+									<li>Ordered List Item 2</li>
+								</ol>
+							</li>
+							<li>Ordered List Item 2</li>
+						</ol>
+					</li>
 					<li>Ordered List Item 2</li>
 				</ol>
 

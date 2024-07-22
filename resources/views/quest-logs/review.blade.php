@@ -4,14 +4,14 @@
         {{ __('Review Quest: ') }} {{ $questLog->quest->title }}
     </x-slot>
 
-    <div class="py-6 bg-cover bg-center">
-        <div class="max-w-7xl mx-auto px-2 lg:px-8">
+    <div class="main-outer">
+        <div class="main-inner">
             @if (session('success'))
-                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-md" role="alert">
+                <div class="alert-success" role="alert">
                     <p class="m-0">{{ session('success') }}</p>
                 </div>
             @endif
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-2 md:p-6">
+            <div class="main-content">
                 <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
                     <div class="md:col-span-2 space-y-4 md:order-last">
                         <div class="p-0">

@@ -10,58 +10,32 @@
 		$isEditor = ($user->hasRole('manager') || $user->hasRole('admin'));
 		$questAccepted = ($questLog && $questLog->status == 'Accepted');
 		$questCompleted = ($questLog && $questLog->status == 'Completed');
+		$questDropped = ($questLog && $questLog->status == 'Dropped');
 	@endphp
 
-	<div class="py-6 bg-cover bg-center"> {{-- BODY_A: BEGIN --}}
-		<div class="max-w-7xl mx-auto px-2 md:px-8"> {{-- BODY_B: BEGIN --}}
+	<div class="main-outer">
+		<div class="main-inner">
+
+			{{-- Display error message --}}
 			@if(session('error'))
-				<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded-md" role="alert">
+				<div class="alert-error" role="alert">
 					<p class="mt-0">{{ session('error') }}</p>
 				</div>
 			@endif
+
 			{{-- Display success message --}}
 			@if (session('success'))
-				<div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-md" role="alert">
+				<div class="alert-success" role="alert">
 					<p class="m-0">{{ session('success') }}</p>
 				</div>
 			@endif
 
-			<div class="bg-white/75 overflow-hidden shadow-sm sm:rounded-lg p-6"> {{-- PAGE: BEGIN --}}
-				<h1 class="text-4xl font-extrabold mb-4 text-seance-800">{{ $quest->title }}</h1>
+			<div class="main-content"> {{-- PAGE: BEGIN --}}
+				<h1>{{ $quest->title }}</h1>
 
-				<div class="grid grid-cols-1 md:grid-cols-6 gap-4"> {{-- COLUMNS: BEGIN --}}
-					<div class="md:col-span-4 space-y-4 dynamic"> {{-- LEFT_COLUMN: BEGIN --}}
-						<div class="bg-white p-4 rounded-md shadow-inner"> {{-- QUEST BODY: BEGIN --}}
-							@if ($questCompleted)
-								{!! $quest->complete_text !!}
-								<br>
-								<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Quest Review</p>
-								{!! $quest->intro_text !!}
-								<hr class="my-4">
-								{!! $quest->accept_text !!}
-								<hr class="my-4">
-								{!! $quest->directions_text !!}
-								@if($questLog->feedback)
-									<br>
-									<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Your Feedback</p>
-									<x-default-value :escape="FALSE" :value="$questLog->feedback"/>
-								@endif
-							@else
-								{!! $quest->intro_text !!}
-								@if (!$questLog || $isEditor)
-									{!! $quest->accept_text !!}
-								@endif
-								@if ($questAccepted || $isEditor)
-									{!! $quest->directions_text !!}
-								@endif
-								@if ($questCompleted || $isEditor)
-									{!! $quest->complete_text !!}
-								@endif
-							@endif
-						</div> {{-- QUEST BODY: END --}}
-					</div> {{-- LEFT_COLUMN: END --}}
+				<div class="content-split"> {{-- COLUMNS: BEGIN --}}
 
-					<div class="md:col-span-2 space-y-4"> {{-- RIGHT_COLUMN: BEGIN --}}
+					<div class="content-primary md:order-last"> {{-- RIGHT_COLUMN: BEGIN --}}
 						<div class="bg-white p-4 rounded-md shadow-inner text-lg text-seance-800"> {{-- STATS: BEGIN --}}
 							<p><span class="font-semibold">Quest Level:</span> {{ $quest->min_level }}</p>
 							@if ($questCompleted || $questAccepted)
@@ -112,7 +86,8 @@
 						</div> {{-- STATS: END --}}
 
 						<div class="bg-white p-4 rounded-md shadow-inner"> {{-- BUTTONS: BEGIN --}}
-							@if(!$questLog && ($userLevel > 0 || $questLevel == 0))
+							{{--							@php dump($questLog); @endphp--}}
+							@if((!$questLog && ($userLevel > 0 || $questLevel == 0)) || $questDropped)
 								<form action="{{ route('quests.accept', $quest->id) }}" method="POST">
 									@csrf
 									<div class="mx-auto">
@@ -156,6 +131,38 @@
 
 						</div> {{-- BUTTONS: END --}}
 					</div> {{-- RIGHT_COLUMN: END --}}
+
+					<div class="content-secondary md:order-first"> {{-- LEFT_COLUMN: BEGIN --}}
+						<div class="bg-white p-4 rounded-md shadow-inner"> {{-- QUEST BODY: BEGIN --}}
+							@if ($questCompleted)
+								{!! $quest->complete_text !!}
+								<br>
+								<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Quest Review</p>
+								{!! $quest->intro_text !!}
+								<hr class="my-4">
+								{!! $quest->accept_text !!}
+								<hr class="my-4">
+								{!! $quest->directions_text !!}
+								@if($questLog->feedback)
+									<br>
+									<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Your Feedback</p>
+									<x-default-value :escape="FALSE" :value="$questLog->feedback"/>
+								@endif
+							@else
+								{!! $quest->intro_text !!}
+								@if (!$questLog || $isEditor)
+									{!! $quest->accept_text !!}
+								@endif
+								@if ($questAccepted || $isEditor)
+									{!! $quest->directions_text !!}
+								@endif
+								@if ($questCompleted || $isEditor)
+									{!! $quest->complete_text !!}
+								@endif
+							@endif
+						</div> {{-- QUEST BODY: END --}}
+					</div> {{-- LEFT_COLUMN: END --}}
+
 				</div> {{-- COLUMNS: END --}}
 			</div> {{-- PAGE: END --}}
 		</div> {{-- BODY_B: END --}}

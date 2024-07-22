@@ -26,14 +26,14 @@
 				<label for="xp_bonus" class="block text-gray-700 text-sm font-bold mb-2">Bonus XP:</label>
 				<input type="number" name="xp_bonus" id="xp_bonus" class="form-input w-full" value="{{ old('xp_bonus', $questLog->xp_bonus) }}" min="0">
 				@error('xp_bonus')
-				<p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+				<p class="error-message">{{ $message }}</p>
 				@enderror
 			</div>
 
 			<div class="mb-4">
 				<x-input-label for="reviewer_message" class="text-gray-700" :value="__('Reviewer Message')"/>
 				<textarea name="reviewer_message" id="reviewer_message" placeholder="Describe how you completed the quest" class="tinymce-full form-textarea w-full" rows="5">{!! $questLog->reviewer_message !!}</textarea>
-				<x-input-error :messages="$errors->get('reviewer_message')" class="mt-2 text-red"/>
+				<x-input-error :messages="$errors->get('reviewer_message')" class="error-message"/>
 			</div>
 
 			<x-primary-button>Update Quest Log</x-primary-button>

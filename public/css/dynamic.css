@@ -1,35 +1,40 @@
-.dynamic * {
+.dynamic p {
+	margin-top: 0;
+	margin-bottom: 1.0rem;
+	line-height: 1.5rem;
 }
 
+
+/* ******************************* Headings ******************************* */
 .dynamic h1, .dynamic h2, .dynamic h3, .dynamic h4 {
-	color: #662d91;
 	font-weight: 800;
-	margin-top: 1.25rem;
+	color: #662d91;
+	margin-top: 1.0rem;
 	margin-bottom: 0.5rem;
-	line-height: 1.15;
 }
 
 .dynamic h1 {
+	margin-top: 0;
 	font-size: 2.25rem;
+	line-height: 2.5rem;
 }
 
 .dynamic h2 {
-	font-size: 1.855rem;
+	font-size: 1.875rem;
+	line-height: 2.25rem;
 }
 
 .dynamic h3 {
-	font-size: 1.35rem;
+	font-size: 1.5rem;
+	line-height: 2.0rem;
 }
 
 .dynamic h4 {
-	font-size: 1.15rem;
+	font-size: 1.25rem;
+	line-height: 1.75rem;
 }
 
-.dynamic p {
-	margin-top: 0.25rem;
-	margin-bottom: 0.75rem;
-}
-
+/* ******************************* Links ******************************* */
 .dynamic a {
 	font-weight: bolder;
 	color: #f26522;
@@ -37,36 +42,66 @@
 }
 
 .dynamic a:hover {
-	font-weight: bolder;
 	color: #ff0000;
 	text-decoration: underline;
 }
 
-.dynamic ul, .dynamic ol {
-	margin-top: 0.75rem;
-	margin-bottom: 0.75rem;
-	padding-left: 2.5rem;
+/* ******************************* Lists ******************************* */
+
+.dynamic ul,
+.dynamic ol {
+	padding-left: 2.0rem;
+	margin-top: 1.0rem;
+	margin-bottom: 1.0rem;
 }
 
-.dynamic ul li, .dynamic ol li {
-	margin: 0;
-	padding: 0;
+/* Remove margin from nested lists */
+.dynamic ul ul,
+.dynamic ul ol,
+.dynamic ol ul,
+.dynamic ol ol {
+	padding-left: 1.0rem; /* Adjust padding if needed for nested lists */
+	margin-top: 0;
+	margin-bottom: 0;
 }
+
+.dynamic ul {
+	list-style: disc;
+}
+
+.dynamic ul ul {
+	list-style: circle;
+}
+
+.dynamic ul ul ul {
+	list-style: square;
+}
+
+.dynamic ol {
+	list-style: decimal;
+}
+
+.dynamic ol ol {
+	list-style: lower-alpha;
+}
+
+.dynamic ol ol ol {
+	list-style: lower-roman;
+}
+
+/* ******************************* Blockquotes ******************************* */
+.dynamic blockquote {
+	border-left: 4px solid #ab67e5;
+	background-color: #f3eafd;
+	margin: 1.5rem 2.5rem;
+	padding: 1.0rem 1.5rem;
+	font-size: 1.125rem;
+	line-height: 1.75rem;
+	color: #333;
+}
+
 
 .dynamic .bonus_xp p {
 	color: green;
 	font-size: .875rem;
-}
-
-.dynamic blockquote {
-	margin: 1.5rem 2.5rem;
-	padding: .75rem 1.5rem;
-	font-size: 1.15em;
-	color: #333;
-	border-left: 3px solid #662d91;
-	background-color: rgba(255, 255, 255, 0.5);
-}
-
-.dynamic blockquote p {
-	margin: 0;
 }

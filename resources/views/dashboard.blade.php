@@ -15,8 +15,8 @@
 		</div>
 	@endif
 
-	<div class="py-6 bg-cover bg-center">
-		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+	<div class="main-outer">
+		<div class="main-inner">
 			{{-- Top Heroes --}}
 			<x-hero-list :heroes="$topHeroes" title="Top Heroes"/>
 

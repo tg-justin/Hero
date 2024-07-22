@@ -5,17 +5,17 @@
 		{{ __('Hero') }}: {{$hero->name}}
 	</x-slot>
 
-	<div class="py-6 bg-cover bg-center"> {{-- BODY_A: BEGIN --}}
-		<div class="max-w-7xl mx-auto px-2 lg:px-8"> {{-- BODY_B: BEGIN --}}
+	<div class="main-outer">
+		<div class="main-inner"> {{-- BODY_B: BEGIN --}}
 
 			{{-- Display success message --}}
 			@if (session('success'))
-				<div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded-md" role="alert">
+				<div class="alert-success" role="alert">
 					<p class="m-0">{{ session('success') }}</p>
 				</div>
 			@endif
 
-			<div class="bg-white/75 overflow-hidden shadow-xl sm:rounded-lg p-6"> {{-- PAGE: BEGIN --}}
+			<div class="main-content"> {{-- PAGE: BEGIN --}}
 				<div class="grid grid-cols-1 md:grid-cols-6 gap-4"> {{-- COLUMNS: BEGIN --}}
 					<div class="md:col-span-4 space-y-4 dynamic"> {{-- LEFT_COLUMN: BEGIN --}}
 						<div class="bg-white px-4 py-1 rounded-md shadow-inner"> {{-- CONTENT: BEGIN --}}
@@ -139,9 +139,6 @@
 							<p><strong>Last Seen:</strong>
 								{{ Carbon::parse($hero->last_login_at)->setTimezone($myTimeZone)->format('d M Y (h:i A)') }}
 							</p>
-							@if($viewer->hasRole('manager') || $viewer->hasRole('admin'))
-								<p><a href="{{ route('manager.quest-logs', ['user' => $hero->id]) }}">Review Quest Log</a></p>
-							@endif
 						</div> {{-- STATS: END --}}
 
 						@if($viewer->hasRole('manager'))
@@ -149,9 +146,10 @@
 								<div class="mx-auto">
 									<a href="#" class="tg-button-orange">Password Reset</a>
 								</div>
-								<div class="mx-auto">
-									<a href="#" class="tg-button-orange">Password Reset</a>
-								</div>
+								@if($viewer->hasRole('manager') || $viewer->hasRole('admin'))
+									<p class="tg-button-purple"><a href="{{ route('manager.quest-logs', ['user' => $hero->id]) }}">Review Quest Log</a></p>
+								@endif
+
 							</div> {{-- BUTTONS: END --}}
 						@endif
 					</div> {{-- RIGHT_COLUMN: END --}}

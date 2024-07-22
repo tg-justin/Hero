@@ -9,33 +9,33 @@
 <div>
 	<x-input-label for="address" :value="__('Street Address')"/>
 	<x-text-input id="address" name="address" type="text" class="block mt-1 w-full max-w-md" :value="old('address', $hero->address)"/>
-	<x-input-error class="mt-2 text-red" :messages="$errors->get('address')"/>
+	<x-input-error class="error-message" :messages="$errors->get('address')"/>
 </div>
 
 {{-- City Field --}}
 <div>
 	<x-input-label for="city" :value="__('City')"/>
 	<x-text-input id="city" name="city" type="text" class="block mt-1 w-full max-w-md" :value="old('city', $hero->city)"/>
-	<x-input-error class="mt-2 text-red" :messages="$errors->get('city')"/>
+	<x-input-error class="error-message" :messages="$errors->get('city')"/>
 </div>
 
 {{-- State Field --}}
 <div>
 	<x-input-label for="state" :value="__('State/Providence')"/>
 	<x-text-input id="state" name="state" type="text" class="block mt-1 w-full max-w-md" :value="old('state', $hero->state)"/>
-	<x-input-error class="mt-2 text-red" :messages="$errors->get('state')"/>
+	<x-input-error class="error-message" :messages="$errors->get('state')"/>
 </div>
 
 {{-- Zip Code Field --}}
 <div>
 	<x-input-label for="zip_code" :value="__('Zip/Postal Code')"/>
 	<x-text-input id="zip_code" name="zip_code" type="text" class="block mt-1 w-full max-w-xs" :value="old('zip_code', $hero->zip_code)"/>
-	<x-input-error class="mt-2 text-red" :messages="$errors->get('zip_code')"/>
+	<x-input-error class="error-message" :messages="$errors->get('zip_code')"/>
 </div>
 
 {{-- Country Field --}}
 <div>
 	<x-input-label for="country" :value="__('Country')"/>
 	<x-text-input id="country" name="country" type="text" class="block mt-1 w-full max-w-xs" :value="old('country', $hero->country)"/>
-	<x-input-error class="mt-2 text-red" :messages="$errors->get('country')"/>
+	<x-input-error class="error-message" :messages="$errors->get('country')"/>
 </div>

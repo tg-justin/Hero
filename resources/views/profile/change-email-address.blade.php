@@ -19,9 +19,9 @@
 					<p>If you change your email address, you will need to verify the new email address before you can log in with it.</p>
 
 					<div>
-						<x-input-label for="email" class="text-red" :value="__('Email Address')"/>
+						<x-input-label for="email" class="required-field" :value="__('Email Address')"/>
 						<x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $hero->email)" maxsize="255" required autocomplete="email"/>
-						<x-input-error class="mt-2" :messages="$errors->get('email')"/>
+						<x-input-error class="error-message" :messages="$errors->get('email')"/>
 
 						@if ($hero instanceof MustVerifyEmail && ! $hero->hasVerifiedEmail())
 							<div>

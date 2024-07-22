@@ -1,8 +1,8 @@
 <x-guest-layout>
-	<div class="py-6 bg-cover bg-center">
-		<div class="max-w-7xl mx-auto px-2 lg:px-6">
+	<div class="main-outer">
+		<div class="main-inner">
 
-			<div class="bg-white/75 overflow-hidden shadow-xl rounded-lg p-4 md:p-6">
+			<div class="main-content">
 				<h2 class="text-2xl font-bold text-seance-800 mb-4">Choose New Password</h2>
 
 				<form method="POST" action="{{ route('password.store') }}">
