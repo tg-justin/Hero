@@ -11,8 +11,10 @@
 
 /ChatGPT
 
-#### ARE THESE NEEDED? ####
+/public/images/test
+/public/images/test2
 
+#### ARE THESE NEEDED? ####
 npm-debug.log
 yarn-error.log
 # Laravel 4 specific
