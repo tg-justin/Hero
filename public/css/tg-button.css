@@ -37,7 +37,7 @@
 
 .tg-button-red {
 	background-color: #f22222; /*bg-red-500*/
-	color: #dddddd; /*light-gray*/
+	color: #efefef; /*light-gray*/
 }
 
 .tg-button-red:hover {
@@ -47,7 +47,7 @@
 
 .tg-button-green {
 	background-color: #16a34a; /*bg-green-600*/
-	color: #dddddd; /*light-gray*/
+	color: #efefef; /*light-gray*/
 }
 
 .tg-button-green:hover {

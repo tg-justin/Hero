@@ -5,7 +5,7 @@
 	@endif
 	<div>
 		<label for="title" class="block text-lg pl-1 pt-0 font-medium text-gray-700"><strong class="required-field">Title</strong></label>
-		<input type="text" name="title" id="title" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-4xl font-extrabold text-seance-800"
+		<input type="text" name="title" id="title" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-3xl font-extrabold text-seance-800"
 			   value="{{ old('title', $quest->title ?? '') }}">
 		@error('title')
 		<p class="error-message">{{ $message }}</p>

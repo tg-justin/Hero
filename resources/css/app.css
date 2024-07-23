@@ -104,33 +104,39 @@
 
 @layer components {
 	/* ******************************* Layout ******************************* */
-
 	.main-outer, .main-inner, .main-content {
-		@apply border-2 md:border-4;
+		/*@apply border-2 md:border-4;*/
 	}
 
 	.main-outer {
-		@apply py-2 bg-cover bg-center;
-		@apply md:py-6;
-		@apply border-red-600;
+		@apply mx-auto py-2 bg-seance-100 bg-cover bg-center;
+		@apply md:py-6 md:w-4/5;
+		/*@apply border-red-600;*/
 	}
 
 	.main-inner {
 		@apply max-w-7xl mx-auto px-2;
 		@apply md:px-8;
-		@apply border-green-800;
+		/*@apply border-green-800;*/
 	}
 
 	.main-content {
 		@apply bg-white/75 overflow-hidden shadow-sm p-2;
 		@apply md:p-6 md:rounded-lg;
-		@apply border-blue-800;
-		/*@apply bg-white/75 overflow-hidden shadow-xl rounded-lg p-4 md:p-6*/
+		/*@apply border-blue-800;*/
+	}
+
+	.main-table {
+		@apply overflow-x-auto shadow-xl rounded-lg;
+	}
+
+	.main-search {
+		@apply mb-4 bg-white p-4 rounded-md shadow-md
 	}
 
 	.content-split {
 		@apply grid grid-cols-1 md:grid-cols-6 gap-4;
-		@apply border-yellow-300 border-4;
+		/*@apply border-yellow-300 border-4;*/
 	}
 
 	.content-primary {
@@ -145,11 +151,11 @@
 	}
 
 
-
 	/* ******************************* Alerts ******************************* */
 	.alert-error, .alert-success, .alert-warning {
 		@apply border-l-4 p-4 mb-4 rounded-md;
 	}
+
 	.alert-error {
 		@apply bg-red-100 border-red-500 text-red-800;
 	}
@@ -171,70 +177,70 @@
 	}
 
 
-
-	/* ******************************* Buttons ******************************* */
+	/* ******************************* Header Options ******************************* */
 	.header-button {
-		@apply text-white;
-		@apply focus:ring-4;
-		@apply font-medium;
-		@apply rounded-lg;
-		@apply text-sm;
-		@apply px-5;
-		@apply py-2.5;
-		@apply bg-seance-600;
-		@apply hover:bg-seance-700;
-		@apply focus:outline-none;
-		@apply focus:ring-seance-800;
+		@apply text-sm text-orange-50 font-medium;
+		@apply rounded-md;
+		@apply px-5 py-2;
+		@apply bg-orange-400;
+		@apply hover:bg-orange-600 hover:text-white hover:underline-offset-4;
 	}
 
 	.header-title {
-		@apply font-extrabold;
-		@apply text-3xl;
-		@apply text-seance-200;
+		@apply text-2xl font-extrabold text-seance-200;
+		@apply uppercase;
 		@apply leading-tight;
 	}
 
+	/* ******************************* Table ******************************* */
 	table:not([cellpadding]) th,
 	table:not([cellpadding]) td {
-		@apply px-6 py-4 !important;; /* Your desired padding using Tailwind classes */
+		@apply px-6 py-4 !important; /* Your desired padding using Tailwind classes */
 	}
 
-	.table-seance {
+	.table-seance { /* Table container */
 		@apply min-w-full divide-y divide-seance-200;
-		/* Table container */
 	}
 
-	.table-seance thead {
-		@apply bg-seance-800 text-white;
-		/* Table header */
+	.table-seance thead { /* Table header */
+		@apply bg-seance-800;
 	}
 
-	.table-seance tbody tr {
+	.table-seance tbody tr { /* Table row (even) */
 		@apply bg-white;
-		/* Table row (even) */
 	}
 
-	.table-seance tbody tr:nth-child(odd) {
-		@apply bg-gray-50;
-		/* Table row (odd) - for alternating colors */
-	}
-
-	.table-seance th,
-	.table-seance td {
-		@apply px-6 py-4 whitespace-nowrap text-sm font-medium;
-		/* Table cell */
-		@apply p-5;
+	.table-seance tbody tr:nth-child(odd) { /* Table row (odd) - for alternating colors */
+		@apply bg-seance-50;
 	}
 
 	.table-seance th {
-		@apply text-left text-xs uppercase tracking-wider;
+		@apply text-sm font-medium text-nowrap text-left uppercase tracking-wide text-white;
+		@apply md:text-base;
+	}
+
+	.table-seance th a {
+		@apply text-orange-200;
+		@apply hover:text-orange-400 hover:underline hover:underline-offset-4;
 	}
 
 	.table-seance td {
-		@apply text-slate-800;
+		@apply text-sm font-medium text-slate-800;
+		@apply md:text-base;
 	}
 
 	/* ******************************* OTHER ******************************* */
+	.search-box {
+		@apply mt-1 block shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+		@apply border-gray-300 rounded-md;
+		@apply px-2 py-1;
+		@apply w-full;
+	}
+
+	.button-submit {
+		@apply px-4 py-2 bg-seance-700 hover:bg-seance-800 text-white rounded-md;
+	}
+
 	h2.stat-header {
 		@apply text-2xl;
 		@apply text-seance-800;

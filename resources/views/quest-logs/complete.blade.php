@@ -39,7 +39,7 @@
 						</div>
 					</div>
 
-					<div class="dynamic mt-4">
+					<div class="mt-4">
 						{!! $questLog->quest->feedback_text !!}
 					</div>
 

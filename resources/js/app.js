@@ -60,13 +60,13 @@ window.addEventListener('DOMContentLoaded', () =>
 		contextmenu: false,
 		content_css: [
 			'https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap',
-			'/css/dynamic.css'
+			'/css/tinymce-body.css'
 		],
 		setup: function(editor)
 		{
 			editor.on('init', function()
 			{
-				editor.getBody().classList.add('dynamic');
+				editor.getBody().classList.add('tinymce-body');
 				editor.getBody().style.fontSize = '16px';  // Adjust the default font size
 				editor.getBody().style.fontFamily = 'Figtree, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji';  // Adjust the default font family
 			});
@@ -101,13 +101,13 @@ window.addEventListener('DOMContentLoaded', () =>
 		contextmenu: false,
 		content_css: [
 			'https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap',
-			'/css/dynamic.css'
+			'/css/tinymce-body.css'
 		],
 		setup: function(editor)
 		{
 			editor.on('init', function()
 			{
-				editor.getBody().classList.add('dynamic');
+				editor.getBody().classList.add('tinymce-body');
 				editor.getBody().style.fontSize = '16px';  // Adjust the default font size
 				editor.getBody().style.fontFamily = 'Figtree, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji';  // Adjust the default font family
 			});

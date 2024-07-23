@@ -1,4 +1,4 @@
-.dynamic p {
+.tinymce-body p {
 	margin-top: 0;
 	margin-bottom: 1.0rem;
 	line-height: 1.5rem;
@@ -6,91 +6,91 @@
 
 
 /* ******************************* Headings ******************************* */
-.dynamic h1, .dynamic h2, .dynamic h3, .dynamic h4 {
+.tinymce-body h1, .tinymce-body h2, .tinymce-body h3, .tinymce-body h4 {
 	font-weight: 800;
 	color: #662d91;
 	margin-top: 1.0rem;
 	margin-bottom: 0.5rem;
 }
 
-.dynamic h1 {
+.tinymce-body h1 {
 	margin-top: 0;
 	font-size: 2.25rem;
 	line-height: 2.5rem;
 }
 
-.dynamic h2 {
+.tinymce-body h2 {
 	font-size: 1.875rem;
 	line-height: 2.25rem;
 }
 
-.dynamic h3 {
+.tinymce-body h3 {
 	font-size: 1.5rem;
 	line-height: 2.0rem;
 }
 
-.dynamic h4 {
+.tinymce-body h4 {
 	font-size: 1.25rem;
 	line-height: 1.75rem;
 }
 
 /* ******************************* Links ******************************* */
-.dynamic a {
+.tinymce-body a {
 	font-weight: bolder;
 	color: #f26522;
 	text-decoration: none;
 }
 
-.dynamic a:hover {
+.tinymce-body a:hover {
 	color: #ff0000;
 	text-decoration: underline;
 }
 
 /* ******************************* Lists ******************************* */
 
-.dynamic ul,
-.dynamic ol {
+.tinymce-body ul,
+.tinymce-body ol {
 	padding-left: 2.0rem;
 	margin-top: 1.0rem;
 	margin-bottom: 1.0rem;
 }
 
 /* Remove margin from nested lists */
-.dynamic ul ul,
-.dynamic ul ol,
-.dynamic ol ul,
-.dynamic ol ol {
+.tinymce-body ul ul,
+.tinymce-body ul ol,
+.tinymce-body ol ul,
+.tinymce-body ol ol {
 	padding-left: 1.0rem; /* Adjust padding if needed for nested lists */
 	margin-top: 0;
 	margin-bottom: 0;
 }
 
-.dynamic ul {
+.tinymce-body ul {
 	list-style: disc;
 }
 
-.dynamic ul ul {
+.tinymce-body ul ul {
 	list-style: circle;
 }
 
-.dynamic ul ul ul {
+.tinymce-body ul ul ul {
 	list-style: square;
 }
 
-.dynamic ol {
+.tinymce-body ol {
 	list-style: decimal;
 }
 
-.dynamic ol ol {
+.tinymce-body ol ol {
 	list-style: lower-alpha;
 }
 
-.dynamic ol ol ol {
+.tinymce-body ol ol ol {
 	list-style: lower-roman;
 }
 
 /* ******************************* Blockquotes ******************************* */
-.dynamic blockquote {
+.tinymce-body blockquote {
 	border-left: 4px solid #ab67e5;
 	background-color: #f3eafd;
 	margin: 1.5rem 2.5rem;
@@ -101,7 +101,7 @@
 }
 
 
-.dynamic .bonus_xp p {
+.tinymce-body .bonus_xp p {
 	color: green;
 	font-size: .875rem;
 }

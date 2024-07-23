@@ -1,6 +1,6 @@
 <x-app-layout>
 	<x-slot name="header">
-		{{ __('Quest Details') }}: {{$quest->title}}
+		{{ __('Quest Info') }}<span class="hidden md:inline">: {{$quest->title}}</span>
 	</x-slot>
 	@php
 		$user = auth()->user();
@@ -13,158 +13,178 @@
 		$questDropped = ($questLog && $questLog->status == 'Dropped');
 	@endphp
 
-	<div class="main-outer">
-		<div class="main-inner">
+	<div class="main-content">
+		<h1>{{ $quest->title }}</h1>
 
-			{{-- Display error message --}}
-			@if(session('error'))
-				<div class="alert-error" role="alert">
-					<p class="mt-0">{{ session('error') }}</p>
-				</div>
-			@endif
+		<div class="content-split">
+			<div class="content-primary md:order-last">
 
-			{{-- Display success message --}}
-			@if (session('success'))
-				<div class="alert-success" role="alert">
-					<p class="m-0">{{ session('success') }}</p>
-				</div>
-			@endif
+				<div class="bg-white px-3 py-1 rounded-md shadow border border-seance-600">
+					<h2 class="stat-header">Quest Details</h2>
 
-			<div class="main-content"> {{-- PAGE: BEGIN --}}
-				<h1>{{ $quest->title }}</h1>
+					<div class="flex pb-2">
+						<span class="font-bold w-24">Level:</span>
+						<span class="flex-1">{{ $quest->min_level }}</span>
+					</div>
 
-				<div class="content-split"> {{-- COLUMNS: BEGIN --}}
+					@if ($questCompleted || $questAccepted)
+						<div class="flex pb-2">
+							<span class="font-bold w-24">Accepted:</span>
+							<span class="flex-1"><x-date-user-time-zone :value="$questLog->accepted_at"/></span>
+						</div>
+					@endif
 
-					<div class="content-primary md:order-last"> {{-- RIGHT_COLUMN: BEGIN --}}
-						<div class="bg-white p-4 rounded-md shadow-inner text-lg text-seance-800"> {{-- STATS: BEGIN --}}
-							<p><span class="font-semibold">Quest Level:</span> {{ $quest->min_level }}</p>
-							@if ($questCompleted || $questAccepted)
-								<p><span class="font-semibold">Accepted:</span>
-									<x-date-user-time-zone :value="$questLog->accepted_at"/>
-								</p>
-							@endif
-							@if($questCompleted)
-								<p><span class="font-semibold">Completed:</span>
-									<x-date-user-time-zone :value="$questLog->completed_at"/>
-								</p>
-								<p><span class="font-semibold">XP Award:</span> {{ $questLog->xp_awarded }}</p>
+					@if($questCompleted)
+						<div class="flex pb-2">
+							<span class="font-bold w-24">Completed:</span>
+							<span class="flex-1"><x-date-user-time-zone :value="$questLog->completed_at"/></span>
+						</div>
+
+						<div class="flex pb-2">
+							<span class="font-bold w-24">XP Awarded:</span>
+							<span class="flex-1">
+								{{ $questLog->xp_awarded + $questLog->xp_bonus }}
 								@if($questLog->xp_bonus > 0)
-									<p><span class="font-semibold">XP Bonus:</span> {{ $questLog->xp_bonus }}</p>
-									<p><span class="font-semibold">XP Total:</span> {{ $questLog->xp_awarded + $questLog->xp_bonus }}</p>
+									({{ $questLog->xp_awarded }} + {{ $questLog->xp_bonus }} bonus)
 								@endif
-							@else
-								<p><span class="font-semibold">XP Award:</span> {{ $quest->xp }}</p>
-								@if ($quest->bonus_xp_text)
-									<p><span class="text-lg font-semibold text-seance-800">Bonus XP:</span> {{ strip_tags($quest->bonus_xp_text) }}</p>
-								@endif
-							@endif
-							@if(FALSE)
-								<p><span class="font-semibold">Category:</span> {{ $quest->category->name }}</p>
-							@endif
-							@if ($quest->campaign)
-								<p><span class="font-semibold">Campaign:</span> {{ $quest->campaign->title }}</p>
-							@endif
-							@if ($quest->repeatable)
-								<p><span class="font-semibold">Repeatable:</span> {{ $quest->repeatable }}</p>
-							@endif
-							@if($isEditor)
-								<p><span class="font-semibold">Email Notification:</span> {{ $quest->notify_email }}</p>
-							@endif
-							@if($quest->files->count() > 0)
-								<div class="mt-4">
-									<h2 class="stat-header">Attachments</h2>
-									<ul>
-										@foreach($quest->files as $file)
-											<li>
-												<a href="{{ Storage::url($file->path) }}" target="_blank">{{ $file->title }}</a>
-											</li>
-										@endforeach
-									</ul>
-								</div>
-							@endif
+							</span>
+						</div>
 
-						</div> {{-- STATS: END --}}
+					@else
+						<div class="flex pb-2">
+							<span class="font-bold w-24">XP Award:</span>
+							<span class="flex-1">{{ $quest->xp }}</span>
+						</div>
 
-						<div class="bg-white p-4 rounded-md shadow-inner"> {{-- BUTTONS: BEGIN --}}
-							{{--							@php dump($questLog); @endphp--}}
-							@if((!$questLog && ($userLevel > 0 || $questLevel == 0)) || $questDropped)
-								<form action="{{ route('quests.accept', $quest->id) }}" method="POST">
-									@csrf
-									<div class="mx-auto">
-										<button type="submit" class="tg-button-purple" style="width: 100%">Accept Quest</button>
-									</div>
-								</form>
-							@endif
-							@if($isEditor)
-								<div class="mx-auto">
-									<a href="{{ route('quests.edit', $quest->id) }}" class="tg-button-orange">Edit Quest</a>
-								</div>
-								<div class="mx-auto">
-									<a href="{{ route('quests.duplicate', $quest) }}" class="tg-button-orange">Duplicate Quest</a>
-								</div>
-								<div class="mx-auto">
-									<a href="{{ route('quests.confirm-delete', $quest->id) }}" class="tg-button-orange">Delete Quest</a>
-								</div>
+						@if ($quest->bonus_xp_text)
+							<div class="pb-2">
+								<span class="font-bold">Bonus XP:</span>
+								<span>{{ strip_tags($quest->bonus_xp_text) }}</span>
+							</div>
+						@endif
+					@endif
 
-							@endif
+					@if(FALSE)
+						<div class="flex pb-2">
+							<span class="font-bold w-24">Category:</span>
+							<span class="flex-1">{{ $quest->category->name }}</span>
+						</div>
+					@endif
 
-							@if($questAccepted && $quest->id != 1)
-								<div class="mx-auto">
-									<a href="{{ route('quest-log.complete-form', $questLog) }}" class="tg-button-green">Complete Quest</a>
-								</div>
-								<div class="mx-auto">
-									<a href="{{ route('quest-log.drop-confirm', $questLog) }}" class="tg-button-orange">Drop Quest</a>
-								</div>
-							@endif
+					@if ($quest->campaign)
+						<div class="flex pb-2">
+							<span class="font-bold w-24">Campaign:</span>
+							<span class="flex-1">{{ $quest->campaign->title }}</span>
+						</div>
+					@endif
 
-							@if($questAccepted && $quest->id == 1)
-								<div class="mx-auto">
-									<a href="{{ route('profile.hero-registration') }}" class="tg-button-green">Complete Hero Registration</a>
-								</div>
-							@endif
+					@if ($quest->repeatable)
+						<div class="flex pb-2">
+							<span class="font-bold w-24">Repeatable:</span>
+							<span class="flex-1">{{ $quest->repeatable }}</span>
+						</div>
+					@endif
 
-							@if($questCompleted)
-								<div class="mx-auto">
-									<p class="tg-button-gray">Quest Already Completed!</p>
-								</div>
-							@endif
+					@if($isEditor && $quest->notify_email != NULL)
+						<div class="flex pb-2">
+							<span class="font-bold w-24">Notify</span>
+							<span class="flex-1">{{ $quest->notify_email }}</span>
+						</div>
+					@endif
 
-						</div> {{-- BUTTONS: END --}}
-					</div> {{-- RIGHT_COLUMN: END --}}
+					@if($quest->files->count() > 0)
+						<h2 class="stat-header mb-0">Attachments</h2>
+						<ul class="mt-0">
+							@foreach($quest->files as $file)
+								@php
+									$extension = strtoupper(pathinfo($file->path, PATHINFO_EXTENSION));
+								@endphp
+								<li>
+									<a href="{{ Storage::url($file->path) }}" target="_blank">{{ $file->title }} ({{ $extension }})</a>
+								</li>
+							@endforeach
+						</ul>
+					@endif
+				</div> {{-- STATS: END --}}
 
-					<div class="content-secondary md:order-first"> {{-- LEFT_COLUMN: BEGIN --}}
-						<div class="bg-white p-4 rounded-md shadow-inner"> {{-- QUEST BODY: BEGIN --}}
-							@if ($questCompleted)
-								{!! $quest->complete_text !!}
-								<br>
-								<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Quest Review</p>
-								{!! $quest->intro_text !!}
-								<hr class="my-4">
-								{!! $quest->accept_text !!}
-								<hr class="my-4">
-								{!! $quest->directions_text !!}
-								@if($questLog->feedback)
-									<br>
-									<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Your Feedback</p>
-									<x-default-value :escape="FALSE" :value="$questLog->feedback"/>
-								@endif
-							@else
-								{!! $quest->intro_text !!}
-								@if (!$questLog || $isEditor)
-									{!! $quest->accept_text !!}
-								@endif
-								@if ($questAccepted || $isEditor)
-									{!! $quest->directions_text !!}
-								@endif
-								@if ($questCompleted || $isEditor)
-									{!! $quest->complete_text !!}
-								@endif
-							@endif
-						</div> {{-- QUEST BODY: END --}}
-					</div> {{-- LEFT_COLUMN: END --}}
+				<div class="p-0"> {{-- BUTTONS: BEGIN --}}
 
-				</div> {{-- COLUMNS: END --}}
-			</div> {{-- PAGE: END --}}
-		</div> {{-- BODY_B: END --}}
-	</div> {{-- BODY_A: END --}}
+					@if((!$questLog && ($userLevel > 0 || $questLevel == 0)) || $questDropped)
+						<form action="{{ route('quests.accept', $quest->id) }}" method="POST">
+							@csrf
+							<div class="mx-auto">
+								<button type="submit" class="tg-button-purple" style="width: 100%">Accept Quest</button>
+							</div>
+						</form>
+					@endif
+
+					@if($isEditor)
+						<div class="mx-auto">
+							<a href="{{ route('quests.edit', $quest->id) }}" class="tg-button-orange">Edit Quest</a>
+						</div>
+						<div class="mx-auto">
+							<a href="{{ route('quests.duplicate', $quest) }}" class="tg-button-orange">Duplicate Quest</a>
+						</div>
+						<div class="mx-auto">
+							<a href="{{ route('quests.confirm-delete', $quest->id) }}" class="tg-button-red">Delete Quest</a>
+						</div>
+					@endif
+
+					@if($questAccepted && $quest->id != 1)
+						<div class="mx-auto">
+							<a href="{{ route('quest-log.complete-form', $questLog) }}" class="tg-button-green">Complete Quest</a>
+						</div>
+						<div class="mx-auto">
+							<a href="{{ route('quest-log.drop-confirm', $questLog) }}" class="tg-button-gray">Drop Quest</a>
+						</div>
+					@endif
+
+					@if($questAccepted && $quest->id == 1)
+						<div class="mx-auto">
+							<a href="{{ route('profile.hero-registration') }}" class="tg-button-green">Complete Hero Registration</a>
+						</div>
+					@endif
+
+					@if($questCompleted)
+						<div class="mx-auto">
+							<p class="tg-button-gray">Quest Already Completed!</p>
+						</div>
+					@endif
+
+				</div> {{-- BUTTONS: END --}}
+			</div> {{-- RIGHT_COLUMN: END --}}
+
+			<div class="content-secondary md:order-first"> {{-- LEFT_COLUMN: BEGIN --}}
+				<div class="bg-white p-4 rounded-md shadow-inner"> {{-- QUEST BODY: BEGIN --}}
+					@if ($questCompleted)
+						{!! $quest->complete_text !!}
+						<br>
+						<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Quest Review</p>
+						{!! $quest->intro_text !!}
+						<hr class="my-4">
+						{!! $quest->accept_text !!}
+						<hr class="my-4">
+						{!! $quest->directions_text !!}
+						@if($questLog->feedback)
+							<br>
+							<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Your Feedback</p>
+							<x-default-value :escape="FALSE" :value="$questLog->feedback"/>
+						@endif
+					@else
+						{!! $quest->intro_text !!}
+						@if (!$questLog || $isEditor)
+							{!! $quest->accept_text !!}
+						@endif
+						@if ($questAccepted || $isEditor)
+							{!! $quest->directions_text !!}
+						@endif
+						@if ($questCompleted || $isEditor)
+							{!! $quest->complete_text !!}
+						@endif
+					@endif
+				</div>
+			</div>
+
+		</div>
+	</div>
 </x-app-layout>

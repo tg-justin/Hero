@@ -35,8 +35,11 @@
 				<textarea name="reviewer_message" id="reviewer_message" placeholder="Describe how you completed the quest" class="tinymce-full form-textarea w-full" rows="5">{!! $questLog->reviewer_message !!}</textarea>
 				<x-input-error :messages="$errors->get('reviewer_message')" class="error-message"/>
 			</div>
-
-			<x-primary-button>Update Quest Log</x-primary-button>
+		</div>
+	</div>
+	<div class="flex justify-between items-center">
+		<x-primary-button>Update Quest Log</x-primary-button>
+		<div class="w-auto">
 			<a href="{{ url()->previous() }}" class="tg-button-gray">Cancel</a>
 		</div>
 	</div>
