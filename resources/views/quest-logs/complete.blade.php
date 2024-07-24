@@ -62,7 +62,7 @@
 								}
 							@endphp
 							<x-input-label for="feedback" class="{{ $label_class }}" :value="__('Feedback')"/>
-							<textarea name="feedback" id="feedback" placeholder="" class="{{$tiny_mce_class}} form-textarea w-full" rows="5"></textarea>
+							<textarea name="feedback" id="feedback" placeholder="" class="{{$tiny_mce_class}} form-textarea w-full" rows="5">{{old('feedback', $quest_log->feedback ?? '')}}</textarea>
 							<x-input-error :messages="$errors->get('feedback')" class="error-message"/>
 						</div>
 
