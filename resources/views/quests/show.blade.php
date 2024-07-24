@@ -158,18 +158,41 @@
 				<div class="bg-white p-4 rounded-md shadow-inner"> {{-- QUEST BODY: BEGIN --}}
 					@if ($questCompleted)
 						{!! $quest->complete_text !!}
-						<br>
-						<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Quest Review</p>
+						<div class="text-2xl font-bold text-seance-900 bg-gray-300 py-1 my-2 text-center">Quest Info</div>
 						{!! $quest->intro_text !!}
 						<hr class="my-4">
 						{!! $quest->accept_text !!}
 						<hr class="my-4">
 						{!! $quest->directions_text !!}
-						@if($questLog->feedback)
-							<br>
-							<p class="text-2xl font-bold text-gray-500 border-t-4 border-b-4 py-1">Your Feedback</p>
-							<x-default-value :escape="FALSE" :value="$questLog->feedback"/>
-						@endif
+
+						{{--						http://hero.test/quest-log/39/complete --}}
+						<div class="text-2xl font-bold text-seance-900 bg-gray-300 py-1 my-2 text-center">Your Submission</div>
+						<h3>Feedback</h3>
+						<div class="bg-gray-50 px-2 py-0 rounded-md border border-gray-500 mb-4 ml-8">
+							<x-default-value :escape='FALSE' :value="$questLog->feedback" :default="'<p><em>no feedback provided</em></p>'"/>
+						</div>
+
+						<h3>File Uploads</h3>
+						<ul class="mt-0">
+							@if($questLog->files->count() > 0)
+								@foreach($questLog->files as $file)
+									@php
+										$extension = strtoupper(pathinfo($file->path, PATHINFO_EXTENSION));
+									@endphp
+									<li>
+										<a href="{{ Storage::url($file->path) }}" target="_blank">{{ $file->title }} ({{ $extension }})</a>
+									</li>
+								@endforeach
+							@else
+								<li><em>no files uploaded</em></li>
+							@endif
+						</ul>
+
+						<div class="mx-auto">
+							<a href="{{ route('quest-log.complete-form', $questLog) }}" class="tg-button-green">Complete Quest</a>
+						</div>
+
+
 					@else
 						{!! $quest->intro_text !!}
 						@if (!$questLog || $isEditor)

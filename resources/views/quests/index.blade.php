@@ -77,7 +77,7 @@
 			<tbody>
 			@foreach ($quests as $quest)
 				<tr>
-					<td class="md:table-cell">{{ $quest->min_level }}</td>
+					<td>{{ $quest->min_level }}</td>
 					<td>
 						@if ($quest->questLogs->isNotEmpty())
 							<span class="">&#10004;</span>
