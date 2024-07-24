@@ -131,7 +131,7 @@
 						<a href="#" class="tg-button-orange">Password Reset</a>
 					</div>
 					@if($viewer->hasRole('manager') || $viewer->hasRole('admin'))
-						<p class="tg-button-purple"><a href="{{ route('manager.quest-logs', ['user' => $hero->id]) }}">Review Quest Log</a></p>
+						<x-link-button color="purple" href="{{ route('manager.quest-logs', ['user' => $hero->id]) }}">Review Quest Log</x-link-button>
 					@endif
 
 				</div>
