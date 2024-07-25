@@ -28,8 +28,8 @@
 		</div>
 	@else
 		<div class="mb-4 bg-white p-4 rounded-md shadow-md">
-			<h2>Greetings, {{ Auth::user()->name }}!</h2>
-			<p>We've been expecting you. Take a look around the quest board and select a task that speaks to your heart. Your legend awaits!</p>
+			<h2>Greetings, Traveller!</h2>
+			<p>We've been expecting you. You will need to complete the "<strong>Hero Registration</strong>" quest below before you can accept any other quests. Your legend awaits!</p>
 		</div>
 	@endif
 

@@ -53,7 +53,7 @@
 	<main class="h-max">
 		<div class="main-inner">
 
-			@if (strpos(config('app.url'), 'test'))
+			@if (strpos(config('app.url'), 'stage'))
 				<div class="alert-warning text-sm py-1" role="alert">
 					<strong>WARNING:</strong>
 					This site is for testing/staging and can change without notice. No material or history will be saved or transferred to production.<br>

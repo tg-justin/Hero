@@ -105,34 +105,34 @@
 @layer components {
 	/* ******************************* Layout ******************************* */
 	main, .main-inner, .main-content, footer {
-		@apply border-2 md:border-4;
+		/*@apply border-2 md:border-4;*/
 	}
 
 	main {
 		@apply mx-auto py-2 bg-seance-100 bg-cover bg-center;
 		@apply md:py-6 md:w-4/5;
-		@apply border-pink-300;
+		/*@apply border-pink-300;*/
 	}
 
 	.main-inner,
 	footer {
 		@apply max-w-7xl mx-auto px-2;
 		@apply md:px-8;
-		@apply border-green-800;
+		/*@apply border-green-800;*/
 	}
 
 	.main-content {
-		@apply bg-white/75 overflow-hidden shadow-sm p-2;
-		@apply md:px-6 md:py-2 md:rounded-lg;
-		@apply border-blue-800;
+		@apply bg-white/75 overflow-hidden shadow-md p-2;
+		@apply md:px-6 md:pt-4 md:pb-6 md:rounded-md;
+		/*@apply border-blue-800;*/
 	}
 
 	.main-table {
-		@apply overflow-x-auto shadow-xl rounded-lg;
+		@apply overflow-x-auto shadow-md rounded-md;
 	}
 
 	.main-search {
-		@apply mb-4 bg-white p-4 rounded-md shadow-md
+		@apply mb-4 bg-white p-4 shadow-md rounded-md;
 	}
 
 	.content-split {

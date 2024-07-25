@@ -1,6 +1,6 @@
 <div class="block rounded-lg shadow-lg p-4 bg-gradient-to-br from-seance-100 to-seance-200">
 	<div class="flex items-center justify-between mb-2">
-		<h4 class="text-lg font-semibold text-seance-800">{{ $quest->title }}</h4>
+		<h3 class="text-lg font-semibold text-seance-800 mt-0">{{ $quest->title }}</h3>
 	</div>
 
 	<div class="flex items-center space-x-2">
