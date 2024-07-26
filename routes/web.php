@@ -124,6 +124,7 @@ Route::middleware('auth')->group(function()
 		Route::post('/quests/{quest}/accept', [QuestController::class, 'accept'])->name('quests.accept');
 		Route::get('/quests/{quest}/duplicate', [QuestController::class, 'duplicate'])->name('quests.duplicate');
 		Route::get('/quests/{quest}/confirm-delete', [QuestController::class, 'destroy'])->name('quests.confirm-delete');
+		Route::get('/quests/{quest}/quest-logs', [QuestLogController::class, 'indexForQuest'])->name('quests.quest-logs');
 
 		Route::get('/quest-log', [QuestLogController::class, 'index'])->name('quest-log.index');
 
