@@ -204,13 +204,29 @@
 		@apply leading-tight;
 	}
 
-	/* ******************************* Table ******************************* */
-	table:not([cellpadding]) th,
-	table:not([cellpadding]) td {
-		@apply px-6 py-4 !important;
-		/* Your desired padding using Tailwind classes */
+
+	/* ******************************* Stat-Block Table ******************************* */
+	.stat-block {
+		@apply w-full;
+		/*@apply border border-black;*/
+		@apply m-0 p-0;
+	}
+	.stat-block th {
+		@apply font-bold text-left text-nowrap;
+		@apply align-text-top;
+		/*@apply border border-red-500;*/
+		@apply w-0 m-0 py-1 pl-0 pr-2 !important;
 	}
 
+	.stat-block td {
+		/*@apply border border-green-500;*/
+		@apply align-text-top;
+		@apply m-0 py-1 px-0 !important;
+	}
+
+
+
+	/* ******************************* Seance Table ******************************* */
 	.table-seance { /* Table container */
 		@apply min-w-full divide-y divide-seance-200;
 	}
@@ -230,6 +246,7 @@
 	.table-seance th {
 		@apply text-sm font-medium text-nowrap text-left uppercase tracking-wide text-white;
 		@apply md:text-base;
+		@apply px-6 py-4 !important;
 	}
 
 	.table-seance th a {
@@ -240,6 +257,7 @@
 	.table-seance td {
 		@apply text-sm font-medium text-slate-800;
 		@apply md:text-base;
+		@apply px-6 py-4 !important;
 	}
 
 	/* ******************************* OTHER ******************************* */
