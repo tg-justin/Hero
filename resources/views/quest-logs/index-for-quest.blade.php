@@ -78,7 +78,7 @@
 			{{ $questLogs->links() }}
 		</div>
 	@else
-		<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+		<div class="block rounded-lg shadow-lg p-4 bg-gradient-to-br from-yellow-50 to-yellow-200">
 			<p>No quest logs have been submitted for this quest yet.</p>
 		</div>
 	@endif
