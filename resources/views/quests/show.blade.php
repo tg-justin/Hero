@@ -126,6 +126,9 @@
 							<a href="{{ route('quests.duplicate', $quest) }}" class="tg-button-orange">Duplicate Quest</a>
 						</div>
 						<div class="mx-auto">
+							<a href="{{ route('quests.quest-logs', $quest) }}" class="tg-button-orange">View Quest Logs</a>
+						</div>
+						<div class="mx-auto">
 							<a href="{{ route('quests.confirm-delete', $quest->id) }}" class="tg-button-red">Delete Quest</a>
 						</div>
 					@endif

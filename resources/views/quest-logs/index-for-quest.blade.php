@@ -3,10 +3,11 @@
 	<x-slot name="header">
 		{{ __('Quest Logs for: ') }} {{ $quest->title }}
 	</x-slot>
+	@if($questLogs->count() > 0)
 
-	<div class="main-table">
-		<table class="table-seance">
-			<thead>
+		<div class="main-table">
+			<table class="table-seance">
+				<thead>
 				<tr>
 					<th scope="col">
 						<a href="{{ route('quests.quest-logs', ['quest' => $quest, 'sort' => 'name', 'direction' => ($sortBy === 'name' && $sortDirection === 'asc') ? 'desc' : 'asc']) }}">
@@ -48,8 +49,8 @@
 					</th>
 					{{-- Add more columns as needed --}}
 				</tr>
-			</thead>
-			<tbody>
+				</thead>
+				<tbody>
 				@foreach ($questLogs as $questLog)
 					<tr>
 						<td>
@@ -71,9 +72,14 @@
 						{{-- Add more cells as needed --}}
 					</tr>
 				@endforeach
-			</tbody>
-		</table>
+				</tbody>
+			</table>
 
-		{{ $questLogs->links() }}
-	</div>
+			{{ $questLogs->links() }}
+		</div>
+	@else
+		<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+			<p>No quest logs have been submitted for this quest yet.</p>
+		</div>
+	@endif
 </x-app-layout>
