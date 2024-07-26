@@ -87,7 +87,7 @@
 
 					@if($isEditor && $quest->notify_email != NULL)
 						<div class="flex pb-2">
-							<span class="font-bold w-24">Notify</span>
+							<span class="font-bold w-24">Notify:</span>
 							<span class="flex-1">{{ $quest->notify_email }}</span>
 						</div>
 					@endif

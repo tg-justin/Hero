@@ -12,12 +12,12 @@
 
 			<div class="bg-white px-3 py-1 rounded-md shadow border border-seance-600">
 				<div class="flex pb-2">
-					<span class="font-bold w-24">Joined:</span>
-					<span class="flex-1"><x-date-user-time-zone :value="$hero->created_at" format="d M Y"/></span>
+					<span class="font-bold w-24 border border-orange-500">Joined:</span>
+					<span class="flex-1 border border-orange-500"><x-date-user-time-zone :value="$hero->created_at" format="d M Y"/></span>
 				</div>
 				<div class="flex pb-2">
-					<span class="font-bold w-24">Last Login:</span>
-					<span class="flex-1"><x-date-user-time-zone :value="$hero->last_login_at"/></span>
+					<span class="font-bold w-24 border border-orange-500">Last Login:</span>
+					<span class="flex-1 border border-orange-500"><x-date-user-time-zone :value="$hero->last_login_at"/></span>
 				</div>
 			</div>
 			@if($hasPermission)
@@ -36,7 +36,7 @@
 						<p class="text-orange-500 text-sm">This information is only visible to you, admins, and managers.<br>
 							We will only use this information to notify you of hero-related opportunities.</p>
 					@endif
-					<p><strong>Email Address:</strong>
+					<p><strong>Email:</strong>
 						@if($self)
 							<code>{{$hero->email}}</code> (<a href="{{ route('profile.change-email-address') }}">change email</a>)
 						@else
