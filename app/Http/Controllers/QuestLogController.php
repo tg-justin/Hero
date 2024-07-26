@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quest;
 use App\Models\QuestLog;
 use App\Models\User;
 use App\Rules\ExcludeMimes;
@@ -207,15 +208,51 @@ class QuestLogController extends Controller
 		return view('quest-logs.review', compact('questLog', 'valid_statuses'));
 	}
 
-	public function confirmDrop(QuestLog $questLog): View
+	public function indexForQuest(Quest $quest, Request $request)
 	{
-		// Authorize the user (make sure only the hero who owns the quest log can complete it)
-		if (auth()->user()->id !== $questLog->user_id)
-		{
-			abort(403, 'Unauthorized');
-		}
+		$sortBy = $request->get('sort', 'completed_at');
+		$sortDirection = $request->get('direction', 'desc');
 
-		return view('quest-logs.drop-confirm', compact('questLog'));
+		$questLogs = $quest->questLogs()
+			->join('users', 'quest_logs.user_id', '=', 'users.id')
+			->select('quest_logs.*', 'quest_logs.id as quest_log_id', 'users.name')
+			->orderBy($sortBy, $sortDirection)
+			->paginate(15); // Eager load the hero relationship
+
+		$questLogs->each(function($questLog)
+		{
+			// Strip HTML tags and calculate length
+			$feedbackText = strip_tags($questLog->feedback);
+			$length = strlen($feedbackText);
+
+			// Assign a size category
+			if ($length == 0)
+			{
+				$questLog->feedback_size = 'None';
+			}
+			elseif ($length < 10)
+			{
+				$questLog->feedback_size = 'Tiny';
+			}
+			elseif ($length < 50)
+			{
+				$questLog->feedback_size = 'Small';
+			}
+			elseif ($length < 200)
+			{
+				$questLog->feedback_size = 'Medium';
+			}
+			else
+			{
+				$questLog->feedback_size = 'Large';
+			}
+		});
+		return view('quest-logs.index-for-quest', [
+			'quest' => $quest,
+			'questLogs' => $questLogs,
+			'sortBy' => $sortBy,
+			'sortDirection' => $sortDirection,
+		]);
 	}
 
 	public function drop(QuestLog $questLog, Request $request): RedirectResponse
@@ -243,7 +280,16 @@ class QuestLogController extends Controller
 
 		return redirect()->route('quests.index')->with('success', 'Quest dropped successfully.');
 	}
+	public function confirmDrop(QuestLog $questLog): View
+	{
+		// Authorize the user (make sure only the hero who owns the quest log can complete it)
+		if (auth()->user()->id !== $questLog->user_id)
+		{
+			abort(403, 'Unauthorized');
+		}
 
+		return view('quest-logs.drop-confirm', compact('questLog'));
+	}
 	private function handleFileUploads(Request $request, $questLog): void
 	{
 		if ($request->hasFile('files'))
