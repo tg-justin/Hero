@@ -219,21 +219,31 @@ class QuestLogController extends Controller
 			->orderBy($sortBy, $sortDirection)
 			->paginate(15); // Eager load the hero relationship
 
-		$questLogs->each(function ($questLog) {
+		$questLogs->each(function($questLog)
+		{
 			// Strip HTML tags and calculate length
 			$feedbackText = strip_tags($questLog->feedback);
 			$length = strlen($feedbackText);
 
 			// Assign a size category
-			if ($length == 0){
+			if ($length == 0)
+			{
 				$questLog->feedback_size = 'None';
-			}elseif ($length < 10) {
+			}
+			elseif ($length < 10)
+			{
 				$questLog->feedback_size = 'Tiny';
-			} elseif ($length < 50) {
+			}
+			elseif ($length < 50)
+			{
 				$questLog->feedback_size = 'Small';
-			} elseif ($length < 200) {
+			}
+			elseif ($length < 200)
+			{
 				$questLog->feedback_size = 'Medium';
-			} else {
+			}
+			else
+			{
 				$questLog->feedback_size = 'Large';
 			}
 		});
