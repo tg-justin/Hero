@@ -37,7 +37,7 @@ class SocialAuthController extends Controller
 		if ($request->has('error'))
 		{
 			// Handle authorization errors...
-			return redirect('/login')->with('error', 'Google authentication failed.');
+			return redirect('/sign-in')->with('error', 'Google authentication failed.');
 		}
 
 		$token = $provider->getAccessToken('authorization_code', [

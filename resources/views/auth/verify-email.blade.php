@@ -25,7 +25,7 @@
 				@csrf
 				<button type="submit"
 						class="underline text-base text-gray-600">
-					{{ __('Log Out') }}
+					{{ __('Sign Out') }}
 				</button>
 			</form>
 		</div>

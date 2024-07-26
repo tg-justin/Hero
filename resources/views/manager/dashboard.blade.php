@@ -40,7 +40,7 @@
 				<th>Top Heroes</th>
 				<th>Level</th>
 				<th>Quests Completed</th>
-				<th>Last Login</th>
+				<th>Last Sign In</th>
 			</tr>
 			</thead>
 			<tbody>

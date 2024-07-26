@@ -15,22 +15,17 @@ class VerifyEmailController extends Controller
 	 */
 	public function __invoke(EmailVerificationRequest $request): RedirectResponse
 	{
-		$user = $request->user();
-
-		if ($user->hasVerifiedEmail())
+		// Here, the user should already be authenticated by the middleware
+		if ($request->user()->hasVerifiedEmail())
 		{
-			return redirect()->intended(route('quests.index', absolute: FALSE) . '?verified=1');
+			return redirect()->route('email.verified')->with('warning', "<strong>Your email has already been verified.</strong>");
 		}
 
-		if ($user->markEmailAsVerified())
+		if ($request->user()->markEmailAsVerified())
 		{
-			event(new Verified($user));
+			event(new Verified($request->user()));
 		}
 
-		// Update the last_login_at field
-		$user->last_login_at = Carbon::now();
-		$user->save();
-
-		return redirect()->intended(route('quests.index', absolute: FALSE) . '?verified=1');
+		return redirect()->route('email.verified')->with('success', '<strong>Your email has been verified.</strong>');
 	}
 }

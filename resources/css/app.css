@@ -140,11 +140,13 @@
 		/*@apply border-yellow-300 border-4;*/
 	}
 
+	.content-narrow,
 	.content-primary {
 		@apply col-span-1 space-y-2;
 		@apply md:col-span-2 md:space-y-4;
 	}
 
+	.content-wide,
 	.content-secondary {
 		@apply col-span-1 space-y-2;
 		@apply md:col-span-4 md:space-y-4;
@@ -184,7 +186,12 @@
 		@apply mt-1 text-sm text-red-600;
 	}
 
-	.required-field {
+	.field-label {
+		@apply text-sm pl-1 font-bold text-gray-700;
+		@apply md:text-base md:mt-8;
+	}
+
+	.field-required {
 		@apply text-red-600;
 	}
 

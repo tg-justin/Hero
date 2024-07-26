@@ -5,7 +5,7 @@
 
 		<h2 class="text-2xl font-bold text-seance-800 mb-4">Sign In</h2>
 
-		<form method="POST" action="{{ route('login') }}" class="space-y-4">
+		<form method="POST" action="{{ route('sign-in') }}" class="space-y-4">
 			@csrf
 
 			{{-- Email Input --}}

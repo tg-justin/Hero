@@ -19,7 +19,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>Last Login:</th>
+						<th>Last Sign In:</th>
 						<td>
 							<x-date-user-time-zone :value="$hero->last_login_at"/>
 						</td>
@@ -71,8 +71,8 @@
 				@endif
 
 				@if($hero->level == 0 && !($viewer->hasRole('manager')) )
-					<div class="bg-yellow-200 p-2 text-lg italic text-center">
-						Additional profile details are available after you complete your first quest.
+					<div class="bg-yellow-200 px-2 py-4 mt-4 text-lg text-center rounded-2xl">
+						Additional details are available after you complete your <a href="{{ route('quests.index') }}">Hero Registration</a> quest.
 					</div>
 				@else
 

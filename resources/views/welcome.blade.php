@@ -5,22 +5,24 @@
 			Join the Hero program to support Tabletop Gaymers!
 			As a volunteer (hero), you complete tasks (quests) from sharing social media posts to organizing events.
 			Earn experience points (XP), level up, unlock badges, gain titles, and cool swag.</p>
-		<p class="text-lg md:text-xl text-seance-800">
+		<p class="text-lg md:text-xl text-seance-800 text-center">
 			<strong>Help us create a more inclusive gaming community!</strong>
 		</p>
 
 		<div class="grid justify-between items-center mt-3 grid-cols-1 md:grid-cols-2">
-			<div class="text-center py-6">
-				<a href="{{ route('register') }}"
-				   class="text-white font-medium text-base bg-seance-700 rounded-lg px-5 py-2.5 hover:text-orange-500 hover:underline-offset-4 hover:bg-seance-800">
-					Join the Adventure!
-				</a>
+			<div class="text-center py-3">
+				<div><a href="{{ route('register') }}"
+						class="text-white font-medium text-base bg-seance-700 rounded-lg px-5 py-2.5 hover:text-orange-500 hover:underline-offset-4 hover:bg-seance-800">
+						Join the Adventure!</a>
+				</div>
+				<div class="text-xs my-2.5">(REGISTER)</div>
 			</div>
 			<div class="text-center py-3">
-				<a href="{{ route('login') }}"
-				   class="text-white font-medium text-base bg-seance-700 rounded-lg px-5 py-2.5 hover:text-orange-500 hover:underline-offset-4 hover:bg-seance-800">
-					Already a Member?
-				</a>
+				<div><a href="{{ route('sign-in') }}"
+						class="text-white font-medium text-base bg-seance-700 rounded-lg px-5 py-2.5 hover:text-orange-500 hover:underline-offset-4 hover:bg-seance-800">
+						Already a Member?</a>
+				</div>
+				<div class="text-xs my-2.5">(SIGN IN)</div>
 			</div>
 		</div>
 	</div>
@@ -40,6 +42,4 @@
 			welcoming community here.
 		</p>
 	</div>
-
-
 </x-guest-layout>

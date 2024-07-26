@@ -34,7 +34,7 @@
 					{{ __('Register') }}
 				</x-primary-button>
 				<div class="float-left">
-					<a href="{{ route('login') }}" class="no-underline text-base text-gray-600">
+					<a href="{{ route('sign-in') }}" class="no-underline text-base text-gray-600">
 						{{ __('Already registered?') }}</a>
 				</div>
 			</div>

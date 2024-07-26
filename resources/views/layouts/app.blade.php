@@ -76,7 +76,7 @@
 				<div class="alert-success" role="alert">{!! session('success') !!}</div>
 			@endif
 
-			@yield('content')
+{{--			@yield('content')--}}
 
 			@if(isset($slot))
 				{{ $slot }}

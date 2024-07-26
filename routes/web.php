@@ -29,6 +29,11 @@ Route::get('/welcome', function()
 	return view('welcome');
 })->name('welcome');
 
+Route::get('/email-verified', function()
+{
+	return view('/email-verified');
+})->name('email.verified');
+
 require __DIR__ . '/auth.php';
 
 Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');

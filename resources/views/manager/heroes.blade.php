@@ -27,7 +27,7 @@
 				<th class="tracking-wider">Name</th>
 				<th class="tracking-wider">Email</th>
 				<th class="tracking-wider">Role(s)</th>
-				<th class="tracking-wider">Last Login</th>
+				<th class="tracking-wider">Last Sign In</th>
 				<th class="tracking-wider">Actions</th>
 			</tr>
 			</thead>

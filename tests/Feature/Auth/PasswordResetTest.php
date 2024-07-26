@@ -67,7 +67,7 @@ class PasswordResetTest extends TestCase
 
 			$response
 				->assertSessionHasNoErrors()
-				->assertRedirect(route('login'));
+				->assertRedirect(route('sign-in'));
 
 			return TRUE;
 		});

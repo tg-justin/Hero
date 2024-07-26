@@ -77,7 +77,7 @@
 							<x-dropdown-link :href="route('logout')"
 											 onclick="event.preventDefault();updateToken();
                                                 this.closest('form').submit();">
-								{{ __('Log Out') }}
+								{{ __('Sign Out') }}
 							</x-dropdown-link>
 						</form>
 						<script>
@@ -148,7 +148,7 @@
 				<form method="POST" action="{{ route('logout') }}">
 					@csrf
 					<x-nav-link :mobile='TRUE' :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
-						{{ __('Log Out') }}
+						{{ __('Sign Out') }}
 					</x-nav-link>
 				</form>
 			</div>
