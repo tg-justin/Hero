@@ -225,7 +225,9 @@ class QuestLogController extends Controller
 			$length = strlen($feedbackText);
 
 			// Assign a size category
-			if ($length < 10) {
+			if ($length == 0){
+				$questLog->feedback_size = 'None';
+			}elseif ($length < 10) {
 				$questLog->feedback_size = 'Tiny';
 			} elseif ($length < 50) {
 				$questLog->feedback_size = 'Small';
