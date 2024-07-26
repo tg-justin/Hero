@@ -24,6 +24,11 @@ Route::get('/', function()
 	return redirect()->route('welcome');
 });
 
+Route::get('/dashboard', function()
+{
+	return redirect()->route('quests.index');
+})->name('dashboard');
+
 Route::get('/welcome', function()
 {
 	return view('welcome');
@@ -110,16 +115,6 @@ Route::middleware('auth')->group(function()
 		Route::get('/profile/password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
 		Route::get('/profile/change-email-address', [ProfileController::class, 'changeEmailAddress'])->name('profile.change-email-address');
 		Route::post('/profile/change-email-address', [ProfileController::class, 'submitChangeEmailAddress'])->name('profile.submit-change-email-address');
-
-		/*******************************************************************************************
-		 * OLD Profile Management
-		 *******************************************************************************************/
-
-		// Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-		// Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-		// Route::post('/profile/hero-registration', [ProfileController::class, 'updateHeroRegistration'])->name('profile.update-hero-registration');
-		// Route::get('profile/public-info-old', [ProfileController::class, 'editPublicInfo'])->name('profile.edit-public-info-old');
-		// Route::post('profile/public-info-old', [ProfileController::class, 'updatePublicInfo'])->name('profile.update-public-info-old');
 
 		/*******************************************************************************************
 		 * Quests and Quest Logs
