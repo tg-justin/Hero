@@ -218,6 +218,7 @@
 		/*@apply border border-black;*/
 		@apply m-0 p-0;
 	}
+
 	.stat-block th {
 		@apply font-bold text-left text-nowrap;
 		@apply align-text-top;
@@ -230,7 +231,6 @@
 		@apply align-text-top;
 		@apply m-0 py-1 px-0 !important;
 	}
-
 
 
 	/* ******************************* Seance Table ******************************* */
@@ -246,14 +246,20 @@
 		@apply bg-white;
 	}
 
-	.table-seance tbody tr:nth-child(odd) { /* Table row (odd) - for alternating colors */
+	.table-seance tbody tr:nth-child(odd) { /* Table row (odd) */
 		@apply bg-seance-50;
 	}
 
-	.table-seance th {
-		@apply text-sm font-medium text-nowrap text-left uppercase tracking-wide text-white;
+	.table-seance th,
+	.table-seance td {
+		@apply text-base text-left;
 		@apply md:text-base;
-		@apply px-6 py-4 !important;
+		@apply px-1 py-1 !important;
+		@apply md:px-4 md:py-2 !important;
+	}
+
+	.table-seance th {
+		@apply font-extrabold text-nowrap uppercase tracking-wide text-white;
 	}
 
 	.table-seance th a {
@@ -262,10 +268,10 @@
 	}
 
 	.table-seance td {
-		@apply text-sm font-medium text-slate-800;
+		@apply font-medium text-slate-800;
 		@apply md:text-base;
-		@apply px-6 py-4 !important;
 	}
+
 
 	/* ******************************* OTHER ******************************* */
 	.search-box {

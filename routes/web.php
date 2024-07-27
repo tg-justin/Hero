@@ -7,6 +7,7 @@ use App\Http\Controllers\HeroController;
 use App\Http\Controllers\ManagerDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\QuestLogController;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Manager;
@@ -46,6 +47,10 @@ Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleC
 
 Route::middleware('auth')->group(function()
 {
+	Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+
+
+
 	// this has to be behind auth, so the nav won't throw an error
 	Route::get('/default-styles', function()
 	{
