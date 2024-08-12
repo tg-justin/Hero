@@ -9,7 +9,7 @@
 	<title>
 		{{ config('app.name', 'Laravel') }}
 		@if (isset($header))
-			| {{ $header }}
+			| {!! strip_tags($header) !!}
 		@endif
 	</title>
 
