@@ -31,7 +31,10 @@
 							{{ __('Heroes') }}
 						</x-nav-link>
 						<x-nav-link :href="route('manager.review')" :active="request()->routeIs('manager.review')">
-							{{ __('Review Quests') }}
+							{{ __('Review') }}
+						</x-nav-link>
+						<x-nav-link :href="route('report.index')" :active="request()->routeIs('report.index')">
+							{{ __('Report') }}
 						</x-nav-link>
 					@endif
 					@if (Auth::user()->hasRole('admin'))
@@ -40,12 +43,12 @@
 							{{ __('Categories') }}
 						</x-nav-link>
 						<x-nav-link :href="route('activitylog')" :active="request()->routeIs('activitylog')">
-							{{ __('Activity Log') }}
+							{{ __('Activity') }}
+						</x-nav-link>
+						<x-nav-link :href="route('default.styles')" :active="request()->routeIs('default.styles')">
+							{{ __('Styles') }}
 						</x-nav-link>
 					@endif
-					<x-nav-link :href="route('default.styles')" :active="request()->routeIs('default.styles')">
-						{{ __('Styles') }}
-					</x-nav-link>
 				</div>
 			</div>
 
@@ -122,11 +125,23 @@
 				<x-nav-link :mobile='TRUE' :href="route('manager.heroes')" :active="request()->routeIs('manager.heroes')">
 					{{ __('Heroes') }}
 				</x-nav-link>
+				<x-nav-link :mobile='TRUE' :href="route('manager.review')" :active="request()->routeIs('manager.review')">
+					{{ __('Review') }}
+				</x-nav-link>
+				<x-nav-link :mobile='TRUE' :href="route('report.index')" :active="request()->routeIs('report.index')">
+					{{ __('Report') }}
+				</x-nav-link>
 			@endif
 			@if (Auth::user()->hasRole('admin'))
 				{{-- Check for the 'admin' role --}}
+				<x-nav-link :mobile='TRUE' :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+					{{ __('Categories') }}
+				</x-nav-link>
 				<x-nav-link :mobile='TRUE' :href="route('activitylog')" :active="request()->routeIs('activitylog')">
-					{{ __('Activity Log') }}
+					{{ __('Activity') }}
+				</x-nav-link>
+				<x-nav-link :mobile='TRUE' :href="route('default.styles')" :active="request()->routeIs('default.styles')">
+					{{ __('Styles') }}
 				</x-nav-link>
 			@endif
 

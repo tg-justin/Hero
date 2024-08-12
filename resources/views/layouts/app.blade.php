@@ -13,6 +13,8 @@
 		@endif
 	</title>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 	<!-- Fonts -->
 	<link href="https://fonts.bunny.net" rel="preconnect">
 	<link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>

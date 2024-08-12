@@ -1,8 +1,19 @@
 <x-app-layout>
 	<x-slot name="header">Quest Report: Summary</x-slot>
 
+
+	{{-- Review Table --}}
+	<script>
+		$(function () {
+			$('table.table-clickable').on("click", "tr.row-clickable", function () {
+				window.location = $(this).data("url");
+				//alert($(this).data("url"));
+			});
+		});
+	</script>
+
 	<div class="main-table">
-		<table class="table-seance">
+		<table class="table-seance table-clickable">
 			<thead>
 			<tr>
 				<th>Lvl</th>
@@ -16,7 +27,7 @@
 			</thead>
 			<tbody>
 			@foreach($quests as $quest)
-				<tr>
+				<tr class="row-clickable" data-url="{{ route('quests.quest-logs', $quest) }}">
 					<td>{{ $quest->min_level }}</td>
 					<td><a href="{{ route('quests.quest-logs', $quest) }}">{{ $quest->title }}</a></td>
 					<td>{{ $quest->accepted_count }}</td>

@@ -27,15 +27,23 @@
 				</table>
 			</div>
 			@if($viewer->hasRole('manager') || $viewer->hasRole('admin'))
-				<x-link-button color="orange" href="#">Reset Password</x-link-button>
 				<x-link-button color="orange" href="{{ route('manager.quest-logs', ['user' => $hero->id]) }}">View Quest Log</x-link-button>
-			@endif
-			@if($hasPermission)
-				<div>
-					@include('profile.partials.delete-user-button')
-				</div>
-			@endif
 
+				<form action="{{ route('manager.heroes.sendPasswordReset', $hero->id) }}" method="POST" class="inline">
+					@csrf
+					<button type="submit" class="tg-button-gray w-full">Reset Password</button>
+				</form>
+
+				@if(!$hero->hasRole('manager'))
+					<form action="{{ route('heroes.promote', $hero->id) }}" method="POST" class="inline">
+						@csrf
+						<button type="submit" class="tg-button-green w-full">Promote to Manager</button>
+					</form>
+				@else
+					<x-link-button color="gray" href="#">Is Manager</x-link-button>
+				@endif
+
+			@endif
 		</div>
 
 		<div class="content-secondary md:order-first">
@@ -183,5 +191,17 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="pt-4">
+	@if($hasPermission)
+		<div>
+			@include('profile.partials.delete-user-button')
+		</div>
+	@endif
+	</div>
+
+
+
+
 
 </x-app-layout>

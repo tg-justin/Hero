@@ -273,6 +273,17 @@
 	}
 
 
+	/* ******************************* Table Clickable ******************************* */
+
+	.table-clickable tr.row-clickable {
+		@apply cursor-pointer;
+	}
+
+	.table-clickable tr.row-clickable:hover {
+		@apply bg-amber-100;
+	}
+
+
 	/* ******************************* OTHER ******************************* */
 	.search-box {
 		@apply mt-1 block shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;

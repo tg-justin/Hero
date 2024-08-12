@@ -33,8 +33,16 @@
 	</div>
 
 	{{-- Top Heroes --}}
+	<script>
+		$(function () {
+			$('table.table-clickable').on("click", "tr.row-clickable", function () {
+				window.location = $(this).data("url");
+				//alert($(this).data("url"));
+			});
+		});
+	</script>
 	<div class="main-table">
-		<table class="table-seance">
+		<table class="table-seance table-clickable">
 			<thead class="bg-seance-800 text-white">
 			<tr>
 				<th>Top Heroes</th>
@@ -45,7 +53,7 @@
 			</thead>
 			<tbody>
 			@foreach ($topHeroes as $hero)
-				<tr>
+				<tr class="row-clickable" data-url="{{ route('manager.quest-logs', $hero) }}">
 					<td><a href="{{ route('manager.quest-logs', $hero) }}">{{ $hero->name }}</a></td>
 					<td>{{ $hero->level }}</td>
 					<td>{{ $hero->quest_logs_count }}</td>

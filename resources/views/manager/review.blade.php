@@ -5,8 +5,21 @@
 	</x-slot>
 
 	@if ($questLogs->count() > 0)
+
+
+
+		{{-- Review Table --}}
+		<script>
+			$(function () {
+				$('table.table-clickable').on("click", "tr.row-clickable", function () {
+					window.location = $(this).data("url");
+					//alert($(this).data("url"));
+				});
+			});
+		</script>
+
 		<div class="main-table">
-			<table class="table-seance">
+			<table class="table-seance table-clickable">
 				<thead>
 				<tr>
 					<th scope="col">
@@ -38,17 +51,11 @@
 				</thead>
 				<tbody class="bg-white divide-y divide-slate-200">
 				@foreach ($questLogs as $questLog)
-					<tr>
-						<td>
-							<a href="{{ route('manager.quest-logs', $questLog->user) }}" class="text-seance-600 hover:text-seance-700">{{ $questLog->user->name }}</a>
-						</td>
+					<tr class="row-clickable" data-url="{{ route('quest-logs.review', $questLog) }}">
+						<td>{{ $questLog->user->name }}</td>
 						<td>{{ $questLog->quest->title }}</td>
 						<td><x-date-user-time-zone :value="$questLog->completed_at" format="d M Y"/></td>
-						<td>
-							<a href="{{ route('quest-logs.review', $questLog) }}"
-							   class="text-white  focus:ring-4  font-medium rounded-lg text-sm px-3 py-1.5 bg-seance-600 hover:bg-seance-700 focus:outline-none focus:ring-seance-800">Review</a>
-						</td>
-
+						<td><a href="{{ route('quest-logs.review', $questLog) }}">Review</a></td>
 					</tr>
 				@endforeach
 				</tbody>

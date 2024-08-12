@@ -5,8 +5,19 @@
 
 	<x-hero-profile :user="$user"/>
 	@if ($questLogs->count() > 0)
+
+		{{-- Quest Table --}}
+		<script>
+			$(function () {
+				$('table.table-clickable').on("click", "tr.row-clickable", function () {
+					window.location = $(this).data("url");
+					//alert($(this).data("url"));
+				});
+			});
+		</script>
+
 		<div class="main-table">
-			<table class="table-seance">
+			<table class="table-seance table-clickable">
 				<thead>
 				<tr>
 					<th scope="col">Quest Title</th>
@@ -18,7 +29,7 @@
 				</thead>
 				<tbody>
 				@foreach ($questLogs as $questLog)
-					<tr>
+					<tr class="row-clickable" data-url="{{ route('quest-logs.review', $questLog) }}">
 						<td>
 							<a href="{{ route('quest-logs.review', $questLog) }}">{{ $questLog->quest->title }}</a>
 						</td>

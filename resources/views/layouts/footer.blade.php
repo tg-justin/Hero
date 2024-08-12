@@ -13,11 +13,8 @@
 		<section>
 			<h2>MAILING LIST</h2>
 			<p class="text-sm text-seance-200">
-				Sign up for our <a href="https://eepurl.com/bmk2xn" target="_blank" rel="noopener">Mail Chimp mailing list</a> to receive occasional emails.
+				Sign up for the <a href="https://eepurl.com/bmk2xn" target="_blank" rel="noopener">Tabletop Gaymers Newsletter</a> to receive occasional emails.
 			</p>
-		</section>
-		<section>
-			<h2>SOCIAL LINKS</h2>
 		</section>
 	</div>
 	<div class="w-full md:w-1/3 text-seance-400 mb-4 md:mb-0">
@@ -26,11 +23,6 @@
 			<p class="text-sm text-seance-200">
 				Tabletop Gaymers thanks its generous donors: individual, sustaining, and corporate.
 				<a href="https://tabletopgaymers.org/donate/" target="_blank">Make a Donation Today!</a>
-			</p>
-			<p class="text-sm text-seance-200">
-				Platinum Donors:
-				<a href="https://paizo.com/" target="_blank" rel="noopener">Paizo</a> and
-				<a href="https://greaterthangames.com/" target="_blank" rel="noopener">Greater Than Games</a>.
 			</p>
 		</section>
 	</div>

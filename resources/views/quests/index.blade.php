@@ -33,9 +33,18 @@
 		</div>
 	@endif
 
+
 	{{-- Quest Table --}}
+	<script>
+		$(function () {
+			$('table.table-clickable').on("click", "tr.row-clickable", function () {
+				window.location = $(this).data("url");
+				//alert($(this).data("url"));
+			});
+		});
+	</script>
 	<div class="main-table">
-		<table class="table-seance">
+		<table class="table-seance table-clickable">
 			<thead>
 			<tr>
 				<th scope="col">
@@ -64,10 +73,10 @@
 					</a>
 				</th>
 				<th scope="col" class="hidden md:table-cell">
-						<a href="{{ route('quests.index', ['sort' => 'expires_date', 'direction' => request('sort') === 'expires_date' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}">
+					<a href="{{ route('quests.index', ['sort' => 'expires_date', 'direction' => request('sort') === 'expires_date' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}">
 						Expires
 						@if (request('sort') === 'expires_date')
-								{!! (request('direction') === 'asc') ? "&darr;" : "&uarr;"  !!}
+							{!! (request('direction') === 'asc') ? "&darr;" : "&uarr;"  !!}
 						@endif
 					</a>
 				</th>
@@ -76,7 +85,7 @@
 			</thead>
 			<tbody>
 			@foreach ($quests as $quest)
-				<tr>
+				<tr class="row-clickable" data-url="{{ route('quests.show', $quest->id) }}">
 					<td>{{ $quest->min_level }}</td>
 					<td>
 						@if ($quest->questLogs->isNotEmpty())
@@ -91,8 +100,8 @@
 					<td class="hidden md:table-cell whitespace-nowrap">
 						@if($quest->expires_date)
 							<x-date-user-time-zone :value="$quest->expires_date" format="d M Y"/>
-						@else
-							&mdash;
+							@else
+								&mdash;
 						@endif
 					</td>
 				</tr>
