@@ -23,7 +23,7 @@ class ActivityLogController extends Controller
 				// ... (your existing sorting logic here) ...
 			})
 			->with('subject') // Eager load the 'subject' relationship
-			->paginate(10); // Paginate, showing 15 items per page
+			->paginate(25);
 
 		// Enhance activity data using the helper function
 		//$activities->getCollection()->transform(function ($activity) {

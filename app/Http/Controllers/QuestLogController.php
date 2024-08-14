@@ -43,7 +43,7 @@ class QuestLogController extends Controller
 		$questLogsQuery->orderByRaw("FIELD(status, 'Accepted', 'Completed', 'Dropped', 'Expired') $direction");
 
 		// Pagination
-		$questLogs = $questLogsQuery->paginate(); // default is 15 items per page
+		$questLogs = $questLogsQuery->paginate(25);
 
 		return view('quest-logs.index', ['questLogs' => $questLogs, 'user' => $user]);
 	}
@@ -217,7 +217,7 @@ class QuestLogController extends Controller
 			->join('users', 'quest_logs.user_id', '=', 'users.id')
 			->select('quest_logs.*', 'quest_logs.id as quest_log_id', 'users.name')
 			->orderBy($sortBy, $sortDirection)
-			->paginate(15); // Eager load the hero relationship
+			->paginate(25); // Eager load the hero relationship
 
 		$questLogs->each(function($questLog)
 		{

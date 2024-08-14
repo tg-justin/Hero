@@ -40,9 +40,9 @@ class QuestController extends Controller
 		}
 
 		// Limit by hero level if the user is authenticated and not a manager
-//        if (auth()->check() && !auth()->user()->hasRole('manager')) {
-//            $query->where('min_level', '<=', auth()->user()->level);
-//        }
+		// if (auth()->check() && !auth()->user()->hasRole('manager')) {
+		//     $query->where('min_level', '<=', auth()->user()->level);
+		// }
 
 		// Limit Level 0 Heroes to Level 0 Quests, unless they are a manager.
 		if (auth()->check())
@@ -57,11 +57,21 @@ class QuestController extends Controller
 
 		// Sorting Logic
 		$sortBy = $request->get('sort');
-		$direction = $request->get('direction', 'asc');
+		$direction = ($request->get('direction') === 'desc') ? 'desc' : 'asc';
 
-		if (in_array($sortBy, ['min_level', 'title', 'xp']))
+		if (in_array($sortBy, ['min_level', 'title', 'xp', 'expires_date']))
 		{ // Validate sorting column
 			$query->orderBy($sortBy, $direction);
+		}
+		else
+		{
+			$query->orderBy('min_level');
+		}
+
+		// Apply secondary sort by title if the primary sort is not by title
+		if ($sortBy !== 'title')
+		{
+			$query->orderBy('title');
 		}
 
 		// Determine if completed quests should be shown
@@ -251,7 +261,8 @@ class QuestController extends Controller
 			}
 
 			// Delete associated files
-			foreach ($quest->files as $file) {
+			foreach ($quest->files as $file)
+			{
 				Storage::disk('public')->delete($file->path);
 				$file->delete();
 			}

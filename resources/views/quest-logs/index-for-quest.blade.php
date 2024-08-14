@@ -4,72 +4,38 @@
 		{{ __('Quest Logs for: ') }} {{ $quest->title }}
 	</x-slot>
 	@if($questLogs->count() > 0)
+		<script>
+			$(function () {
+				$('table.table-clickable').on("click", "tr.row-clickable", function () {
+					window.location = $(this).data("url");
+					//alert($(this).data("url"));
+				});
+			});
+		</script>
 
 		<div class="main-table">
-			<table class="table-seance">
+			<table class="table-seance table-clickable">
 				<thead>
 				<tr>
-					<th scope="col">
-						<a href="{{ route('quests.quest-logs', ['quest' => $quest, 'sort' => 'name', 'direction' => ($sortBy === 'name' && $sortDirection === 'asc') ? 'desc' : 'asc']) }}">
-							Hero
-							@if ($sortBy === 'name')
-								{!! (request('direction') === 'asc') ? "&darr;" : "&uarr;"  !!}
-							@endif
-						</a>
-					</th>
-					<th scope="col">
-						<a href="{{ route('quests.quest-logs', ['quest' => $quest, 'sort' => 'status', 'direction' => ($sortBy === 'status' && $sortDirection === 'asc') ? 'desc' : 'asc']) }}">
-							Status
-							@if ($sortBy === 'status')
-								{!! (request('direction') === 'asc') ? "&darr;" : "&uarr;"  !!}
-							@endif
-						</a>
-					</th>
-					<th scope="col">
-						<a href="{{ route('quests.quest-logs', ['quest' => $quest, 'sort' => 'review', 'direction' => ($sortBy === 'review' && $sortDirection === 'asc') ? 'desc' : 'asc']) }}">
-							Needs Review
-							@if ($sortBy === 'review')
-								{!! (request('direction') === 'asc') ? "&darr;" : "&uarr;"  !!}
-							@endif
-						</a>
-					</th>
-					<th scope="col">
-						Files
-					</th>
-					<th scope="col">
-						Feedback
-					</th>
-					<th scope="col">
-						<a href="{{ route('quests.quest-logs', ['quest' => $quest, 'sort' => 'completed_at', 'direction' => ($sortBy === 'completed_at' && $sortDirection === 'asc') ? 'desc' : 'asc']) }}">
-							Completed At
-							@if ($sortBy === 'completed_at')
-								{!! (request('direction') === 'asc') ? "&darr;" : "&uarr;"  !!}
-							@endif
-						</a>
-					</th>
-					{{-- Add more columns as needed --}}
+					<x-th-sort route="quests.quest-logs" :params="['quest' => $quest]" sort="name" display="Hero"/>
+					<x-th-sort route="quests.quest-logs" :params="['quest' => $quest]" sort="status" display="Status"/>
+					<x-th-sort route="quests.quest-logs" :params="['quest' => $quest]" sort="review" display="Review"/>
+					<th scope="col">Files</th>
+					<th scope="col">Feedback</th>
+					<x-th-sort route="quests.quest-logs" :params="['quest' => $quest]" sort="completed_at" display="Completed"/>
 				</tr>
 				</thead>
 				<tbody>
 				@foreach ($questLogs as $questLog)
-					<tr>
-						<td>
-							<a href="{{ route('quest-logs.review', $questLog->quest_log_id) }}">
-								{{ $questLog->user->name }}
-							</a>
-						</td>
+					<tr class="row-clickable" data-url="{{ route('quest-logs.review', $questLog->quest_log_id) }}">
+						<td><a href="{{ route('quest-logs.review', $questLog->quest_log_id) }}">{{ $questLog->user->name }}</a></td>
 						<td>{{ $questLog->status }}</td>
 						<td>{{ $questLog->review ? 'Yes' : 'No' }}</td>
-						<td>
-							{{ $questLog->files->count() }}
-						</td>
-						<td>
-							{{ $questLog->feedback_size }}
-						</td>
+						<td>{{ $questLog->files->count() }}</td>
+						<td>{{ $questLog->feedback_size }}</td>
 						<td>
 							<x-date-user-time-zone :value="$questLog->completed_at" format="d M Y (h:i A)"/>
 						</td>
-						{{-- Add more cells as needed --}}
 					</tr>
 				@endforeach
 				</tbody>

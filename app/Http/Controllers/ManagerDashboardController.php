@@ -61,14 +61,25 @@ class ManagerDashboardController extends Controller
 
 	function review(Request $request): View
 	{
-		$sortBy = $request->query('sort_by', 'completed_at'); // Default sorting by completed_at
-		$sortDirection = $request->query('sort_direction', 'asc'); // Default ascending order
+		$questLogs = QuestLog::with('user', 'quest')
+			->join('quests', 'quest_logs.quest_id', '=', 'quests.id')
+			->join('users', 'quest_logs.user_id', '=', 'users.id')
+			->select('quest_logs.*', 'users.name', 'quests.title')
+			->where('review', '1')
+			->where('reviewed_at', NULL);
 
-		$questLogs = QuestLog::where('review', '1')
-			->where('reviewed_at', NULL)
-			->orderBy($sortBy, $sortDirection)
-			->paginate(10);
+		$sortBy = $request->get('sort');
+		$direction = ($request->get('direction') === 'desc') ? 'desc' : 'asc';
+		if (in_array($sortBy, ['users.name', 'quests.title', 'completed_at']))
+		{
+			$questLogs = $questLogs->orderBy($sortBy, $direction);
+		}
+		else
+		{
+			$questLogs = $questLogs->orderBy('completed_at', 'desc');
+		}
 
-		return view('manager.review', compact('questLogs', 'sortBy', 'sortDirection'));
+		$questLogs = $questLogs->paginate(25);
+		return view('manager.review', compact('questLogs'));
 	}
 }

@@ -47,41 +47,11 @@
 		<table class="table-seance table-clickable">
 			<thead>
 			<tr>
-				<th scope="col">
-					<a href="{{ route('quests.index', ['sort' => 'min_level', 'direction' => request('sort') === 'min_level' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}">
-						Lvl
-						@if (request('sort') === 'min_level')
-							{!! (request('direction') === 'asc') ? "&darr;" : "&uarr;"  !!}
-						@endif
-					</a>
-				</th>
-				<th scope="col">
-					<a href="{{ route('quests.index', ['sort' => 'title', 'direction' => request('sort') === 'title' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}">
-						Quest Title
-						@if (request('sort') === 'title')
-							{!! (request('direction') === 'asc') ? "&darr;" : "&uarr;"  !!}
-						@endif
-					</a>
-				</th>
-
-				<th scope="col" class="hidden md:table-cell">
-					<a href="{{ route('quests.index', ['sort' => 'xp', 'direction' => request('sort') === 'xp' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}">
-						XP
-						@if (request('sort') === 'xp')
-							{!! (request('direction') === 'asc') ? "&darr;" : "&uarr;"  !!}
-						@endif
-					</a>
-				</th>
-				<th scope="col" class="hidden md:table-cell">
-					<a href="{{ route('quests.index', ['sort' => 'expires_date', 'direction' => request('sort') === 'expires_date' && request('direction') === 'asc' ? 'desc' : 'asc'] + request()->except('sort', 'direction')) }}">
-						Expires
-						@if (request('sort') === 'expires_date')
-							{!! (request('direction') === 'asc') ? "&darr;" : "&uarr;"  !!}
-						@endif
-					</a>
-				</th>
+				<x-th-sort route="quests.index" sort="min_level" display="Lvl"/>
+				<x-th-sort route="quests.index" sort="title" display="Quest Title"/>
+				<x-th-sort route="quests.index" sort="xp" display="XP" class="hidden md:table-cell"/>
+				<x-th-sort route="quests.index" sort="expires_date" display="Expires" class="hidden md:table-cell"/>
 			</tr>
-
 			</thead>
 			<tbody>
 			@foreach ($quests as $quest)
@@ -98,11 +68,7 @@
 
 					<td class="hidden md:table-cell">{{ $quest->xp }}</td>
 					<td class="hidden md:table-cell whitespace-nowrap">
-						@if($quest->expires_date)
-							<x-date-user-time-zone :value="$quest->expires_date" format="d M Y"/>
-							@else
-								&mdash;
-						@endif
+						<x-date-user-time-zone :value="$quest->expires_date" format="d M Y"/>
 					</td>
 				</tr>
 			@endforeach

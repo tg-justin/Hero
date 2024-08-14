@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
 	public function index(): View
 	{
-		$categories = Category::paginate(15); // 15 items per page
+		$categories = Category::paginate(25);
 
 		return view('categories.index', compact('categories'));
 	}

@@ -11,8 +11,6 @@ class HeroController extends Controller
 {
 	public function index(Request $request): View
 	{
-		$myTimeZone = $request->user()->timezone ?? 'UTC';
-
 		$query = User::query();
 		if ($request->has('search'))
 		{
@@ -20,14 +18,34 @@ class HeroController extends Controller
 			$query->where(function($q) use ($search)
 			{
 				$q->where('name', 'like', "%$search%")
-					->orWhere('email', 'like', "%$search%");
+					->orWhere('email', 'like', "%$search%")
+					->orWhere('first_name', 'like', "%$search%")
+					->orWhere('last_name', 'like', "%$search%");
 			});
 		}
 
-		$query->orderBy('id');
+		// Sorting Logic
+		$sortBy = $request->get('sort');
+		$direction = ($request->get('direction') === 'desc') ? 'desc' : 'asc';
+
+		if (in_array($sortBy, ['name', 'level', 'last_login_at', 'email'])) // Validate sorting column
+		{
+			$query->orderBy($sortBy, $direction);
+		}
+		else
+		{
+			$query->orderBy('last_login_at', 'desc'); // Default sorting
+		}
+
+		// Apply secondary sort by title if the primary sort is not by title
+		if ($sortBy !== 'name')
+		{
+			$query->orderBy('name');
+		}
 
 		$heroes = $query->get();
 
+		$myTimeZone = $request->user()->timezone ?? 'UTC';
 		return view('manager.heroes', compact('heroes', 'myTimeZone'));
 	}
 

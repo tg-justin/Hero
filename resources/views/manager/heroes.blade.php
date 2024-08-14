@@ -33,12 +33,11 @@
 		<table class="table-seance table-clickable">
 			<thead>
 			<tr>
-				<th>Name</th>
-				<th>Lvl</th>
-				<th>Quests</th>
-				<th>Email</th>
+				<x-th-sort route="manager.heroes" sort="name" display="Hero"/>
+				<x-th-sort route="manager.heroes" sort="level" display="Lvl"/>
+				<x-th-sort route="manager.heroes" sort="email" display="Email"/>
 				<th>Role(s)</th>
-				<th>Last Sign In</th>
+				<x-th-sort route="manager.heroes" sort="last_login_at" display="Last Sign In"/>
 			</tr>
 			</thead>
 			<tbody>
@@ -46,16 +45,10 @@
 				<tr class="row-clickable" data-url="{{ route('profile.show-profile', ['heroId' => $hero->id]) }}">
 					<td><a href="{{ route('profile.show-profile', ['heroId' => $hero->id]) }}">{{ $hero->name }}</a></td>
 					<td>{{ $hero->level }}</td>
-					<td>?? / ??</td>
 					<td>{{ $hero->email }}</td>
-					<td>{{ ucwords(trim($hero->roles->pluck('name')->implode(', '))) }}
-					</td>
+					<td>{{ ucwords(trim($hero->roles->pluck('name')->implode(', '))) }}</td>
 					<td class="whitespace-nowrap">
-						@if ($hero->last_login_at)
-							<x-date-user-time-zone :value="$hero->last_login_at" format="d M Y"/>
-							@else
-								&mdash;
-						@endif
+						<x-date-user-time-zone :value="$hero->last_login_at" format="d M Y"/>
 					</td>
 				</tr>
 			@endforeach
