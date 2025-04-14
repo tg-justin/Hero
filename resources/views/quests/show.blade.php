@@ -20,7 +20,8 @@
 			<div class="content-primary md:order-last">
 
 				<div class="bg-white px-3 py-1 rounded-md shadow border border-seance-600">
-					<h2 class="stat-header mt-1">Quest Details</h2>
+					<h2 class="stat-header mt-1">Quest Details @if($isEditor)<span style="float:right;">({{ $quest->status }})
+						</span>@endif</h2>
 					<table class="stat-block">
 						<tr>
 							<th>Level:</th>

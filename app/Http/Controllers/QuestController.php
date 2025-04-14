@@ -45,14 +45,19 @@ class QuestController extends Controller
 //        }
 
 		// Limit Level 0 Heroes to Level 0 Quests, unless they are a manager.
+		$user = auth()->user();
 		if (auth()->check())
 		{
-			$user = auth()->user();
+
 			if ($user->level == 0 && !$user->hasRole('manager'))
 			{
 				// Level 0 heroes see only level 0 quests
 				$query->where('min_level', '=', 0);
 			}
+		}
+
+		if(!$user->hasRole('manager')){
+			$query->where('status', '=', 'Active');
 		}
 
 		// Sorting Logic
@@ -134,7 +139,7 @@ class QuestController extends Controller
 	 */
 	public function create(): View
 	{
-		$quest = NULL; // Initialize quest to NULL
+		$quest = NULL;
 		$feedbackTypes = Quest::getFeedbackTypes(); // Get the enum values FIRST
 		$categories = Category::all();
 		$campaigns = Campaign::all();

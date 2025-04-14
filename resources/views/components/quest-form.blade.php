@@ -116,7 +116,7 @@
 				<select name="category_id" id="category_id" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
 					<option value="">-- Select --</option>
 					@foreach ($categories as $category)
-						<option value="{{ $category->id }}" @if ($category->id != old('category_id', $quest->category_id ?? '')) selected @endif>{{ $category->name }}</option>
+						<option value="{{ $category->id }}" @if ($category->id == old('category_id', $quest->category_id ?? '')) selected @endif>{{ $category->name }}</option>
 					@endforeach
 					@error('category_id')
 					<p class="error-message">{{ $message }}</p>
@@ -174,6 +174,24 @@
 			</div>
 			<button type="button" id="add-file" class="mt-2 text-seance-600 hover:text-seance-700">Add Another File</button>
 
+
+			<div>
+				<label for="status" class="field-label field-required">Status</label>
+				<select name="status" id="status" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+					{{-- Determine the value to select. Priority: old input -> existing quest -> default ('Draft') --}}
+					@php
+						// Safely get the status value, defaulting to 'Draft' if no old input and no quest object
+						$selectedStatus = old('status', $quest->status ?? 'Draft');
+					@endphp
+					<option value="Draft"    @if ($selectedStatus == 'Draft')    selected @endif>Draft</option>
+					<option value="Active"   @if ($selectedStatus == 'Active')   selected @endif>Active</option>
+					<option value="Archived" @if ($selectedStatus == 'Archived') selected @endif>Archived</option>
+				</select>
+				{{-- Check for validation errors specifically for the 'status' field --}}
+				@error('status')
+				<p class="error-message">{{ $message }}</p>
+				@enderror
+			</div>
 			<div class="mx-auto">
 				<button type="submit" class="tg-button-green" style="width: 100%">{{ $submitButtonText }}</button>
 				<a href="{{ url()->previous() }}" class="tg-button-gray">Cancel</a>
