@@ -16,6 +16,15 @@
 			@include('profile.partials.form-mailing-address')
 			@include('profile.partials.form-volunteer-experience')
 
+			<div class="mb-4">
+				<div class="flex items-center">
+					<input type="checkbox" id="newsletter_opt_in" name="newsletter_opt_in" value="1" class="mt-8">
+					<label for="newsletter_opt_in" class="field-label">Subscribe to our newsletter</label>
+				</div>
+				<span>Text about what this means.</span>
+				<x-input-error :messages="$errors->get('newsletter_opt_in')" class="error-message"/>
+			</div>
+
 			<x-primary-button>{{ __('Submit Hero Registration') }}</x-primary-button>
 		</form>
 	</div>

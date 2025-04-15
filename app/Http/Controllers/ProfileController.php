@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
 use Carbon\CarbonTimeZone;
 use Mews\Purifier\Purifier;
+use Spatie\Newsletter\Facades\Newsletter;
 
 class ProfileController extends Controller
 {
@@ -96,6 +98,15 @@ class ProfileController extends Controller
 		$questLog->review = $reviewQuest;
 		$questLog->completed_at = now();
 		$questLog->save();
+
+		if ($request->input('newsletter_opt_in')) {
+			try {
+				Newsletter::subscribe('otterholik@gmail.com', ['FNAME' => $hero->first_name , 'LNAME' => $hero->last_name, 'HERO' => $hero->name, 'ZIPCODE' => $hero->zip_code ], listName: 'subscribers');
+			} catch (\Exception $e) {
+				// Handle any errors from the Mailchimp API (e.g., log them)
+				Log::error('Mailchimp subscription error: ' . $e->getMessage());
+			}
+		}
 
 		$hero->levelUp();
 
