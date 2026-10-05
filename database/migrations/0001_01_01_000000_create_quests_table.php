@@ -36,7 +36,7 @@ class CreateQuestsTable extends Migration
 
 			$table->boolean('notify_email')->default(FALSE);
 
-			$table->enum('status', ['Active', 'Archived'])->default('Active');
+			$table->enum('status', ['Active', 'Draft', 'Archived'])->default('Active');
 
 			$table->integer('repeatable')->default(0);
 			$table->text('repeatability_text')->nullable();
